@@ -10,6 +10,7 @@
         <th>Data</th>
         <th>Dla klasy</th>
         <th>Stworzony</th>
+        <th>Dodanych pytań</th>
         <th>Opcje</th>
     </tr>
         {% for item in tests %}
@@ -18,7 +19,8 @@
             <td>{{ item.date }}</td>
             <td>{{ item.for_league }}</td>
             <td>{{ item.created_by.username }}</td>
-            <td><small><a href="{% url 'test_detail' item.id %}">Szczegóły</a> </small></td>
+            <td>{{ item.questions.count }}</td>
+            <td><small><a href="{% url 'test_detail' item.slug %}">Szczegóły</a> </small></td>
             </tr>
     {% endfor %}
     </table>

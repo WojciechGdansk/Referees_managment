@@ -11,6 +11,7 @@ class AllTest(models.Model):
     for_league = models.ForeignKey('User_manager.League', on_delete=models.PROTECT)
     created_by = models.ForeignKey('User_manager.User', on_delete=models.PROTECT, null=True)
     slug = models.CharField(max_length=200, unique=True, null=True)
+    questions = models.ManyToManyField("Questions", through="QuestionTest")
 
     def save(self, *args, **kwargs):
         if not self.slug:

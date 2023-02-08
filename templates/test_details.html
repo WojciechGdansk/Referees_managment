@@ -9,6 +9,7 @@
         <th>Data</th>
         <th>Dla klasy</th>
         <th>Stworzony</th>
+        <th>Pytań</th>
     </tr>
 
             <tr>
@@ -16,20 +17,23 @@
             <td>{{ test.date }}</td>
             <td>{{ test.for_league }}</td>
             <td>{{ test.created_by.username }}</td>
+            <td>{{ test.questions.count }}</td>
             </tr>
     </table>
     <br>
     <table>
     <tr>
+        <th>Numer</th>
         <th class="col-8">Pytanie</th>
         <th>Odpowiedź</th>
         <th class="col-1">Odpowiedź komisji</th>
     </tr>
         {% for item in que %}
         <tr class="col-8">
+            <td>{{ forloop.counter }}</td>
             <td>{{ item.question.add_question }}</td>
-            <td>{{ item.question_possible.question_possible_answer }}</td>
-            <td class="col-1" style="text-align: center">{{ item.right_answer.question_correct_answer }}</td>
+            <td>{{ item.question.question_possible_answer }}</td>
+            <td class="col-1" style="text-align: center">{{ item.question.question_correct_answer}}</td>
         </tr>
         {% endfor %}
     </table>
