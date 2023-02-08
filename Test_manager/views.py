@@ -52,10 +52,9 @@ class TestDetails(View):
 
 
 class AddQuestionToTest(View):
-    def get(self, request, slug):
-        which_test = request.GET.getlist("which_test")[0]
-        question = get_object_or_404(Questions, slug=slug)
-        test = get_object_or_404(AllTest, slug=which_test)
+    def get(self, request, testslug, questionslug):
+        question = get_object_or_404(Questions, slug=questionslug)
+        test = get_object_or_404(AllTest, slug=testslug)
         question_to_test, exist = QuestionTest.objects.get_or_create(test=test, question=question) #to avoid duplicated questions on one test
         if exist==False:
             messages.info(request, "To pytanie jest już w tym teście")
