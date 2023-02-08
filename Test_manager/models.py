@@ -19,10 +19,8 @@ class AllTest(models.Model):
 
 
 class QuestionTest(models.Model):
-    test = models.ForeignKey("AllTest", on_delete=models.PROTECT, related_name="test")
-    question = models.ForeignKey("Questions", on_delete=models.PROTECT, related_name="questions")
-    question_possible = models.ForeignKey("Questions", on_delete=models.PROTECT, related_name="question_possibles")
-    right_answer = models.ForeignKey("Questions", on_delete=models.PROTECT, related_name="right_answers")
+    test = models.ForeignKey("AllTest", on_delete=models.CASCADE, related_name="test")
+    question = models.ForeignKey("Questions", on_delete=models.CASCADE, related_name="questions")
 
 
 class Questions(models.Model):

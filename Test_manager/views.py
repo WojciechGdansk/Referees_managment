@@ -3,7 +3,7 @@ from django.views import View
 import datetime
 from django.contrib import messages
 from Test_manager.forms import CreateTestForm
-from Test_manager.models import AllTest, League, Questions
+from Test_manager.models import AllTest, League, Questions, QuestionTest
 from User_manager.models import User
 
 
@@ -44,8 +44,10 @@ class TestDetails(View):
         test = AllTest.objects.get(id=id)
         filters = [test.for_league, "Wszystkie"]
         questions = Questions.objects.filter(for_league__in=filters)
+        question_for_tests = QuestionTest.objects.filter(test_id=id)
         context = {"test": test,
-                   "questions": questions}
+                   "questions": questions,
+                   "que": question_for_tests}
         return render(request, "test_details.html", context)
 
 
@@ -54,4 +56,7 @@ class AddQuestionToTest(View):
         which_test = request.GET.getlist("which_test")[0]
         question = get_object_or_404(Questions, slug=slug)
         test = get_object_or_404(AllTest, slug=which_test)
+        QuestionTest.objects.create(test=test, question=question,
+                                    question_possible=question, right_answer=question)
+        messages.success(request, "Pytanie dodane do testu")
         return redirect(reverse('browse_tests'))

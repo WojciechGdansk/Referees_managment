@@ -21,11 +21,18 @@
     <br>
     <table>
     <tr>
-        <th>Pytanie</th>
+        <th class="col-8">Pytanie</th>
         <th>Odpowiedź</th>
-        <th>Odpowiedź komisji</th>
+        <th class="col-1">Odpowiedź komisji</th>
     </tr>
-
+        {% for item in que %}
+        <tr class="col-8">
+            <td>{{ item.question.add_question }}</td>
+            <td>{{ item.question_possible.question_possible_answer }}</td>
+            <td class="col-1" style="text-align: center">{{ item.right_answer.question_correct_answer }}</td>
+        </tr>
+        {% endfor %}
     </table>
+
 {% endblock %}
 
