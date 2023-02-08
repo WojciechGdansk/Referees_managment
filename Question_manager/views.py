@@ -32,9 +32,19 @@ class CreateQuestion(View):
         if form.is_valid():
             data = form.cleaned_data
             add_question = data.get('add_question')
-            question_possible_answer = request.POST.getlist("possible_answer")
-            question_correct_answer = request.POST.getlist("correct_answer")
-            for_league = request.POST.getlist("for_league")
+            question_possible = request.POST.getlist("possible_answer")
+            question_correct = request.POST.getlist("correct_answer")
+            league = request.POST.getlist("for_league")
+            question_possible_answer = []
+            #Add question with normal answer instead of number
+            for item in question_possible:
+                question_possible_answer.append(AllPossibleAnswers.objects.get(id=int(item)).all_kind_answers)
+            question_correct_answer = []
+            for item in question_correct:
+                question_correct_answer.append(AllPossibleAnswers.objects.get(id=int(item)).all_kind_answers)
+            for_league = []
+            for item in league:
+                for_league.append(League.objects.get(id=int(item)).which_league)
             user = User.objects.get(id=request.user.id)
             Questions.objects.create(add_question=add_question, question_possible_answer=question_possible_answer,
                                      question_correct_answer=question_correct_answer,
