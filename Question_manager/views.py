@@ -47,7 +47,8 @@ class CreateQuestion(View):
 class EditQuestion(View):
     def get(self, request, slug):
         question = get_object_or_404(Questions, slug=slug)
-        form = AddQuestionForm()
+        #initial to musi byc slownik z kluczami, klucze nazwy pol, wartrosci to te ktore powinny byc
+        form = AddQuestionForm(initial=question)
         context = {"question": question,
                    "form": form}
         return render(request, "edit_question.html", context)
