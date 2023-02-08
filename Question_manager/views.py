@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views import View
 from django.contrib import messages
@@ -8,7 +9,14 @@ from User_manager.models import User
 
 
 # Create your views here.
-class QuestionTable(View):
+class QuestionTable(UserPassesTestMixin, View):
+    """View allows to display all existing questions"""
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
+
+    def handle_no_permission(self):
+        return redirect(reverse("no_permission"))
+
     def get(self, request):
         all_questions = Questions.objects.all()
         correct_answer = AllPossibleAnswers.objects.all()
@@ -20,7 +28,15 @@ class QuestionTable(View):
         return render(request, 'all_questions.html', context)
 
 
-class CreateQuestion(View):
+class CreateQuestion(UserPassesTestMixin, View):
+    """Allows to create question and save to database,
+    requires permissions"""
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
+
+    def handle_no_permission(self):
+        return redirect(reverse("no_permission"))
+
     def get(self, request):
         form = AddQuestionForm()
         context = {"form": form}
@@ -54,8 +70,14 @@ class CreateQuestion(View):
         return render(request, "add_question.html", context)
 
 
-class EditQuestion(View):
+class EditQuestion(UserPassesTestMixin, View):
     """View to edit already exisitng question in database"""
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
+
+    def handle_no_permission(self):
+        return redirect(reverse("no_permission"))
+
     def get(self, request, slug):
         question = get_object_or_404(Questions, slug=slug)
         #initial to musi byc slownik z kluczami, klucze nazwy pol, wartrosci to te ktore powinny byc
@@ -66,8 +88,13 @@ class EditQuestion(View):
         return render(request, "edit_question.html", context)
 
 
-class DeleteQuesiton(View):
+class DeleteQuesiton(UserPassesTestMixin, View):
     """View removes specific question from questions base"""
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
+
+    def handle_no_permission(self):
+        return redirect(reverse("no_permission"))
 
     def get(self, request, slug):
         question = get_object_or_404(Questions, slug=slug)

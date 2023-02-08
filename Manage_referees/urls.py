@@ -38,4 +38,5 @@ urlpatterns = [
     path('edit_question/<slug:slug>', quest.EditQuestion.as_view(), name="edit_question"),
     path('delete_question/<slug:slug>', quest.DeleteQuesiton.as_view(), name="delete_question"),
     path('remove_question_from_test/<slug:slug>/<int:id>', test.RemoveQuestionFromTest.as_view(), name="remove_question_from_test"),
+    path('no_permission/', user.NoPermission.as_view(), name="no_permission"),
 ]

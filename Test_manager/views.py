@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.views import View
 import datetime
@@ -8,7 +9,14 @@ from User_manager.models import User
 
 
 # Create your views here.
-class CreateTest(View):
+class CreateTest(UserPassesTestMixin, View):
+
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
+
+    def handle_no_permission(self):
+        return redirect(reverse("no_permission"))
+
     def get(self, request):
         form = CreateTestForm()
         today = datetime.datetime.now()
@@ -32,14 +40,24 @@ class CreateTest(View):
         return redirect("/")
 
 
-class DisplayAllTest(View):
+class DisplayAllTest(UserPassesTestMixin, View):
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
+
+    def handle_no_permission(self):
+        return redirect(reverse("no_permission"))
     def get(self, request):
         tests = AllTest.objects.all()
         context = {"tests": tests}
         return render(request, "all_tests.html", context)
 
 
-class TestDetails(View):
+class TestDetails(UserPassesTestMixin, View):
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
+
+    def handle_no_permission(self):
+        return redirect(reverse("no_permission"))
     def get(self, request, slug):
         test = AllTest.objects.get(slug=slug)
         filters = [test.for_league, "Wszystkie"]
@@ -51,7 +69,13 @@ class TestDetails(View):
         return render(request, "test_details.html", context)
 
 
-class AddQuestionToTest(View):
+class AddQuestionToTest(UserPassesTestMixin, View):
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
+
+    def handle_no_permission(self):
+        return redirect(reverse("no_permission"))
+
     def get(self, request, testslug, questionslug):
         question = get_object_or_404(Questions, slug=questionslug)
         test = get_object_or_404(AllTest, slug=testslug)
@@ -63,8 +87,14 @@ class AddQuestionToTest(View):
         return redirect(reverse('browse_tests'))
 
 
-class RemoveQuestionFromTest(View):
+class RemoveQuestionFromTest(UserPassesTestMixin, View):
     """View allows user to remove selected question from test"""
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
+
+    def handle_no_permission(self):
+        return redirect(reverse("no_permission"))
+
     def get(self, request, id, slug):
         questiontest = get_object_or_404(QuestionTest, id=id)
         questiontest.delete()

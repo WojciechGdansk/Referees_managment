@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -77,7 +78,13 @@ class Logout(View):
         return redirect(reverse('main_page'))
 
 
-class ManageUsers(View):
+class ManageUsers(UserPassesTestMixin, View):
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=["admin", "Organizator"]).exists()
+
+    def handle_no_permission(self):
+        return redirect(reverse("no_permission"))
+
     def get(self, request):
         users = User.objects.all()
         groups = Group.objects.all()
@@ -86,7 +93,13 @@ class ManageUsers(View):
         return render(request, 'manage_users.html', context)
 
 
-class ManageGroups(View):
+class ManageGroups(UserPassesTestMixin, View):
+    def test_func(self):
+        return self.request.user.groups.filter(name="admin").exists()
+
+    def handle_no_permission(self):
+        return redirect(reverse("no_permission"))
+
     def get(self, request):
         form = CreateGroupForm()
         context = {"grop": Group.objects.all(),
@@ -107,10 +120,20 @@ class ManageGroups(View):
         return render(request, 'manage_group.html', context)
 
 
-class GroupDetails(View):
+class GroupDetails(UserPassesTestMixin, View):
+    def test_func(self):
+        return self.request.user.groups.filter(name="admin").exists()
+
+    def handle_no_permission(self):
+        return redirect(reverse("no_permission"))
     def get(self, request, id):
         grup = get_object_or_404(Group, id=id)
         permission = Permission.objects.all()
         context = {"grup": grup,
                    "permission": permission}
         return render(request, "group_details.html", context)
+
+class NoPermission(View):
+    def get(self, request):
+        messages.error(request, "Brak uprawnień")
+        return redirect(reverse("main_page"))

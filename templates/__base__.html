@@ -28,18 +28,26 @@
         <nav class="nav">
             <div> <a href="/" class="nav_logo"> <i class='fas fa-home dropdown'></i> <span class="nav_logo-name">Strona główna</span> </a>
                 <div class="nav_list">
-                    <a href="#" class="nav_link active dropdownclass"><i class='fas fa-pencil'></i><span class="nav_name">Testy <i class="fas fa-angle-right dropdownarrow"></i></span> </a>
-                    <div class="sub-menu">
-                       <a href="{% url 'create_test' %}" class="nav_link active">Stwórz</a>
-                       <a href="{% url 'browse_tests' %}" class="nav_link active">Przeglądaj</a>
-                       <a href="#" class="nav_link active">Sub Item 03</a>
-                     </div>
-                    <a href="#" class="nav_link active dropdownclass"><i class='fas fa-pencil'></i><span class="nav_name">Pytania <i class="fas fa-angle-right dropdownarrow"></i></span> </a>
-                    <div class="sub-menu">
-                       <a href="/questions/" class="nav_link active">Przeglądaj</a>
-                       <a href="/create_question/" class="nav_link active">Dodaj</a>
-                       <a href="#" class="nav_link active">Sub Item 03</a>
-                     </div>
+                    {% if perms.Test_manager.view_alltest %}
+                        <a href="#" class="nav_link active dropdownclass"><i class='fas fa-pencil'></i><span class="nav_name">Testy <i class="fas fa-angle-right dropdownarrow"></i></span> </a>
+                        <div class="sub-menu">
+                            {% if perms.Test_manager.add_alltest %}
+                               <a href="{% url 'create_test' %}" class="nav_link active">Stwórz</a>
+                            {% endif %}
+                           <a href="{% url 'browse_tests' %}" class="nav_link active">Przeglądaj</a>
+                           <a href="#" class="nav_link active">Sub Item 03</a>
+                         </div>
+                    {% endif %}
+                    {% if perms.Quesion_manager.view_questions %}
+                        <a href="#" class="nav_link active dropdownclass"><i class='fas fa-pencil'></i><span class="nav_name">Pytania <i class="fas fa-angle-right dropdownarrow"></i></span> </a>
+                        <div class="sub-menu">
+                        {% if perms.Question_manager.add_questions %}
+                           <a href="/create_question/" class="nav_link active">Dodaj</a>
+                        {% endif %}
+                           <a href="/questions/" class="nav_link active">Przeglądaj</a>
+                           <a href="#" class="nav_link active">Sub Item 03</a>
+                         </div>
+                    {% endif %}
                     <a href="#" class="nav_link active dropdownclass"> <i class='fas fa-users'></i><span class="nav_name">Zarządzaj <i class="fas fa-angle-right dropdownarrow"></i></span> </a>
                     <div class="sub-menu">
                        <a href="/manage_users/" class="nav_link"><i class='bx bx-user nav_icon'></i><span class="nav_name">Sędziowie</span> </a>
