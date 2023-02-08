@@ -55,10 +55,12 @@ class CreateQuestion(View):
 
 
 class EditQuestion(View):
+    """View to edit already exisitng question in database"""
     def get(self, request, slug):
         question = get_object_or_404(Questions, slug=slug)
         #initial to musi byc slownik z kluczami, klucze nazwy pol, wartrosci to te ktore powinny byc
-        form = AddQuestionForm(initial=question)
+        initial_data = {"add_question": question.add_question}
+        form = AddQuestionForm(initial_data)
         context = {"question": question,
                    "form": form}
         return render(request, "edit_question.html", context)

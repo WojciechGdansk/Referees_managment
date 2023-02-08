@@ -59,3 +59,12 @@ class AddQuestionToTest(View):
         QuestionTest.objects.create(test=test, question=question)
         messages.success(request, "Pytanie dodane do testu")
         return redirect(reverse('browse_tests'))
+
+
+class RemoveQuestionFromTest(View):
+    """View allows user to remove selected question from test"""
+    def get(self, request, id, slug):
+        questiontest = get_object_or_404(QuestionTest, id=id)
+        questiontest.delete()
+        messages.success(request, "Pytanie usunięto z testu")
+        return redirect(reverse('test_detail', kwargs={'slug': questiontest.test.slug}))

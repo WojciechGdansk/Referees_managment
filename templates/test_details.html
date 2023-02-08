@@ -27,6 +27,7 @@
         <th class="col-8">Pytanie</th>
         <th>Odpowiedź</th>
         <th class="col-1">Odpowiedź komisji</th>
+        <th>Akcja</th>
     </tr>
         {% for item in que %}
         <tr class="col-8">
@@ -34,6 +35,7 @@
             <td>{{ item.question.add_question }}</td>
             <td>{{ item.question.question_possible_answer }}</td>
             <td class="col-1" style="text-align: center">{{ item.question.question_correct_answer}}</td>
+            <td><a href="{% url 'remove_question_from_test' item.question.slug item.id %}">Usuń</a> </td>
         </tr>
         {% endfor %}
     </table>
