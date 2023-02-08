@@ -56,7 +56,10 @@ class AddQuestionToTest(View):
         which_test = request.GET.getlist("which_test")[0]
         question = get_object_or_404(Questions, slug=slug)
         test = get_object_or_404(AllTest, slug=which_test)
-        QuestionTest.objects.create(test=test, question=question)
+        question_to_test, exist = QuestionTest.objects.get_or_create(test=test, question=question) #to avoid duplicated questions on one test
+        if exist==False:
+            messages.info(request, "To pytanie jest już w tym teście")
+            return redirect(reverse('all_questions'))
         messages.success(request, "Pytanie dodane do testu")
         return redirect(reverse('browse_tests'))
 
