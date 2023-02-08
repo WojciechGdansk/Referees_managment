@@ -1,0 +1,24 @@
+{% extends '__base__.html' %}
+{% block title %}
+Zarządzaj użytkownikami
+{% endblock %}
+{% block content %}
+<form method="POST">
+Dodaj grupę:
+{% csrf_token %}
+{{ form }}
+<input type="submit" value="Dodaj">
+</form><BR>
+    <table>
+    <tr>
+        <th>Grupa</th>
+        <th>Uprawnienia</th>
+
+    </tr>
+        {% for item in grop %}
+            <td>{{ item.name }}</td>
+            <td id="last-column"><small><a href="/group/{{ item.id }}">Szczegóły</a> <a href="#" class="confirm-delete">Usuń</a> </small> </td>
+            </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

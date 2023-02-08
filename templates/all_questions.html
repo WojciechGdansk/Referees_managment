@@ -1,0 +1,69 @@
+{% extends '__base__.html' %}
+{% block title %}
+    Wszystkie pytania
+{% endblock %}
+{% block content %}
+    <form>
+    <label for="filters">Filtruj</label>
+    <select name="filters">
+        <option>Klasa</option>
+        <option>Ułożone przez</option>
+        <option>Utworzone</option>
+    </select>
+    <input type="submit" value="Filtruj" class="btn btn-primary btn-sm">
+    </form>
+    <table>
+    <tr>
+        <th>Pytanie</th>
+        <th>Możliwe odpowiedzi</th>
+        <th>Odpowiedź</th>
+        <th>Dla klasy</th>
+        <th>Ułożył</th>
+        <th>Utworzone</th>
+        <th>Data modyfikacji</th>
+        <th>Akcja</th>
+    </tr>
+        {% for item in questions %}
+
+            <tr>
+            <td>{{ item.add_question }}</td>
+            <td>{{ item.question_possible_answer }}</td>
+            <td>{{ item.question_correct_answer }}</td>
+            <td>{{ item.for_league }}</td>
+            <td>{{ item.added_by.username }} </td>
+            <td>{{ item.added_date }}</td>
+            <td>{{ item.modify_date }}</td>
+            <td><small>
+                <a href="#" class="dropdownclasstest">Dodaj do testu </a>
+                    <div class="sub-menuintest">
+                        <form method="get" action="{% url 'add_question_to_test' item.slug %}">
+                        {% for test in tests %}
+                            <input type="hidden" value="{{ test.slug }}" name="which_test">
+                            <input type="submit" value="{{ test.test_name }}"><BR>
+                            {% endfor %}
+                    </form>
+                     </div>
+            <a href="{% url 'edit_question' item.slug %}">Edytuj</a>
+            <a href="#" class="dropdownclasstest">Usuń</a>
+                  <div class="sub-menuintest">
+                            <p>Czy na pewno usunąć?</p>
+                            <a href="{% url 'delete_question' item.slug %}">Usuń</a>
+                            <a href="{% url 'all_questions' %}">Zostaw</a>
+                     </div>
+            </small> </td>
+            </tr>
+
+    {% endfor %}
+    </table>
+
+
+       <script type="text/javascript">
+   $(document).ready(function(){
+     //jquery for toggle sub menus
+     $('.dropdownclasstest').click(function(){
+       $(this).next('.sub-menuintest').slideToggle();
+     });
+   });
+   </script>
+{% endblock %}
+

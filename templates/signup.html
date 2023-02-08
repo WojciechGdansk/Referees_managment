@@ -1,0 +1,18 @@
+{% extends "__base__.html" %}
+{% block title %}
+    Rejestracja
+{% endblock %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <label for="league2">Klasa</label>
+    <select name="league2">
+        {% for item in league %}
+            <option value="{{ item.slug }}">{{ item }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Zarejestruj">
+</form>
+{% endblock %}
+

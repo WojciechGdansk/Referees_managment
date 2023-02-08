@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/d00559e887.js" crossorigin="anonymous"></script>
+    <script src="{% static 'app.js' %}"></script>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body id="body-pd" class="body-pd">
+{#<div class="text-center">#}
+{#    <img src=" {% static 'logo2.jpg' %}" alt="Pomorski Związek Piłki Nożnej" class="img-fluid">#}
+{#</div>#}
+<!--header -->
+    <header class="header body-pd" id="header">
+
+        <div class="header_toggle"> <i class='bx bx-menu bx-x' id="header-toggle"></i> </div>
+        <img src="{% static 'logo2.jpg' %}" alt="Pomorski Związek Piłki Nożnej" id="mainlogo">
+{#        <div class="header_img"> <img src="{% static 'logo2.jpg' %}" alt=""> </div>#}
+    </header>
+<!--sidebar -->
+    <div class="l-navbar show" id="nav-bar">
+        <nav class="nav">
+            <div> <a href="/" class="nav_logo"> <i class='fas fa-home dropdown'></i> <span class="nav_logo-name">Strona główna</span> </a>
+                <div class="nav_list">
+                    <a href="#" class="nav_link active dropdownclass"><i class='fas fa-pencil'></i><span class="nav_name">Testy <i class="fas fa-angle-right dropdownarrow"></i></span> </a>
+                    <div class="sub-menu">
+                       <a href="{% url 'create_test' %}" class="nav_link active">Stwórz</a>
+                       <a href="{% url 'browse_tests' %}" class="nav_link active">Przeglądaj</a>
+                       <a href="#" class="nav_link active">Sub Item 03</a>
+                     </div>
+                    <a href="#" class="nav_link active dropdownclass"><i class='fas fa-pencil'></i><span class="nav_name">Pytania <i class="fas fa-angle-right dropdownarrow"></i></span> </a>
+                    <div class="sub-menu">
+                       <a href="/questions/" class="nav_link active">Przeglądaj</a>
+                       <a href="/create_question/" class="nav_link active">Dodaj</a>
+                       <a href="#" class="nav_link active">Sub Item 03</a>
+                     </div>
+                    <a href="#" class="nav_link active dropdownclass"> <i class='fas fa-users'></i><span class="nav_name">Zarządzaj <i class="fas fa-angle-right dropdownarrow"></i></span> </a>
+                    <div class="sub-menu">
+                       <a href="/manage_users/" class="nav_link"><i class='bx bx-user nav_icon'></i><span class="nav_name">Sędziowie</span> </a>
+                       <a href="/manage_group/" class="nav_link"><i class='fas fa-users'></i><span class="nav_name">Grupy</span></a>
+                       <a href="#" class="nav_link active">Sub Item 03</a>
+                     </div>
+                    <a href="#" class="nav_link"> <i class='fas fa-chart-line'></i><span class="nav_name">Statystyki</span> </a>
+                </div>
+            </div>
+        <div>
+            {% if user.is_authenticated %}
+                <a href="/logout/" class="nav_link"><i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Wyloguj</span> </a>
+            {% else %}
+                <a href="/login/" class="nav_link"><i class='fas fa-sign-in-alt'></i> <span class="nav_name">Zaloguj</span> </a>
+                <a href="/signup/" class="nav_link"><i class='fas fa-user-plus'></i> <span class="nav_name">Rejestracja</span> </a>
+            {% endif %}
+        </div>
+        </nav>
+    </div>
+
+    <!--Container Main start-->
+    <div class="height-100 bg-light" id="contentpage">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+        {% block content %}
+        {% endblock %}
+    </div>
+    <!--Container Main end-->
+   <script type="text/javascript">
+   $(document).ready(function(){
+     //jquery for toggle sub menus
+     $('.dropdownclass').click(function(){
+       $(this).next('.sub-menu').slideToggle();
+       $(this).find('.dropdownarrow').toggleClass('rotate');
+     });
+   });
+   </script>
+
+</body>
+</html>

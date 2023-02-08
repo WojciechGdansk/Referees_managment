@@ -1,0 +1,39 @@
+{% extends '__base__.html' %}
+{% block title %}
+Zarządzaj użytkownikami
+{% endblock %}
+{% block content %}
+    <table>
+    <tr>
+        <th>Użytkownik</th>
+        <th>Aktywny</th>
+        <th>Email</th>
+        <th>Liga</th>
+        <th>Zalogowany</th>
+        <th>Dołączył</th>
+        <th>Edytuj/usuń</th>
+    </tr>
+        {% for item in users %}
+            <tr>
+            <td>{{ item }}</td>
+            <td>{{ item.is_active }}</td>
+            <td>{{ item.username }}</td>
+            <td>{{ item.league }}</td>
+            <td>{{ item.last_login }}</td>
+            <td>{{ item.date_joined }}</td>
+            <td id="last-column"><small><a href="/user/{{ item.slug }}">Edytuj</a> <a href="#" class="confirm-delete">Usuń</a> </small> </td>
+            </tr>
+    {% endfor %}
+    </table>
+   <script type="text/javascript">
+   $(document).ready(function(){
+
+     $('.cofirm-delete').click(function(){
+        event.preventDefault()
+         $(this).closest('td').remove()
+
+
+     });
+   });
+   </script>
+{% endblock %}

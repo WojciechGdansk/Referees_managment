@@ -1,0 +1,51 @@
+{% extends '__base__.html' %}
+{% block title %}
+    Dodaj pytanie
+{% endblock %}
+{% block content %}
+<form method="post">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Zapisz">
+</form>
+    <script>
+    document.getElementById('id_possible_answer').style.display = "inline-flex"
+    document.getElementById('id_correct_answer').style.display = "inline-flex";
+    let but = document.createElement('button')
+    let but2 = document.createElement('button')
+    let but3 = document.createElement('button')
+    but.value = "Poza TAK/NIE"
+    but.type = "button"
+    but2.type = "button"
+    but3.type = "button"
+    but.innerText = "Poza TAK/NIE"
+    but.className = "btn btn-primary btn-sm"
+    but.setAttribute('style', 'margin: 0px 5px 5px 5px')
+    but2.setAttribute('style', 'margin: 0px 5px 5px 5px')
+    but2.className = "btn btn-primary btn-sm"
+    but2.value = "Tylko TAK/NIE"
+    but2.innerText = "Tylko TAK/NIE"
+    but3.setAttribute('style', 'margin: 0px 5px 5px 5px')
+    but3.className = "btn btn-primary btn-sm"
+    but3.value = "Wyczyść"
+    but3.innerText = "Wyczyść"
+    document.getElementById('id_possible_answer').appendChild(but)
+    document.getElementById('id_possible_answer').appendChild(but2)
+    document.getElementById('id_possible_answer').appendChild(but3)
+    but.addEventListener('click', function () {
+        for (let i=0;i<but.parentElement.childElementCount-5;i++) {
+            but.parentElement.children[i].children[0].children[0].setAttribute('checked', 'true')
+        }
+    })
+    but2.addEventListener('click', function () {
+        but2.previousElementSibling.previousElementSibling.previousElementSibling.children[0].children[0].setAttribute("checked", "true")
+        but2.previousElementSibling.previousElementSibling.children[0].children[0].setAttribute("checked", "true")
+    })
+    but3.addEventListener('click', function () {
+        for (let i=0;i<but.parentElement.childElementCount-3;i++) {
+            but.parentElement.children[i].children[0].children[0].removeAttribute('checked')
+        }
+    })
+
+    </script>
+{% endblock %}

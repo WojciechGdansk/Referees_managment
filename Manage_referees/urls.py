@@ -1,0 +1,40 @@
+"""Manage_referees URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/4.1/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import path
+
+from Question_manager import views as quest
+from Test_manager import views as test
+from User_manager import views as user
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', user.MainPage.as_view(), name="main_page"),
+    path('signup/', user.SignUp.as_view()),
+    path('login/', user.Login.as_view()),
+    path('manage_users/', user.ManageUsers.as_view()),
+    path('manage_group/', user.ManageGroups.as_view()),
+    path('questions/', quest.QuestionTable.as_view(), name="all_questions"),
+    path('create_question/', quest.CreateQuestion.as_view()),
+    path('create_test/', test.CreateTest.as_view(), name="create_test"),
+    path('logout/', user.Logout.as_view()),
+    path('group/<int:id>', user.GroupDetails.as_view()),
+    path('browse_tests/', test.DisplayAllTest.as_view(), name="browse_tests"),
+    path('test_details/<int:id>', test.TestDetails.as_view(), name="test_detail"),
+    path('add_question_to_test/<slug:slug>', test.AddQuestionToTest.as_view(), name="add_question_to_test"),
+    path('edit_question/<slug:slug>', quest.EditQuestion.as_view(), name="edit_question"),
+    path('delete_question/<slug:slug>', quest.DeleteQuesiton.as_view(), name="delete_question"),
+]
