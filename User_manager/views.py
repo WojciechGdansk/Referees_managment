@@ -147,6 +147,7 @@ class NoPermission(View):
 
 class EditUser(View):
     """Everyuser can edit self information, users with permissions can manage others"""
+
     def get(self, request, slug):
         user = get_object_or_404(User, slug=slug)
         leagues = League.objects.all()
@@ -157,11 +158,15 @@ class EditUser(View):
             'username': user.username,
         }
         form = EditUserForm(initial_data)
+        groups = Group.objects.order_by('name').exclude(name='admin')
+        usergroup = user.groups.order_by('name').exclude(name="admin")
         context = {"form": form,
                    'all_leagues': leagues,
                    'league': user.league,
                    'edited_user': user,
-                   'is_active': user.is_active}
+                   'is_active': user.is_active,
+                   'groups': groups,
+                   'usergroup': usergroup}
         return render(request, "edit_user.html", context)
 
     def post(self, request, slug):
@@ -180,6 +185,13 @@ class EditUser(View):
                 else:
                     user.is_active = False
                 league_from_form = request.POST.get("league2")
+                group = request.POST.getlist('group')
+                for item in user.groups.all():  # setting groups for user
+                    if item not in group:
+                        user.groups.remove(item)
+                for item in group:
+                    grup = Group.objects.get(name=item)
+                    grup.user_set.add(user)
                 user.league = get_object_or_404(League, slug=league_from_form)
                 user.save()
                 messages.success(request, "Zaktualizowanno")
@@ -192,6 +204,7 @@ class EditUser(View):
 
 class ResetPassword(View):
     """View allows to set new password for user"""
+
     def get(self, request, slug):
         form = ResetPasswordForm()
         user = get_object_or_404(User, slug=slug)
@@ -210,4 +223,4 @@ class ResetPassword(View):
             messages.success(request, "Hasło zmienione")
             return redirect(reverse('main_page'))
         messages.error(request, "Bład")
-        return render(request, "reset_password.html", context={'form': form,})
+        return render(request, "reset_password.html", context={'form': form, })

@@ -24,6 +24,21 @@
                     {% endif %}
                 {% endfor %}
             </select><BR><BR>
+            {% if perms.auth.change_group %}
+                <div style="margin: 5px 10px 5px 10px">
+                    <label for="group">Należy do:</label>
+                    <select name="group" multiple>
+                        {% for item in groups %}
+                                {% if item in usergroup %}
+                                    <option selected>{{ item.name }}</option>
+                                    {% else %}
+                               <option>{{ item.name }}</option>
+                                    {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
+            <BR>
         <input type="submit" value="Zapisz">
     </form>
     <BR>

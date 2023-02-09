@@ -42,11 +42,11 @@
                                <a href="#" class="nav_link active">Sub Item 03</a>
                              </div>
                     {% endif %}
-                    {% if perms.Question_manager.view_questions %}
+                    {% if perms.Test_manager.view_questions %}
                         <a href="#" class="nav_link active dropdownclass"><i class='fas fa-pencil'>
                         </i><span class="nav_name">Pytania <i class="fas fa-angle-right dropdownarrow"></i></span></a>
                         <div class="sub-menu">
-                            {% if perms.Question_manager.add_questions %}
+                            {% if perms.Test_manager.add_questions %}
                                <a href="{% url 'create_question' %}" class="nav_link active">Dodaj</a>
                             {% endif %}
                            <a href="/questions/" class="nav_link active">Przeglądaj</a>
