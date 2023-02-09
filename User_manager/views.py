@@ -51,6 +51,7 @@ class SignUp(View):
 
 
 class Login(View):
+    """View to log in, check validations and return error message when data is incorrect"""
     def get(self, request):
         form = LoginForm()
         return render(request, 'login.html', {'form': form})
@@ -67,7 +68,7 @@ class Login(View):
                 messages.info(request, "Zalogowano")
                 return redirect('/')
             else:
-                messages.error(request, "Błąd")
+                messages.error(request, "Użytkonik nie istnieje bądź podano złe hasło")
                 return redirect('/login/')
         return render(request, 'login.html', {'form': form})
 
