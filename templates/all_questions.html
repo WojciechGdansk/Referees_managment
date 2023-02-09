@@ -3,6 +3,7 @@
     Wszystkie pytania
 {% endblock %}
 {% block content %}
+    <div style="display: inline-flex">
     <form>
     <label for="filters">Filtruj</label>
     <select name="filters">
@@ -12,6 +13,8 @@
     </select>
     <input type="submit" value="Filtruj" class="btn btn-primary btn-sm">
     </form>
+    <a href="{% url "create_question" %}" style="margin-left: 20px">Dodaj pytanie</a>
+    </div>
     <table>
     <tr>
         <th>Pytanie</th>

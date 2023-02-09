@@ -21,7 +21,7 @@ Zarządzaj użytkownikami
             <td>{{ item.league }}</td>
             <td>{{ item.last_login }}</td>
             <td>{{ item.date_joined }}</td>
-            <td id="last-column"><small><a href="/user/{{ item.slug }}">Edytuj</a> <a href="#" class="confirm-delete">Usuń</a> </small> </td>
+            <td id="last-column"><small><a href="{% url "edit_user" item.slug %}">Edytuj</a> <a href="#" class="confirm-delete">Usuń</a> </small> </td>
             </tr>
     {% endfor %}
     </table>

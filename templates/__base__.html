@@ -21,38 +21,50 @@
 
         <div class="header_toggle"> <i class='bx bx-menu bx-x' id="header-toggle"></i> </div>
         <img src="{% static 'logo2.jpg' %}" alt="Pomorski Związek Piłki Nożnej" id="mainlogo">
-{#        <div class="header_img"> <img src="{% static 'logo2.jpg' %}" alt=""> </div>#}
+
     </header>
 <!--sidebar -->
     <div class="l-navbar show" id="nav-bar">
         <nav class="nav">
             <div> <a href="/" class="nav_logo"> <i class='fas fa-home dropdown'></i> <span class="nav_logo-name">Strona główna</span> </a>
+                    {% if user.is_authenticated %}
+                        <small style="margin-left: 10px; color: white">Zalogowany jako:<BR></small>
+                        <small style="margin-left: 10px; color: white">{{ user.first_name }} {{ user.last_name }}</small><BR><BR>
+                    {% endif %}
                 <div class="nav_list">
                     {% if perms.Test_manager.view_alltest %}
                         <a href="#" class="nav_link active dropdownclass"><i class='fas fa-pencil'></i><span class="nav_name">Testy <i class="fas fa-angle-right dropdownarrow"></i></span> </a>
-                        <div class="sub-menu">
-                            {% if perms.Test_manager.add_alltest %}
-                               <a href="{% url 'create_test' %}" class="nav_link active">Stwórz</a>
-                            {% endif %}
-                           <a href="{% url 'browse_tests' %}" class="nav_link active">Przeglądaj</a>
-                           <a href="#" class="nav_link active">Sub Item 03</a>
-                         </div>
+                            <div class="sub-menu">
+                                {% if perms.Test_manager.add_alltest %}
+                                   <a href="{% url 'create_test' %}" class="nav_link active">Stwórz</a>
+                                {% endif %}
+                               <a href="{% url 'browse_tests' %}" class="nav_link active">Przeglądaj</a>
+                               <a href="#" class="nav_link active">Sub Item 03</a>
+                             </div>
                     {% endif %}
                     {% if perms.Quesion_manager.view_questions %}
-                        <a href="#" class="nav_link active dropdownclass"><i class='fas fa-pencil'></i><span class="nav_name">Pytania <i class="fas fa-angle-right dropdownarrow"></i></span> </a>
+                        <a href="#" class="nav_link active dropdownclass"><i class='fas fa-pencil'>
+                        </i><span class="nav_name">Pytania <i class="fas fa-angle-right dropdownarrow"></i></span></a>
                         <div class="sub-menu">
-                        {% if perms.Question_manager.add_questions %}
-                           <a href="/create_question/" class="nav_link active">Dodaj</a>
-                        {% endif %}
+                            {% if perms.Question_manager.add_questions %}
+                               <a href="{% url 'create_question' %}" class="nav_link active">Dodaj</a>
+                            {% endif %}
                            <a href="/questions/" class="nav_link active">Przeglądaj</a>
                            <a href="#" class="nav_link active">Sub Item 03</a>
                          </div>
                     {% endif %}
-                    <a href="#" class="nav_link active dropdownclass"> <i class='fas fa-users'></i><span class="nav_name">Zarządzaj <i class="fas fa-angle-right dropdownarrow"></i></span> </a>
+                    {% if user.is_authenticated %}
+                        <a href="#" class="nav_link active dropdownclass"> <i class='fas fa-users'></i><span class="nav_name">Zarządzaj <i class="fas fa-angle-right dropdownarrow"></i></span> </a>
+                    {% endif %}
                     <div class="sub-menu">
+                    {% if user.is_authenticated %}
+                           <a href="{% url 'edit_user' user.slug %}" class="nav_link"><i class='bx bx-user nav_icon'></i><span class="nav_name">Edytuj profil</span> </a>
+                    {% endif %}
+                    {% if perms.User_manager.change_user %}
                        <a href="/manage_users/" class="nav_link"><i class='bx bx-user nav_icon'></i><span class="nav_name">Sędziowie</span> </a>
                        <a href="/manage_group/" class="nav_link"><i class='fas fa-users'></i><span class="nav_name">Grupy</span></a>
                        <a href="#" class="nav_link active">Sub Item 03</a>
+                    {% endif %}
                      </div>
                     <a href="#" class="nav_link"> <i class='fas fa-chart-line'></i><span class="nav_name">Statystyki</span> </a>
                 </div>
@@ -69,6 +81,11 @@
     </div>
 
     <!--Container Main start-->
+{#    <div class="height-80 bg-light" id="contentpage">#}
+{#    {% if user.is_authenticated %}#}
+{#        <h7>Zalogowany jako {{ user.username }}</h7>#}
+{#    {% endif %}#}
+{#    </div>#}
     <div class="height-100 bg-light" id="contentpage">
     {% if messages %}
     <ul class="messages">

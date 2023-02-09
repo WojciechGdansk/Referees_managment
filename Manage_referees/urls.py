@@ -22,13 +22,14 @@ from User_manager import views as user
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('', user.MainPage.as_view(), name="main_page"),
     path('signup/', user.SignUp.as_view()),
     path('login/', user.Login.as_view()),
     path('manage_users/', user.ManageUsers.as_view()),
     path('manage_group/', user.ManageGroups.as_view()),
     path('questions/', quest.QuestionTable.as_view(), name="all_questions"),
-    path('create_question/', quest.CreateQuestion.as_view()),
+    path('create_question/', quest.CreateQuestion.as_view(), name='create_question'),
     path('create_test/', test.CreateTest.as_view(), name="create_test"),
     path('logout/', user.Logout.as_view()),
     path('group/<int:id>', user.GroupDetails.as_view()),
@@ -39,4 +40,6 @@ urlpatterns = [
     path('delete_question/<slug:slug>', quest.DeleteQuesiton.as_view(), name="delete_question"),
     path('remove_question_from_test/<slug:slug>/<int:id>', test.RemoveQuestionFromTest.as_view(), name="remove_question_from_test"),
     path('no_permission/', user.NoPermission.as_view(), name="no_permission"),
+    path('edit_user/<slug:slug>', user.EditUser.as_view(), name="edit_user"),
+    path('reset_password/<slug:slug>', user.ResetPassword.as_view(), name="reset_password"),
 ]

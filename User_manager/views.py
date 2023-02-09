@@ -4,9 +4,10 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.views import View
 from django.contrib.auth.models import Group, Permission
-from User_manager.forms import SignUpForm, LoginForm, CreateGroupForm
+from User_manager.forms import SignUpForm, LoginForm, CreateGroupForm, EditUserForm, ResetPasswordForm
 from Test_manager.models import League
 from User_manager.models import User
+from django.db.utils import IntegrityError
 
 
 # Create your views here.
@@ -86,7 +87,7 @@ class ManageUsers(UserPassesTestMixin, View):
         return redirect(reverse("no_permission"))
 
     def get(self, request):
-        users = User.objects.all()
+        users = User.objects.order_by('league', 'last_name')
         groups = Group.objects.all()
         context = {"users": users,
                    "grups": groups}
@@ -126,6 +127,7 @@ class GroupDetails(UserPassesTestMixin, View):
 
     def handle_no_permission(self):
         return redirect(reverse("no_permission"))
+
     def get(self, request, id):
         grup = get_object_or_404(Group, id=id)
         permission = Permission.objects.all()
@@ -133,7 +135,79 @@ class GroupDetails(UserPassesTestMixin, View):
                    "permission": permission}
         return render(request, "group_details.html", context)
 
+
 class NoPermission(View):
+    """The only purpose of this view is to display message to user who tries to enter view
+    without valid permission and redirect to main page"""
+
     def get(self, request):
         messages.error(request, "Brak uprawnień")
         return redirect(reverse("main_page"))
+
+
+class EditUser(View):
+    """Everyuser can edit self information, users with permissions can manage others"""
+    def get(self, request, slug):
+        user = get_object_or_404(User, slug=slug)
+        leagues = League.objects.all()
+        initial_data = {
+            "first_name": user.first_name,
+            'last_name': user.last_name,
+            'phone_number': user.phone_number,
+            'username': user.username,
+        }
+        form = EditUserForm(initial_data)
+        context = {"form": form,
+                   'all_leagues': leagues,
+                   'league': user.league,
+                   'edited_user': user,
+                   'is_active': user.is_active}
+        return render(request, "edit_user.html", context)
+
+    def post(self, request, slug):
+        user = get_object_or_404(User, slug=slug)
+        form = EditUserForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            try:
+                user.first_name = data.get('first_name')
+                user.last_name = data.get('last_name')
+                user.username = data.get('username')
+                user.phone_number = data.get('phone_number')
+                is_active = request.POST.get("is_active")
+                if is_active == "on":
+                    user.is_active = True
+                else:
+                    user.is_active = False
+                league_from_form = request.POST.get("league2")
+                user.league = get_object_or_404(League, slug=league_from_form)
+                user.save()
+                messages.success(request, "Zaktualizowanno")
+                return redirect(reverse('main_page'))
+            except IntegrityError:
+                messages.error(request, "Taki użytkownik już istnieje")
+                return render(request, "edit_user.html", context={"form": form})
+        return render(request, "edit_user.html", context={"form": form})
+
+
+class ResetPassword(View):
+    """View allows to set new password for user"""
+    def get(self, request, slug):
+        form = ResetPasswordForm()
+        user = get_object_or_404(User, slug=slug)
+        return render(request, "reset_password.html", context={
+            'form': form,
+        })
+
+    def post(self, request, slug):
+        form = ResetPasswordForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            password = data.get('password')
+            user = get_object_or_404(User, slug=slug)
+            user.set_password(password)
+            user.save()
+            messages.success(request, "Hasło zmienione")
+            return redirect(reverse('main_page'))
+        messages.error(request, "Bład")
+        return render(request, "reset_password.html", context={'form': form,})
