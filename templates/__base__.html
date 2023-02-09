@@ -28,8 +28,8 @@
         <nav class="nav">
             <div> <a href="/" class="nav_logo"> <i class='fas fa-home dropdown'></i> <span class="nav_logo-name">Strona główna</span> </a>
                     {% if user.is_authenticated %}
-                        <small style="margin-left: 10px; color: white">Zalogowany jako:<BR></small>
-                        <small style="margin-left: 10px; color: white">{{ user.first_name }} {{ user.last_name }}</small><BR><BR>
+                        <small style="margin-left: 5%; color: white">Zalogowany jako:<BR></small>
+                        <small style="margin-left: 5%; color: white">{{ user.first_name }} {{ user.last_name }}</small><BR><BR>
                     {% endif %}
                 <div class="nav_list">
                     {% if perms.Test_manager.view_alltest %}
@@ -42,7 +42,7 @@
                                <a href="#" class="nav_link active">Sub Item 03</a>
                              </div>
                     {% endif %}
-                    {% if perms.Quesion_manager.view_questions %}
+                    {% if perms.Question_manager.view_questions %}
                         <a href="#" class="nav_link active dropdownclass"><i class='fas fa-pencil'>
                         </i><span class="nav_name">Pytania <i class="fas fa-angle-right dropdownarrow"></i></span></a>
                         <div class="sub-menu">
