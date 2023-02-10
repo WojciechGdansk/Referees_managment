@@ -233,6 +233,7 @@ class ResetPassword(View):
     def get(self, request, slug):
         form = ResetPasswordForm()
         user = get_object_or_404(User, slug=slug)
+        #validation of user
         if request.user != user and request.user.groups.filter(name__in=["admin", "Organizator"]).exists() == False:
             return redirect(reverse('no_permission'))
         return render(request, "reset_password.html", context={
