@@ -53,6 +53,7 @@ class SignUp(View):
 
 class Login(View):
     """View to log in, check validations and return error message when data is incorrect"""
+
     def get(self, request):
         form = LoginForm()
         return render(request, 'login.html', {'form': form})
@@ -83,6 +84,7 @@ class Logout(View):
 
 class ManageUsers(LoginRequiredMixin, UserPassesTestMixin, View):
     login_url = reverse_lazy('login')
+
     def test_func(self):
         return self.request.user.groups.filter(name__in=["admin", "Organizator"]).exists()
 
@@ -148,11 +150,14 @@ class NoPermission(View):
         return redirect(reverse("main_page"))
 
 
-class EditUser(View):
+class EditUser(LoginRequiredMixin, View):
     """Everyuser can edit self information, users with permissions can manage others"""
 
     def get(self, request, slug):
         user = get_object_or_404(User, slug=slug)
+        #checking if user is changing his account or authorizated group does it
+        if request.user != user and request.user.groups.filter(name__in=["admin", "Organizator"]).exists() == False:
+            return redirect(reverse('no_permission'))
         leagues = League.objects.all()
         initial_data = {
             "first_name": user.first_name,
@@ -174,6 +179,8 @@ class EditUser(View):
 
     def post(self, request, slug):
         user = get_object_or_404(User, slug=slug)
+        if request.user != user and request.user.groups.filter(name__in=["admin", "Organizator"]).exists() == False:
+            return redirect(reverse('no_permission'))
         form = EditUserForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
@@ -182,19 +189,32 @@ class EditUser(View):
                 user.last_name = data.get('last_name')
                 user.username = data.get('username')
                 user.phone_number = data.get('phone_number')
-                is_active = request.POST.get("is_active")
+                # standard user can't change this value and form sent it as None then,
+                # necessary to check how is editing personal settings
+                if request.user != user:
+                    is_active = request.POST.get("is_active")
+                else:
+                    is_active = "on"
                 if is_active == "on":
                     user.is_active = True
                 else:
                     user.is_active = False
-                league_from_form = request.POST.get("league2")
+                #standard user can't change league, if authorizated person is chaning this value,
+                #it will have value different than None
+                if request.user != user:
+                    league_from_form = request.POST.get("league2")
+                else:
+                    league_from_form = user.league.slug
                 group = request.POST.getlist('group')
-                for item in user.groups.all():  # setting groups for user
-                    if item not in group:
-                        user.groups.remove(item)
-                for item in group:
-                    grup = Group.objects.get(name=item)
-                    grup.user_set.add(user)
+                #standard user cant change group, only authorizated group can do that,
+                #if function checks who is editing profile
+                if request.user != user:
+                    for item in user.groups.all():  # setting groups for user
+                        if item not in group:
+                            user.groups.remove(item)
+                    for item in group:
+                        grup = Group.objects.get(name=item)
+                        grup.user_set.add(user)
                 user.league = get_object_or_404(League, slug=league_from_form)
                 user.save()
                 messages.success(request, "Zaktualizowanno")
@@ -211,6 +231,8 @@ class ResetPassword(View):
     def get(self, request, slug):
         form = ResetPasswordForm()
         user = get_object_or_404(User, slug=slug)
+        if request.user != user and request.user.groups.filter(name__in=["admin", "Organizator"]).exists() == False:
+            return redirect(reverse('no_permission'))
         return render(request, "reset_password.html", context={
             'form': form,
         })
