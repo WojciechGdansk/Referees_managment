@@ -46,6 +46,7 @@ class DisplayAllTest(UserPassesTestMixin, View):
 
     def handle_no_permission(self):
         return redirect(reverse("no_permission"))
+
     def get(self, request):
         tests = AllTest.objects.all()
         context = {"tests": tests}
@@ -58,6 +59,7 @@ class TestDetails(UserPassesTestMixin, View):
 
     def handle_no_permission(self):
         return redirect(reverse("no_permission"))
+
     def get(self, request, slug):
         test = AllTest.objects.get(slug=slug)
         filters = [test.for_league, "Wszystkie"]
@@ -79,8 +81,9 @@ class AddQuestionToTest(UserPassesTestMixin, View):
     def get(self, request, testslug, questionslug):
         question = get_object_or_404(Questions, slug=questionslug)
         test = get_object_or_404(AllTest, slug=testslug)
-        question_to_test, exist = QuestionTest.objects.get_or_create(test=test, question=question) #to avoid duplicated questions on one test
-        if exist==False:
+        question_to_test, exist = QuestionTest.objects.get_or_create(test=test,
+                                                                     question=question)  # to avoid duplicated questions on one test
+        if exist == False:
             messages.info(request, "To pytanie jest już w tym teście")
             return redirect(reverse('all_questions'))
         messages.success(request, "Pytanie dodane do testu")
@@ -89,6 +92,7 @@ class AddQuestionToTest(UserPassesTestMixin, View):
 
 class RemoveQuestionFromTest(UserPassesTestMixin, View):
     """View allows user to remove selected question from test"""
+
     def test_func(self):
         return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
 
@@ -100,3 +104,46 @@ class RemoveQuestionFromTest(UserPassesTestMixin, View):
         questiontest.delete()
         messages.success(request, "Pytanie usunięto z testu")
         return redirect(reverse('test_detail', kwargs={'slug': questiontest.test.slug}))
+
+
+class EditTest(UserPassesTestMixin, View):
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
+
+    def handle_no_permission(self):
+        return redirect(reverse("no_permission"))
+
+    def get(self, request, slug):
+        test = get_object_or_404(AllTest, slug=slug)
+        initial_data = {
+            "name": test.test_name,
+            "for_league": test.for_league
+        }
+        form = CreateTestForm(initial=initial_data)
+        today = datetime.datetime.now()
+        today = today.strftime("%Y-%m-%d")
+        context = {"form": form,
+                   "today": today,
+                   "date_in_test": test.date, }
+        return render(request, "edit_test.html", context)
+
+    def post(self, request, slug):
+        test = get_object_or_404(AllTest, slug=slug)
+        form = CreateTestForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            test_name = data.get('name')
+            date = request.POST['date']
+            for_league = League.objects.get(id=int(data.get('for_league')))
+            test.test_name = test_name
+            test.date = date
+            test.for_league = for_league
+            test.save()
+            messages.success(request, "Zaktualizowano test")
+            return redirect(reverse("browse_tests"))
+        messages.error(request, "Wystąpił błąd")
+        return redirect(reverse('main_page'))
+
+
+class DeleteTest(UserPassesTestMixin, View):
+    pass

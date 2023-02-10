@@ -30,6 +30,8 @@ urlpatterns = [
     path('questions/', quest.QuestionTable.as_view(), name="all_questions"),
     path('create_question/', quest.CreateQuestion.as_view(), name='create_question'),
     path('create_test/', test.CreateTest.as_view(), name="create_test"),
+    path('edit_test/<slug:slug>', test.EditTest.as_view(), name="edit_test"),
+    path('delete_test/<slug:slug>', test.DeleteTest.as_view(), name="delete_test"),
     path('logout/', user.Logout.as_view(), name="logout"),
     path('group/<int:id>', user.GroupDetails.as_view()),
     path('browse_tests/', test.DisplayAllTest.as_view(), name="browse_tests"),

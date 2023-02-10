@@ -10,6 +10,7 @@
         <th>Dla klasy</th>
         <th>Stworzony</th>
         <th>Pytań</th>
+        <th>Akcja</th>
     </tr>
 
             <tr>
@@ -18,6 +19,8 @@
             <td>{{ test.for_league }}</td>
             <td>{{ test.created_by.username }}</td>
             <td>{{ test.questions.count }}</td>
+            <td><small><a href="{% url 'edit_test' test.slug%}">Edytuj</a>
+                <a href="{% url 'delete_test' test.slug %}">Usuń</a> </small></td>
             </tr>
     </table>
     <br>

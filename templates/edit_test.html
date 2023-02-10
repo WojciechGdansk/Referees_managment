@@ -1,0 +1,11 @@
+{% extends "__base__.html" %}
+{% block content %}
+    <form method="post">
+    {% csrf_token %}
+    <label for="date">Data:</label>
+    <input type="date" name="date" required min="{{ today }}" value="{{ date_in_test }}"><BR>
+        <BR>
+{{ form.as_p }}
+    <input type="submit" value="Zapisz">
+    </form>
+{% endblock %}

@@ -20,7 +20,10 @@
             <td>{{ item.for_league }}</td>
             <td>{{ item.created_by.username }}</td>
             <td>{{ item.questions.count }}</td>
-            <td><small><a href="{% url 'test_detail' item.slug %}">Szczegóły</a> </small></td>
+            <td><small>
+                <a href="{% url 'test_detail' item.slug %}">Szczegóły</a>
+                <a href="{% url 'edit_test' item.slug%}">Edytuj</a>
+                <a href="{% url 'delete_test' item.slug %}">Usuń</a> </small></td>
             </tr>
     {% endfor %}
     </table>
