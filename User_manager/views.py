@@ -151,7 +151,9 @@ class NoPermission(View):
 
 
 class EditUser(LoginRequiredMixin, View):
-    """Everyuser can edit self information, users with permissions can manage others"""
+    """Everyuser can edit self information, users with permissions can manage others
+    User in group with rights to change other users settings can't change his own league or group.
+    It has to be made by other user with the same or higher rights"""
 
     def get(self, request, slug):
         user = get_object_or_404(User, slug=slug)
