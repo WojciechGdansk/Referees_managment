@@ -87,7 +87,7 @@ class AddQuestionToTest(UserPassesTestMixin, View):
             messages.info(request, "To pytanie jest już w tym teście")
             return redirect(reverse('all_questions'))
         messages.success(request, "Pytanie dodane do testu")
-        return redirect(reverse('browse_tests'))
+        return redirect(reverse('all_questions'))
 
 
 class RemoveQuestionFromTest(UserPassesTestMixin, View):
@@ -146,4 +146,14 @@ class EditTest(UserPassesTestMixin, View):
 
 
 class DeleteTest(UserPassesTestMixin, View):
-    pass
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
+
+    def handle_no_permission(self):
+        return redirect(reverse("no_permission"))
+
+    def get(self, request, slug):
+        test = get_object_or_404(AllTest, slug=slug)
+        test.delete()
+        messages.success(request, "Test usunięty")
+        return redirect(reverse('browse_tests'))

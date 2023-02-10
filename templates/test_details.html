@@ -20,7 +20,12 @@
             <td>{{ test.created_by.username }}</td>
             <td>{{ test.questions.count }}</td>
             <td><small><a href="{% url 'edit_test' test.slug%}">Edytuj</a>
-                <a href="{% url 'delete_test' test.slug %}">Usuń</a> </small></td>
+                    <a href="#" class="dropdownclasstest">Usuń</a>
+                    <div class="sub-menuintest">
+                        <p>Czy na pewno usunąć?</p>
+                        <a href="{% url 'delete_test' test.slug %}">Usuń</a>
+                        <a href="{% url 'test_detail' test.slug%}">Zostaw</a>
+                    </div></small></td>
             </tr>
     </table>
     <br>
@@ -42,6 +47,14 @@
         </tr>
         {% endfor %}
     </table>
-
+        <!--script to confirm delete -->
+       <script type="text/javascript">
+   $(document).ready(function(){
+     //jquery for toggle sub menus
+     $('.dropdownclasstest').click(function(){
+       $(this).next('.sub-menuintest').slideToggle();
+     });
+   });
+   </script>
 {% endblock %}
 
