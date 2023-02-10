@@ -37,7 +37,7 @@ class CreateTest(UserPassesTestMixin, View):
             messages.success(request, "Dodano test")
             return redirect(reverse("browse_tests"))
         messages.error(request, "Wystąpił błąd")
-        return redirect("/")
+        return redirect(reverse('main_page'))
 
 
 class DisplayAllTest(UserPassesTestMixin, View):

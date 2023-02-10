@@ -1,7 +1,8 @@
-from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse_lazy
 from django.views import View
 from django.contrib.auth.models import Group, Permission
 from User_manager.forms import SignUpForm, LoginForm, CreateGroupForm, EditUserForm, ResetPasswordForm
@@ -80,7 +81,8 @@ class Logout(View):
         return redirect(reverse('main_page'))
 
 
-class ManageUsers(UserPassesTestMixin, View):
+class ManageUsers(LoginRequiredMixin, UserPassesTestMixin, View):
+    login_url = reverse_lazy('login')
     def test_func(self):
         return self.request.user.groups.filter(name__in=["admin", "Organizator"]).exists()
 
