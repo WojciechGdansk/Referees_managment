@@ -33,7 +33,7 @@ urlpatterns = [
     path('edit_test/<slug:slug>', test.EditTest.as_view(), name="edit_test"),
     path('delete_test/<slug:slug>', test.DeleteTest.as_view(), name="delete_test"),
     path('logout/', user.Logout.as_view(), name="logout"),
-    path('group/<int:id>', user.GroupDetails.as_view()),
+    path('group/<int:id>', user.GroupDetails.as_view(), name="group_details"),
     path('browse_tests/', test.DisplayAllTest.as_view(), name="browse_tests"),
     path('test_details/<slug:slug>', test.TestDetails.as_view(), name="test_detail"),
     path('add_question_to_test/<slug:testslug>/<slug:questionslug>', test.AddQuestionToTest.as_view(), name="add_question_to_test"),

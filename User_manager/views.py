@@ -135,9 +135,9 @@ class GroupDetails(UserPassesTestMixin, View):
 
     def get(self, request, id):
         grup = get_object_or_404(Group, id=id)
-        permission = Permission.objects.all()
+        users = User.objects.filter(groups=grup)
         context = {"grup": grup,
-                   "permission": permission}
+                   "users": users}
         return render(request, "group_details.html", context)
 
 

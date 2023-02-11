@@ -3,10 +3,19 @@
     Szczegóły {{ grup.name }}
 {% endblock %}
 {% block content %}
+    Grupa {{ grup.name }}
      <table>
     <tr>
-
+        <th>Członkowie</th>
+        <th>Akcja</th>
     </tr>
-
+         {% for user in users %}
+    <tr>
+        <td>
+        {{ user }}
+        </td>
+        <td> <a href="{% url 'edit_user'  user.slug %}">Szczegóły</a> </td>
+    </tr>
+     {% endfor %}
     </table>
 {% endblock %}
