@@ -19,6 +19,7 @@ from django.urls import path
 from Question_manager import views as quest
 from Test_manager import views as test
 from User_manager import views as user
+from Organize_test import views as orga
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -43,4 +44,5 @@ urlpatterns = [
     path('no_permission/', user.NoPermission.as_view(), name="no_permission"),
     path('edit_user/<slug:slug>', user.EditUser.as_view(), name="edit_user"),
     path('reset_password/<slug:slug>', user.ResetPassword.as_view(), name="reset_password"),
+    path('organize_test/', orga.OrganizeTest.as_view(), name="organize_test"),
 ]

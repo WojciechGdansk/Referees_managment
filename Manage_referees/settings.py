@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'Question_manager',
     'Test_manager',
     'User_manager',
+    'Organize_test'
 ]
 
 MIDDLEWARE = [
