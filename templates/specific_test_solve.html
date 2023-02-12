@@ -1,0 +1,29 @@
+{% extends "__base__.html" %}
+{% block title %}
+    Test
+{% endblock %}
+{% block content %}
+    <form method="post">
+    {% csrf_token %}
+    <table>
+    <tr>
+        <th class="col-1">Nr</th>
+        <th>Pytanie</th>
+        <th>Możliwe odpowiedzi</th>
+        <th>Odpowiedź</th>
+    </tr>
+        {% for item in test %}
+            <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ item.question.add_question }}</td>
+            <td>{{ item.question.question_possible_answer }}</td>
+            <td><input type="checkbox" name="{{ item.question.slug }}">test odpowiedzi</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+    <input type="submit" value="Zapisz">
+    </form>
+
+
+{% endblock %}

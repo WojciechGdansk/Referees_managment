@@ -45,4 +45,6 @@ urlpatterns = [
     path('edit_user/<slug:slug>', user.EditUser.as_view(), name="edit_user"),
     path('reset_password/<slug:slug>', user.ResetPassword.as_view(), name="reset_password"),
     path('organize_test/', orga.OrganizeTest.as_view(), name="organize_test"),
+    path('test_solving/', orga.TestForUserList.as_view(), name="test_solving"),
+    path('specific_test_solve/<slug:slug>', orga.SpecificTestToSolve.as_view(), name="specific_test_solve"),
 ]

@@ -1,0 +1,20 @@
+{% extends "__base__.html" %}
+{% block title %}
+    Dostępne testy
+{% endblock %}
+{% block content %}
+    <table>
+    <tr>
+        <th>Test</th>
+        <th>Dnia</th>
+        <th>Akcja</th>
+    </tr>
+    {% for item in tests %}
+        <tr>
+            <td>{{ item.test_number }}</td>
+            <td>{{ item.date_time }}</td>
+            <td><a href="{% url 'specific_test_solve' item.slug %}">Rozwiąż</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

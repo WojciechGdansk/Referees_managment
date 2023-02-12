@@ -7,7 +7,7 @@ from Organize_test.models import OrganiseTest
 class OrganizeTestForm(ModelForm):
     class Meta:
         model = OrganiseTest
-        fields = "__all__"
+        exclude = ['slug']
         widgets = {
             "test_for_league": RadioSelect(choices=[]),
             "test_number": RadioSelect(choices=[]),
@@ -19,7 +19,5 @@ class OrganizeTestForm(ModelForm):
             "date_time": "Data/godzina"
         }
 
-# class OrganizeTestForm(forms.Form):
-#     test_for_league = forms.CharField(widget=forms.RadioSelect(choices=[]))
-#     test_number = forms.CharField(widget=forms.RadioSelect(choices=[]))
-#     date_time = forms.DateTimeField(widget=forms.DateTimeInput())
+class SolveTestForm(forms.Form):
+    answer = forms.CharField(max_length=50)

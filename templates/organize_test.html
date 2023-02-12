@@ -12,7 +12,9 @@
     <script>
     let nowdate = new Date()
     nowdate = nowdate.toISOString().substr(0,16)
-    document.querySelector("#id_date_time").setAttribute("type", "datetime-local")
-    document.querySelector("#id_date_time").setAttribute("min", nowdate)
+    let datefield = document.querySelector("#id_date_time")
+    datefield.setAttribute("type", "datetime-local")
+    datefield.setAttribute("min", nowdate)
+    datefield.step="1800"
     </script>
 {% endblock %}
