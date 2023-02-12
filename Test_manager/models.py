@@ -23,6 +23,9 @@ class QuestionTest(models.Model):
     test = models.ForeignKey("AllTest", on_delete=models.CASCADE, related_name="test")
     question = models.ForeignKey("Questions", on_delete=models.CASCADE, related_name="questions")
 
+    def __str__(self):
+        return self.test.test_name
+
 
 class Questions(models.Model):
     add_question = models.TextField(verbose_name="Treść pytania")

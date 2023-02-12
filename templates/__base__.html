@@ -39,7 +39,7 @@
                                    <a href="{% url 'create_test' %}" class="nav_link active">Stwórz</a>
                                 {% endif %}
                                <a href="{% url 'browse_tests' %}" class="nav_link active">Przeglądaj</a>
-                               <a href="#" class="nav_link active">Sub Item 03</a>
+                               <a href="{% url 'organize_test' %}" class="nav_link active">Organizuj test</a>
                              </div>
                     {% endif %}
                     {% if perms.Test_manager.view_questions %}

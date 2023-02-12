@@ -3,5 +3,16 @@
     Zorganizuj test
 {% endblock %}
 {% block content %}
-    {{ form }}
+    <form method="post">
+    {% csrf_token %}
+        {{ form.as_p }}
+    <input type="submit" value="Zapisz">
+    </form>
+
+    <script>
+    let nowdate = new Date()
+    nowdate = nowdate.toISOString().substr(0,16)
+    document.querySelector("#id_date_time").setAttribute("type", "datetime-local")
+    document.querySelector("#id_date_time").setAttribute("min", nowdate)
+    </script>
 {% endblock %}
