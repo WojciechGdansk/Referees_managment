@@ -49,4 +49,6 @@ urlpatterns = [
     path('specific_test_solve/<slug:slug>', orga.SpecificTestToSolve.as_view(), name="specific_test_solve"),
     path('result_of_test/<slug:slug>', orga.SpecificTestSolved.as_view(), name="result_of_test"),
     path('history_of_tests/', orga.UserHistoryOfTests.as_view(), name="user_history"),
+    path('all_tests_to_check/', orga.DisplayAllTests.as_view(), name="all_tests_to_check"),
+    path('specific_test_to_check/<slug:testslug>/<slug:userslug>', orga.CheckSpecificUserTest.as_view(), name="specific_test_to_check"),
 ]

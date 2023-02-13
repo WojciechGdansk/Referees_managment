@@ -13,11 +13,16 @@ from django.db.utils import IntegrityError
 
 # Create your views here.
 class MainPage(View):
+    """Displays main page on main endpoint"""
     def get(self, request):
         return render(request, 'index.html')
 
 
 class SignUp(View):
+    """View to signup new user and if possible automatically add to group Sędziowie
+    returns message if no added to group, but register user,
+    username field is treat as email field, requires valid email address
+    """
     def get(self, request):
         form = SignUpForm()
         context = {"form": form,
@@ -76,6 +81,7 @@ class Login(View):
 
 
 class Logout(View):
+    """Sign out logged user"""
     def get(self, request):
         logout(request)
         messages.success(request, "Wylogowano")
@@ -83,6 +89,7 @@ class Logout(View):
 
 
 class ManageUsers(LoginRequiredMixin, UserPassesTestMixin, View):
+    """Allows to see all users and groups registred"""
     login_url = reverse_lazy('login')
 
     def test_func(self):
@@ -100,6 +107,7 @@ class ManageUsers(LoginRequiredMixin, UserPassesTestMixin, View):
 
 
 class ManageGroups(UserPassesTestMixin, View):
+    """View allows to create new group"""
     def test_func(self):
         return self.request.user.groups.filter(name="admin").exists()
 
@@ -119,14 +127,14 @@ class ManageGroups(UserPassesTestMixin, View):
             name = data.get("name")
             Group.objects.create(name=name)
             messages.success(request, "Utworzono nową grupę")
-            return redirect(request, '/manage_group/')
-            # return redirect(reverse('NAME z URL'))
+            return redirect(reverse('manage_groups'))
         context = {"grop": Group.objects.all(),
                    "form": form}
         return render(request, 'manage_group.html', context)
 
 
 class GroupDetails(UserPassesTestMixin, View):
+    """Display information about specific group"""
     def test_func(self):
         return self.request.user.groups.filter(name="admin").exists()
 

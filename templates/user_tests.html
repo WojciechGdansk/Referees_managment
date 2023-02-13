@@ -1,0 +1,22 @@
+{% extends "__base__.html" %}
+{% block title %}
+    Historia testów
+{% endblock %}
+{% block content %}
+    <table>
+        <tr>
+            <th>Użytkowik</th>
+            <th>Test</th>
+            <th>Wynik</th>
+            <th>Szczegóły</th>
+        </tr>
+        {% for item in user_test  %}
+            <tr>
+            <td>{{ item.user }}</td>
+            <td>{{ item.test_number.test_name }}</td>
+            <td>{{ item.result }}</td>
+            <td><a href="{% url 'specific_test_to_check' item.organise_test_slug.slug item.user.slug %}">Szczegóły</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

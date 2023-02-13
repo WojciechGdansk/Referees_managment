@@ -1,16 +1,16 @@
 {% extends "__base__.html" %}
 {% block title %}
-    Rozwiązanie testu {{ test.test_number.test_name }}
+    Test {{ user_solved }}
 {% endblock %}
 {% block content %}
-    <table>
+        <table>
         <tr>
             <th>Osoba</th>
             <th>Wynik</th>
         </tr>
         <tr>
-            <td>{{ who_solved }}</td>
-            <td>{{ result }} / {{ solution.count }}</td>
+            <td>{{ user_solved }}</td>
+            <td>{{ result.result }} / {{ solution.count }}</td>
         </tr>
     </table>
     <br>
@@ -28,12 +28,13 @@
             <td>{{ item.question.question.add_question }}</td>
             <td>{{ item.user_response}}</td>
             <td>{{ item.question.question.question_correct_answer}}</td>
-            <td>{{ item.result}}</td>
+            <td id="res">{{ item.result}}</td>
             </tr>
         {% endfor %}
 
     </table>
-        <script>
+
+    <script>
     let tdfields = document.querySelectorAll('#res')
     tdfields.forEach(function (element) {
         if (element.innerText==1.0) {

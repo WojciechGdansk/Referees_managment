@@ -7,6 +7,7 @@ from django.views import View
 
 from Organization_test.models import OrganiseTest, UserSolving, UserTestResult
 from Test_manager.models import QuestionTest, AllTest
+from User_manager.models import User
 from Organization_test.forms import OrganizeTestForm
 
 
@@ -118,3 +119,33 @@ class UserHistoryOfTests(LoginRequiredMixin, View):
         return render(request, 'user_test_history.html', context={
             "tests": user_tests
         })
+
+
+class DisplayAllTests(UserPassesTestMixin, View):
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
+
+    def handle_no_permission(self):
+        return redirect(reverse("no_permission"))
+
+    def get(self, request):
+        user_tests = UserTestResult.objects.all()
+        return render(request, "user_tests.html", context={"user_test": user_tests})
+
+
+class CheckSpecificUserTest(UserPassesTestMixin, View):
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
+
+    def handle_no_permission(self):
+        return redirect(reverse("no_permission"))
+
+    def get(self, request, testslug, userslug):
+        test_from_list = OrganiseTest.objects.get(slug=testslug)
+        user_who_solved_test = User.objects.get(slug=userslug)
+        which_test = UserSolving.objects.filter(test_number=test_from_list.test_number.id).filter(user=user_who_solved_test)
+        result = UserTestResult.objects.get(organise_test_slug=test_from_list)
+        return render(request, "user_test_check.html.html", context={"test": test_from_list,
+                                                                     "solution": which_test,
+                                                                     "user_solved": user_who_solved_test,
+                                                                     'result': result})
