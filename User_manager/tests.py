@@ -15,7 +15,7 @@ def test_login_view(client):
         username="test@test.pl",
         password='password',)
     url = reverse('login')
-    response = client.post(url, {'username': 'test@test.pl', 'password': 'password'})
+    response = client.post(url, {'email': 'test@test.pl', 'password': 'password'})
     assert response.status_code == 302
     assert response.url == '/'
     assert client.session.get('_auth_user_id') is not None
