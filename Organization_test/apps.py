@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class OrganizeTestConfig(AppConfig):
+class OrganizationTestConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Organize_test'
+    name = 'Organization_test'

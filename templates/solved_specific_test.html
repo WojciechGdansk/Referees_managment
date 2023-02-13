@@ -1,0 +1,36 @@
+{% extends "__base__.html" %}
+{% block title %}
+    Rozwiązanie testu {{ test.test_number.test_name }}
+{% endblock %}
+{% block content %}
+    <table>
+        <tr>
+            <th>Osoba</th>
+            <th>Wynik</th>
+        </tr>
+        <tr>
+            <td>{{ who_solved }}</td>
+            <td>{{ result }} / {{ solution.count }}</td>
+        </tr>
+    </table>
+    <br>
+    <table>
+    <tr>
+        <th class="col-1">Nr</th>
+        <th>Pytanie</th>
+        <th>Odpowiedź</th>
+        <th>Prawidłowa odpowiedź</th>
+        <th>Punkt</th>
+    </tr>
+        {% for item in solution %}
+            <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ item.question.question.add_question }}</td>
+            <td>{{ item.user_response}}</td>
+            <td>{{ item.question.question.question_correct_answer}}</td>
+            <td>{{ item.result}}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+{% endblock %}

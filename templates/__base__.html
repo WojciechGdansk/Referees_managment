@@ -41,6 +41,7 @@
                                <a href="{% url 'browse_tests' %}" class="nav_link active">Przeglądaj</a>
                                <a href="{% url 'organize_test' %}" class="nav_link active">Organizuj test</a>
                                <a href="{% url 'test_solving' %}" class="nav_link active">Rozwiąż test</a>
+                               <a href="{% url 'user_history' %}" class="nav_link active">Historia</a>
                              </div>
                     {% endif %}
                     {% if perms.Test_manager.view_questions %}

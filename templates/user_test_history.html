@@ -1,0 +1,20 @@
+{% extends "__base__.html" %}
+{% block title %}
+    Historia testów
+{% endblock %}
+{% block content %}
+    <table>
+    <tr>
+        <th>Test</th>
+        <th>Przeprowadzony dnia</th>
+        <th>Wynik</th>
+    </tr>
+    {% for item in tests %}
+        <tr>
+        <td>{{ item.test_number.test_name }}</td>
+        <td>{{ item.test_number.date }}</td>
+        <td>{{ item.result }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

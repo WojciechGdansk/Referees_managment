@@ -19,7 +19,7 @@ from django.urls import path
 from Question_manager import views as quest
 from Test_manager import views as test
 from User_manager import views as user
-from Organize_test import views as orga
+from Organization_test import views as orga
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -47,4 +47,6 @@ urlpatterns = [
     path('organize_test/', orga.OrganizeTest.as_view(), name="organize_test"),
     path('test_solving/', orga.TestForUserList.as_view(), name="test_solving"),
     path('specific_test_solve/<slug:slug>', orga.SpecificTestToSolve.as_view(), name="specific_test_solve"),
+    path('result_of_test/<slug:slug>', orga.SpecificTestSolved.as_view(), name="result_of_test"),
+    path('history_of_tests/', orga.UserHistoryOfTests.as_view(), name="user_history"),
 ]

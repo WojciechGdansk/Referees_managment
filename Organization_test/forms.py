@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm, RadioSelect, DateTimeInput
 
-from Organize_test.models import OrganiseTest
+from Organization_test.models import OrganiseTest
 
 
 class OrganizeTestForm(ModelForm):

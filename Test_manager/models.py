@@ -18,6 +18,9 @@ class AllTest(models.Model):
             self.slug = slugify(self.test_name + " " + str(int(datetime.datetime.now().timestamp())))
         return super().save(*args, **kwargs)
 
+    def __str__(self):
+        return self.test_name
+
 
 class QuestionTest(models.Model):
     test = models.ForeignKey("AllTest", on_delete=models.CASCADE, related_name="test")
