@@ -134,6 +134,7 @@ class DisplayAllTests(UserPassesTestMixin, View):
 
 
 class CheckSpecificUserTest(UserPassesTestMixin, View):
+    """Restricted view, users who belong to selected group can view tests and results"""
     def test_func(self):
         return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
 
