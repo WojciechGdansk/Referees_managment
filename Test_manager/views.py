@@ -10,6 +10,8 @@ from User_manager.models import User
 
 # Create your views here.
 class CreateTest(UserPassesTestMixin, View):
+    """View to create test, allows to write name of test, select date and for which league,
+    created_by filled automatically with User object who was logged in and created test"""
 
     def test_func(self):
         return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
@@ -28,12 +30,9 @@ class CreateTest(UserPassesTestMixin, View):
     def post(self, request):
         form = CreateTestForm(request.POST)
         if form.is_valid():
-            data = form.cleaned_data
-            test_name = data.get('name')
-            date = request.POST['date']
-            for_league = League.objects.get(id=int(data.get('for_league')))
-            user = User.objects.get(id=request.user.id)
-            AllTest.objects.create(test_name=test_name, date=date, for_league=for_league, created_by=user)
+            data = form.save(commit=False)
+            data.created_by = request.user
+            data.save()
             messages.success(request, "Dodano test")
             return redirect(reverse("browse_tests"))
         messages.error(request, "Wystąpił błąd")
@@ -41,6 +40,7 @@ class CreateTest(UserPassesTestMixin, View):
 
 
 class DisplayAllTest(UserPassesTestMixin, View):
+    """User with rights can browse all existing tests"""
     def test_func(self):
         return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
 
@@ -115,30 +115,15 @@ class EditTest(UserPassesTestMixin, View):
 
     def get(self, request, slug):
         test = get_object_or_404(AllTest, slug=slug)
-        initial_data = {
-            "name": test.test_name,
-            "for_league": test.for_league
-        }
-        form = CreateTestForm(initial=initial_data)
-        today = datetime.datetime.now()
-        today = today.strftime("%Y-%m-%d")
-        context = {"form": form,
-                   "today": today,
-                   "date_in_test": test.date, }
+        form = CreateTestForm(instance=test)
+        context = {"form": form}
         return render(request, "edit_test.html", context)
 
     def post(self, request, slug):
         test = get_object_or_404(AllTest, slug=slug)
-        form = CreateTestForm(request.POST)
+        form = CreateTestForm(request.POST, instance=test)
         if form.is_valid():
-            data = form.cleaned_data
-            test_name = data.get('name')
-            date = request.POST['date']
-            for_league = League.objects.get(id=int(data.get('for_league')))
-            test.test_name = test_name
-            test.date = date
-            test.for_league = for_league
-            test.save()
+            form.save()
             messages.success(request, "Zaktualizowano test")
             return redirect(reverse("browse_tests"))
         messages.error(request, "Wystąpił błąd")

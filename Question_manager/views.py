@@ -6,11 +6,14 @@ from Question_manager.forms import AddQuestionForm
 from Question_manager.models import AllPossibleAnswers
 from Test_manager.models import AllTest, Questions, League
 from User_manager.models import User
+import datetime
 
 
 # Create your views here.
 class QuestionTable(UserPassesTestMixin, View):
-    """View allows to display all existing questions"""
+    """View allows to display all existing questions,
+    allows to add question to specific test.
+    Planned test date must be greater than today"""
     def test_func(self):
         return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
 
@@ -21,10 +24,12 @@ class QuestionTable(UserPassesTestMixin, View):
         all_questions = Questions.objects.all()
         correct_answer = AllPossibleAnswers.objects.all()
         league = League.objects.all()
+        todays_date = datetime.datetime.today()
+        todays_date = datetime.datetime.strftime(todays_date, "%Y-%m-%d")
         context = {'questions': all_questions,
                    "answers": correct_answer,
                    "league": league,
-                   "tests": AllTest.objects.all()}
+                   "tests": AllTest.objects.filter(date__gte=todays_date)}
         return render(request, 'all_questions.html', context)
 
 

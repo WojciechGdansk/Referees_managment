@@ -1,7 +1,14 @@
 from django import forms
-from User_manager.models import League
 
-class CreateTestForm(forms.Form):
-    name = forms.CharField(label="Nazwa", max_length=50)
-    for_league = forms.ChoiceField(choices=[(item.id, item.which_league) for item in League.objects.all()],
-                                   widget=forms.RadioSelect(), label="Dla")
+from Test_manager.models import AllTest
+
+
+class CreateTestForm(forms.ModelForm):
+    class Meta:
+        model = AllTest
+        fields = ['test_name', 'date', 'for_league']
+        widgets = {"for_league": forms.RadioSelect(),
+                   "test_name": forms.TextInput(attrs={'placeholder': 'Nazwa testu'})}
+        labels = {"test_name": "Nazwa",
+                  "date": "Data",
+                  "for_league": "Dla klasy"}

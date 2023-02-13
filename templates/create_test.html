@@ -2,10 +2,14 @@
 {% block content %}
     <form method="post">
     {% csrf_token %}
-    <label for="date">Data:</label>
-    <input type="date" name="date" required min="{{ today }}"><BR>
-        <BR>
 {{ form.as_p }}
     <input type="submit" value="Zapisz">
     </form>
+    <script>
+    let datefield = document.querySelector('#id_date')
+    datefield.type="date"
+    let nowdate = new Date()
+    nowdate = nowdate.toISOString().substr(0,10)
+    datefield.setAttribute("min", nowdate)
+    </script>
 {% endblock %}
