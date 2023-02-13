@@ -50,26 +50,35 @@ class CreateQuestion(UserPassesTestMixin, View):
     def post(self, request):
         form = AddQuestionForm(request.POST)
         context = {"form": form}
+        print(form)
+        print(form.cleaned_data)
         if form.is_valid():
-            data = form.cleaned_data
-            add_question = data.get('add_question')
-            question_possible = request.POST.getlist("possible_answer")
-            question_correct = request.POST.getlist("correct_answer")
-            league = request.POST.getlist("for_league")
-            question_possible_answer = []
-            #Add question with normal answer instead of number
-            for item in question_possible:
-                question_possible_answer.append(AllPossibleAnswers.objects.get(id=int(item)).all_kind_answers)
-            question_correct_answer = []
-            for item in question_correct:
-                question_correct_answer.append(AllPossibleAnswers.objects.get(id=int(item)).all_kind_answers)
-            for_league = []
-            for item in league:
-                for_league.append(League.objects.get(id=int(item)).which_league)
-            user = User.objects.get(id=request.user.id)
-            Questions.objects.create(add_question=add_question, question_possible_answer=question_possible_answer,
-                                     question_correct_answer=question_correct_answer,
-                                     for_league=for_league, added_by=user)
+            form.save(commit=False)
+            form.added_by = request.user
+            print(form.question_correct_answer)
+            print(form.question_possible_answer)
+            print(form.for_league)
+            print(form.add_question)
+            form.save()
+            # data = form.cleaned_data
+            # add_question = data.get('add_question')
+            # question_possible = request.POST.getlist("possible_answer")
+            # question_correct = request.POST.getlist("correct_answer")
+            # league = request.POST.getlist("for_league")
+            # question_possible_answer = []
+            # #Add question with normal answer instead of number
+            # for item in question_possible:
+            #     question_possible_answer.append(AllPossibleAnswers.objects.get(id=int(item)).all_kind_answers)
+            # question_correct_answer = []
+            # for item in question_correct:
+            #     question_correct_answer.append(AllPossibleAnswers.objects.get(id=int(item)).all_kind_answers)
+            # for_league = []
+            # for item in league:
+            #     for_league.append(League.objects.get(id=int(item)).which_league)
+            # user = User.objects.get(id=request.user.id)
+            # Questions.objects.create(add_question=add_question, question_possible_answer=question_possible_answer,
+            #                          question_correct_answer=question_correct_answer,
+            #                          for_league=for_league, added_by=user)
             messages.info(request, "Pytanie dodane poprawnie")
             return redirect("/")
         return render(request, "add_question.html", context)

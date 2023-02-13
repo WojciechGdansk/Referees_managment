@@ -9,8 +9,8 @@
 <input type="submit" value="Zapisz">
 </form>
     <script>
-    document.getElementById('id_possible_answer').style.display = "inline-flex"
-    document.getElementById('id_correct_answer').style.display = "inline-flex";
+    document.getElementById('id_question_possible_answer').style.display = "inline-flex"
+    document.getElementById('id_question_correct_answer').style.display = "inline-flex";
     let but = document.createElement('button')
     let but2 = document.createElement('button')
     let but3 = document.createElement('button')
@@ -29,9 +29,9 @@
     but3.className = "btn btn-primary btn-sm"
     but3.value = "Wyczyść"
     but3.innerText = "Wyczyść"
-    document.getElementById('id_possible_answer').appendChild(but)
-    document.getElementById('id_possible_answer').appendChild(but2)
-    document.getElementById('id_possible_answer').appendChild(but3)
+    document.getElementById('id_question_possible_answer').appendChild(but)
+    document.getElementById('id_question_possible_answer').appendChild(but2)
+    document.getElementById('id_question_possible_answer').appendChild(but3)
     but.addEventListener('click', function () {
         for (let i=0;i<but.parentElement.childElementCount-5;i++) {
             but.parentElement.children[i].children[0].children[0].setAttribute('checked', 'true')

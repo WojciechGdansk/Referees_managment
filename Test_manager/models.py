@@ -32,9 +32,9 @@ class QuestionTest(models.Model):
 
 class Questions(models.Model):
     add_question = models.TextField(verbose_name="Treść pytania")
-    question_possible_answer = models.TextField()
-    question_correct_answer = models.TextField()
-    for_league = models.TextField()
+    question_possible_answer = models.ForeignKey("Question_manager.AllPossibleAnswers", on_delete=models.PROTECT)
+    question_correct_answer = models.ForeignKey("Question_manager.AllPossibleAnswers", on_delete=models.PROTECT, related_name="question_correct_answer")
+    for_league = models.ForeignKey("User_manager.League", on_delete=models.PROTECT)
     added_by = models.ForeignKey('User_manager.User', on_delete=models.PROTECT)
     added_date = models.DateTimeField(auto_now_add=True)
     modify_date = models.DateTimeField(auto_now=True)
