@@ -13,7 +13,7 @@
         <tr>
         <td>{{ item.test_number.test_name }}</td>
         <td>{{ item.test_number.date }}</td>
-        <td>{{ item.result }} <a href="{% url 'result_of_test' item.test_number.organisetest_set.get  %}">Szczegóły</a> </td>
+        <td>{{ item.result }} <a href="{% url 'result_of_test' item.organise_test_slug.slug %}">Szczegóły</a> </td>
         </tr>
     {% endfor %}
     </table>

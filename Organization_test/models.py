@@ -30,3 +30,4 @@ class UserTestResult(models.Model):
     test_number = models.ForeignKey("Test_manager.AllTest", on_delete=models.CASCADE)
     user = models.ForeignKey("User_manager.User", on_delete=models.CASCADE)
     result = models.FloatField(default=0)
+    organise_test_slug = models.ForeignKey("Organization_test.OrganiseTest", on_delete=models.CASCADE, null=True)

@@ -19,5 +19,4 @@ class OrganizeTestForm(ModelForm):
             "date_time": "Data/godzina"
         }
 
-class SolveTestForm(forms.Form):
-    answer = forms.CharField(max_length=50)
+
