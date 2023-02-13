@@ -32,14 +32,14 @@
                         <small style="margin-left: 5%; color: white">{{ user.first_name }} {{ user.last_name }}</small><BR><BR>
                     {% endif %}
                 <div class="nav_list">
-                    {% if perms.Test_manager.view_alltest %}
+                    {% if user.is_authenticated %}
                         <a href="#" class="nav_link active dropdownclass"><i class='fas fa-pencil'></i><span class="nav_name">Testy <i class="fas fa-angle-right dropdownarrow"></i></span> </a>
                             <div class="sub-menu">
                                 {% if perms.Test_manager.add_alltest %}
-                                   <a href="{% url 'create_test' %}" class="nav_link active">Stwórz</a>
+                                    <a href="{% url 'create_test' %}" class="nav_link active">Stwórz</a>
+                                    <a href="{% url 'browse_tests' %}" class="nav_link active">Przeglądaj</a>
+                                    <a href="{% url 'organize_test' %}" class="nav_link active">Organizuj test</a>
                                 {% endif %}
-                               <a href="{% url 'browse_tests' %}" class="nav_link active">Przeglądaj</a>
-                               <a href="{% url 'organize_test' %}" class="nav_link active">Organizuj test</a>
                                <a href="{% url 'test_solving' %}" class="nav_link active">Rozwiąż test</a>
                                <a href="{% url 'user_history' %}" class="nav_link active">Historia</a>
                              </div>
@@ -82,12 +82,6 @@
         </nav>
     </div>
 
-    <!--Container Main start-->
-{#    <div class="height-80 bg-light" id="contentpage">#}
-{#    {% if user.is_authenticated %}#}
-{#        <h7>Zalogowany jako {{ user.username }}</h7>#}
-{#    {% endif %}#}
-{#    </div>#}
     <div class="height-100 bg-light" id="contentpage">
     {% if messages %}
     <ul class="messages">
