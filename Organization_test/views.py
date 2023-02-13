@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, reverse
 from django.views import View
 
-from Organization_test.models import OrganiseTest, UserSolving
+from Organization_test.models import OrganiseTest, UserSolving, UserTestResult
 from Test_manager.models import QuestionTest, AllTest
 from Organization_test.forms import OrganizeTestForm, SolveTestForm
 
@@ -84,6 +84,7 @@ class SpecificTestSolved(View):
         final_result = 0
         for res in which_test:
             final_result += res.result
+        UserTestResult.objects.create(user=request.user, test_number=test_from_list.test_number, result=final_result)
         return render(request, "solved_specific_test.html", context={"test": test_from_list,
                                                                      "solution": which_test,
                                                                      "who_solved": who_solved,
@@ -91,10 +92,9 @@ class SpecificTestSolved(View):
 
 class UserHistoryOfTests(View):
     def get(self, request):
-        user_tests = UserSolving.objects.filter(user=request.user)
-        sss = AllTest.objects.filter(usersolving=request.user.id)
-        print(user_tests)
-        print(sss)
+        user_tests = UserTestResult.objects.filter(user=request.user)
+
+
         return render(request, 'user_test_history.html', context={
             "tests": user_tests
         })

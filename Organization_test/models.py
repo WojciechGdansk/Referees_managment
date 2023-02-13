@@ -25,3 +25,8 @@ class UserSolving(models.Model):
     user_response = models.CharField(max_length=100)
     result = models.FloatField()
 
+
+class UserTestResult(models.Model):
+    test_number = models.ForeignKey("Test_manager.AllTest", on_delete=models.CASCADE)
+    user = models.ForeignKey("User_manager.User", on_delete=models.CASCADE)
+    result = models.FloatField(default=0)
