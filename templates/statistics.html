@@ -1,0 +1,21 @@
+{% extends "__base__.html" %}
+{% block title %}
+    Statystyki
+{% endblock %}
+{% block content %}
+    <h3 style="text-align: center">Statystyki</h3>
+    <div class="container" style="display: inline-flex; margin: 20px 20px 20px 20px">
+    <div style="margin: 20px 20px 20px 20px">
+        Testów:<BR>
+        {{ test_number }}
+    </div>
+    <div style="margin: 20px 20px 20px 20px">
+        Pytań w bazie:<BR>
+        {{ questions }}
+    </div>
+    <div style="margin: 20px 20px 20px 20px">
+        Średni wynik:<BR>
+        {{ average }}
+    </div>
+    </div>
+{% endblock %}

@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, reverse
 from django.views import View
 
 from Organization_test.models import OrganiseTest, UserSolving, UserTestResult
-from Test_manager.models import QuestionTest, AllTest
+from Test_manager.models import QuestionTest, AllTest, Questions
 from User_manager.models import User
 from Organization_test.forms import OrganizeTestForm
 
@@ -173,3 +173,21 @@ class CheckSpecificUserTest(UserPassesTestMixin, View):
                                                                      "solution": which_test,
                                                                      "user_solved": user_who_solved_test,
                                                                      'result': result})
+
+class Statistics(View):
+    def get(self, request):
+        test_number = AllTest.objects.all().count()
+        question_number = Questions.objects.all().count()
+        all_results = UserTestResult.objects.all()
+        sum_of_points = []
+        for item in all_results:
+            sum_of_points.append(item.result)
+        if len(sum_of_points) != 0:
+            average = sum(sum_of_points)/len(sum_of_points)
+        else:
+            average = 0
+        return render(request, "statistics.html", context={
+            "test_number": test_number,
+            "questions": question_number,
+            "average": average
+        })
