@@ -13,9 +13,28 @@ from django.db.utils import IntegrityError
 
 # Create your views here.
 class MainPage(View):
-    """Displays main page on main endpoint"""
+    """Displays main page on main endpoint,
+    allows to log in"""
+
     def get(self, request):
-        return render(request, 'index.html')
+        form = LoginForm()
+        return render(request, 'index.html', context={"form": form})
+
+    def post(self, request):
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            email = data.get('email')
+            password = data.get('password')
+            user = authenticate(username=email, password=password)
+            if user:
+                login(request, user)
+                messages.info(request, "Zalogowano")
+                return redirect('/')
+            else:
+                messages.error(request, "Użytkonik nie istnieje bądź podano złe hasło")
+                return redirect('/login/')
+        return render(request, 'login.html', {'form': form})
 
 
 class SignUp(View):
@@ -23,6 +42,7 @@ class SignUp(View):
     returns message if no added to group, but register user,
     username field is treat as email field, requires valid email address
     """
+
     def get(self, request):
         form = SignUpForm()
         context = {"form": form,
@@ -82,6 +102,7 @@ class Login(View):
 
 class Logout(View):
     """Sign out logged user"""
+
     def get(self, request):
         logout(request)
         messages.success(request, "Wylogowano")
@@ -108,6 +129,7 @@ class ManageUsers(LoginRequiredMixin, UserPassesTestMixin, View):
 
 class ManageGroups(UserPassesTestMixin, View):
     """View allows to create new group"""
+
     def test_func(self):
         return self.request.user.groups.filter(name="admin").exists()
 
@@ -135,6 +157,7 @@ class ManageGroups(UserPassesTestMixin, View):
 
 class GroupDetails(UserPassesTestMixin, View):
     """Display information about specific group"""
+
     def test_func(self):
         return self.request.user.groups.filter(name="admin").exists()
 
@@ -165,7 +188,7 @@ class EditUser(LoginRequiredMixin, View):
 
     def get(self, request, slug):
         user = get_object_or_404(User, slug=slug)
-        #checking if user is changing his account or authorizated group does it
+        # checking if user is changing his account or authorizated group does it
         if request.user != user and request.user.groups.filter(name__in=["admin", "Organizator"]).exists() == False:
             return redirect(reverse('no_permission'))
         leagues = League.objects.all()
@@ -209,15 +232,15 @@ class EditUser(LoginRequiredMixin, View):
                     user.is_active = True
                 else:
                     user.is_active = False
-                #standard user can't change league, if authorizated person is chaning this value,
-                #it will have value different than None
+                # standard user can't change league, if authorizated person is chaning this value,
+                # it will have value different than None
                 if request.user != user:
                     league_from_form = request.POST.get("league2")
                 else:
                     league_from_form = user.league.slug
                 group = request.POST.getlist('group')
-                #standard user cant change group, only authorizated group can do that,
-                #if function checks who is editing profile
+                # standard user cant change group, only authorizated group can do that,
+                # if function checks who is editing profile
                 if request.user != user:
                     for item in user.groups.all():  # setting groups for user
                         if item not in group:
@@ -241,7 +264,7 @@ class ResetPassword(View):
     def get(self, request, slug):
         form = ResetPasswordForm()
         user = get_object_or_404(User, slug=slug)
-        #validation of user
+        # validation of user
         if request.user != user and request.user.groups.filter(name__in=["admin", "Organizator"]).exists() == False:
             return redirect(reverse('no_permission'))
         return render(request, "reset_password.html", context={

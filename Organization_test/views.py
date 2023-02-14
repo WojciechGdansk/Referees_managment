@@ -39,13 +39,36 @@ class TestForUserList(LoginRequiredMixin, View):
     """View show logged user available test to solve, if user already solved test,  it's not on the list"""
 
     def get(self, request):
+        if request.user.is_superuser:
+            return render(request, 'solve_test.html', context={"tests": OrganiseTest.objects.all()})
         user_league = request.user.league
         test_for_this_league = OrganiseTest.objects.filter(test_for_league=user_league.id)
         tests_done_for_this_league = [item.test_number_id for item in test_for_this_league]
-        # check if user already solved this test
-        check_if_user_solved_this_test = UserSolving.objects.filter(test_number_id__in=tests_done_for_this_league)
-        if check_if_user_solved_this_test:
+        # returns object which has been created when user done test
+        check_if_user_solved_this_test = UserSolving.objects.filter(test_number_id__in=tests_done_for_this_league,
+                                                                    user_id=request.user.id)
+
+        #tests number done by user
+        test_done_by_user_for_this_league = set()
+        for item in check_if_user_solved_this_test:
+            test_done_by_user_for_this_league.add(item.test_number_id)
+        #all test for this league
+        all_test_numbers_for_this_league = set()
+        for item in test_for_this_league:
+            all_test_numbers_for_this_league.add(item.test_number_id)
+
+        #tests not done by user
+        test_not_done_by_user = list(all_test_numbers_for_this_league.difference(test_done_by_user_for_this_league))
+        test_for_this_league = OrganiseTest.objects.filter(test_for_league=user_league.id,
+                                                           test_number__in=test_not_done_by_user)
+
+
+
+        #users with perms can see all tests prepared to solve
+        if test_for_this_league is False and not request.user.has_perm("Test_manager.view_alltest"):
             return render(request, 'solve_test.html')
+        if request.user.has_perm("Test_manager.view_alltest"):
+            return render(request, 'solve_test.html', context={"tests": OrganiseTest.objects.all()})
         return render(request, 'solve_test.html', context={"tests": test_for_this_league})
 
 
