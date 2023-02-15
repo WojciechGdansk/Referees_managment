@@ -27,7 +27,7 @@
             <td>{{ forloop.counter }}</td>
             <td>{{ item.question.question.add_question }}</td>
             <td>{{ item.user_response}}</td>
-            <td>{{ item.question.question.question_correct_answer}}</td>
+            <td>{% for answer in correct %}{% if item.question.question.id == answer.question.id %}{{ answer.question_correct_answers.all_kind_answers }}, {% endif %}{% endfor %}</td>
             <td id="res">{{ item.result}}</td>
             </tr>
         {% endfor %}

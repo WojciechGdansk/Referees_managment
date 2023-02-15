@@ -1,7 +1,5 @@
 from django import forms
-from django.forms.widgets import CheckboxSelectMultiple
-from Question_manager.models import AllPossibleAnswers
-from Test_manager.models import League, Questions
+from Test_manager.models import Questions
 
 
 class AddQuestionForm(forms.ModelForm):
@@ -10,7 +8,8 @@ class AddQuestionForm(forms.ModelForm):
         fields = ['add_question', 'question_possible_answer', 'question_correct_answer', 'for_league']
         widgets = {
             "add_question": forms.Textarea(attrs={'placeholder': "Pytanie", "cols": 80, "rows":2}),
-            "question_possible_answer": forms.CheckboxSelectMultiple()
+            "question_possible_answer": forms.CheckboxSelectMultiple(),
+            "question_correct_answer": forms.CheckboxSelectMultiple()
         }
         labels = {
             "add_question": "Pytanie",

@@ -33,7 +33,7 @@
     <tr>
         <th>Numer</th>
         <th class="col-8">Pytanie</th>
-        <th>Odpowiedź</th>
+        <th>Możliwe odpowiedzi</th>
         <th class="col-1">Odpowiedź komisji</th>
         <th>Akcja</th>
     </tr>
@@ -41,8 +41,11 @@
         <tr class="col-8">
             <td>{{ forloop.counter }}</td>
             <td>{{ item.question.add_question }}</td>
-            <td>{{ item.question.question_possible_answer }}</td>
-            <td class="col-1" style="text-align: center">{{ item.question.question_correct_answer}}</td>
+            <td>{% for possbile in possible_answers%}{% if possbile.question.id == item.question.id %}
+                {{ possbile.question_possible_answers.all_kind_answers }}{% endif %}{% endfor %}</td>
+            <td class="col-1" style="text-align: center">
+                {% for answer in correct_answers%}{% if answer.question.id == item.question.id %}
+                {{ answer.question_correct_answers.all_kind_answers }}{% endif %}{% endfor %}</td>
             <td><a href="{% url 'remove_question_from_test' item.question.slug item.id %}">Usuń</a> </td>
         </tr>
         {% endfor %}

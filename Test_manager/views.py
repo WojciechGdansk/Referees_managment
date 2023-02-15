@@ -4,8 +4,7 @@ from django.views import View
 import datetime
 from django.contrib import messages
 from Test_manager.forms import CreateTestForm
-from Test_manager.models import AllTest, League, Questions, QuestionTest
-from User_manager.models import User
+from Test_manager.models import AllTest, League, Questions, QuestionTest, PossibleAnswers, CorrectAnswer
 
 
 # Create your views here.
@@ -41,6 +40,7 @@ class CreateTest(UserPassesTestMixin, View):
 
 class DisplayAllTest(UserPassesTestMixin, View):
     """User with rights can browse all existing tests"""
+
     def test_func(self):
         return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
 
@@ -62,12 +62,17 @@ class TestDetails(UserPassesTestMixin, View):
 
     def get(self, request, slug):
         test = AllTest.objects.get(slug=slug)
-        filters = [test.for_league, "Wszystkie"]
+        test_for_every_league = League.objects.get(which_league="Wszystkie")
+        filters = [test.for_league, test_for_every_league.id]
         questions = Questions.objects.filter(for_league__in=filters)
         question_for_tests = QuestionTest.objects.filter(test_id=test.id)
+        posibble_answers = PossibleAnswers.objects.all()
+        correct_answers = CorrectAnswer.objects.all()
         context = {"test": test,
                    "questions": questions,
-                   "que": question_for_tests}
+                   "que": question_for_tests,
+                   "possible_answers": posibble_answers,
+                   "correct_answers": correct_answers}
         return render(request, "test_details.html", context)
 
 

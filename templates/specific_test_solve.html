@@ -1,16 +1,20 @@
 {% extends "__base__.html" %}
 {% block title %}
-    Test
+    Test {{ user }}
 {% endblock %}
 {% block content %}
-    <form method="post">
+    <div class="containter">
+        Pisze {{ user }}
+
+    </div>
+    <br>
+    <form method="post" id="myForm">
     {% csrf_token %}
     <table>
     <tr>
         <th class="col-1">Nr</th>
         <th>Pytanie</th>
-        <th>Możliwe odpowiedzi</th>
-        <th>Odpowiedź(rozdziel przecinkami wszystkie decyzje)</th>
+        <th>Odpowiedź</th>
     </tr>
         {% for item in test %}
             <tr>
@@ -18,17 +22,24 @@
             <td>{{ item.question.add_question }}</td>
             <td>{% for possible in possible_answer %}
                 {% if item.question_id == possible.question_id %}{{ possible.question_possible_answers }}
-                    <input type="checkbox" name="{{ item.question_id }}" value="{{ possible.question_possible_answers }}">
+                    <input type="checkbox" name="{{ item.question.slug }}" value="{{ possible.question_possible_answers }}"
+                           style="margin: 0px 12px 0px 0px">
                 {% endif %}
             {% endfor %}</td>
-{#            <td><input type="checkbox" name="{{ item.question.slug }}">test odpowiedzi</td>#}
-{#            <td><input type="text" name="{{ item.question.slug }}" placeholder="Odpowiedź"></td>#}
             </tr>
         {% endfor %}
 
     </table>
-    <input type="submit" value="Zapisz">
+    <input type="submit" value="Zapisz" onclick="return confirmSubmit()">
     </form>
-
+<script>
+function confirmSubmit() {
+  var result = confirm("Czy na pewno chcesz zakończyć pisanie testu?");
+  if (result) {
+    document.getElementById("myForm").submit();
+  }
+  return result;
+}
+</script>
 
 {% endblock %}

@@ -9,8 +9,16 @@
 <input type="submit" value="Zapisz">
 </form>
     <script>
-    document.getElementById('id_possible_answer').style.display = "inline-flex"
-    document.getElementById('id_correct_answer').style.display = "inline-flex";
+    let firstselectionsbox = document.getElementById('id_question_possible_answer')
+    let secondselectionsbox = document.getElementById('id_question_correct_answer')
+    secondselectionsbox.style.display = "inline-flex";
+    firstselectionsbox.style.display = "inline-flex"
+    Array.from(firstselectionsbox.children).forEach(function (element) {
+    element.style.marginRight = "10px";
+});
+    Array.from(secondselectionsbox.children).forEach(function (element) {
+    element.style.marginRight = "10px";
+});
     let but = document.createElement('button')
     let but2 = document.createElement('button')
     let but3 = document.createElement('button')

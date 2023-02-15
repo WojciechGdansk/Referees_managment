@@ -5,7 +5,6 @@ from django.contrib import messages
 from Question_manager.forms import AddQuestionForm
 from Question_manager.models import AllPossibleAnswers
 from Test_manager.models import AllTest, Questions, League, PossibleAnswers, CorrectAnswer
-from User_manager.models import User
 import datetime
 
 
@@ -14,6 +13,7 @@ class QuestionTable(UserPassesTestMixin, View):
     """View allows to display all existing questions,
     allows to add question to specific test.
     Planned test date must be greater than today"""
+
     def test_func(self):
         return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
 
@@ -39,6 +39,7 @@ class QuestionTable(UserPassesTestMixin, View):
 class CreateQuestion(UserPassesTestMixin, View):
     """Allows to create question and save to database,
     requires permissions"""
+
     def test_func(self):
         return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
 
@@ -48,7 +49,7 @@ class CreateQuestion(UserPassesTestMixin, View):
     def get(self, request):
         form = AddQuestionForm()
         context = {"form": form}
-        return render(request, "add_question.html", context = {"form": form})
+        return render(request, "add_question.html", context={"form": form})
 
     def post(self, request):
         form = AddQuestionForm(request.POST)
@@ -63,17 +64,15 @@ class CreateQuestion(UserPassesTestMixin, View):
                                                question_possible_answers=AllPossibleAnswers.objects.get(id=item))
             for item in selected_correct_answers:
                 CorrectAnswer.objects.create(question=question,
-                                               question_correct_answers=AllPossibleAnswers.objects.get(id=item))
-
-
-
+                                             question_correct_answers=AllPossibleAnswers.objects.get(id=item))
             messages.info(request, "Pytanie dodane poprawnie")
             return redirect("/")
-        return render(request, "add_question.html", context = {"form": form})
+        return render(request, "add_question.html", context={"form": form})
 
 
 class EditQuestion(UserPassesTestMixin, View):
     """View to edit already exisitng question in database"""
+
     def test_func(self):
         return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
 
@@ -94,11 +93,12 @@ class EditQuestion(UserPassesTestMixin, View):
             form.save()
             messages.info(request, "Uaktualniono")
             return redirect("/")
-        return render(request, "add_question.html", context = {"form": form})
+        return render(request, "add_question.html", context={"form": form})
 
 
 class DeleteQuesiton(UserPassesTestMixin, View):
     """View removes specific question from questions base"""
+
     def test_func(self):
         return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
 
