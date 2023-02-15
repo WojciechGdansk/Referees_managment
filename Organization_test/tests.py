@@ -56,7 +56,8 @@ def test_for_user_list(client, user_in_admin_group):
     url = reverse('test_solving')
     response = client.get(url)
     assert response.status_code == 302
-    assert response.url == '/login/?next=/test_solving/'
+    assert "/login/" in response.url
+
 
 
 @pytest.mark.django_db

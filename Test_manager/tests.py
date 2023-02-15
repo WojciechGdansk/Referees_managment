@@ -1,12 +1,8 @@
-import datetime
-
 import pytest
 from django.contrib.messages import get_messages
 from django.test import Client
 from django.shortcuts import reverse
 
-from Organization_test.models import OrganiseTest, UserSolving, UserTestResult
-from Test_manager.forms import CreateTestForm
 from Test_manager.models import AllTest, Questions, QuestionTest
 from User_manager.models import User, League
 from django.contrib.auth.models import Group, Permission
@@ -39,9 +35,10 @@ def test_CreateTest(client, user_in_admin_group):
     response = client.get(url)
     assert response.status_code == 200
     league = League.objects.create(which_league="test")
+    league = League.objects.last()
     data = {"test_name": "testowy test",
             "date": "2023-05-05",
-            "for_league": 1
+            "for_league": league.id
             }
     response = client.post(url, data)
     messages = list(get_messages(response.wsgi_request))
@@ -120,9 +117,10 @@ def test_EditTest(client, user_in_admin_group):
     url = reverse('edit_test', kwargs={"slug": test_number.slug})
     response = client.get(url)
     assert response.status_code == 200
+    league = League.objects.last()
     data = {"test_name": "testowy test edycja",
             "date": '2023-05-05',
-            "for_league": 1
+            "for_league": league.id
             }
     response = client.post(url, data)
     messages = list(get_messages(response.wsgi_request))
