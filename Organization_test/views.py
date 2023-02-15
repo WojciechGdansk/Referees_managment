@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, reverse
 from django.views import View
 
 from Organization_test.models import OrganiseTest, UserSolving, UserTestResult
-from Test_manager.models import QuestionTest, AllTest, PossibleAnswers
+from Test_manager.models import QuestionTest, AllTest, PossibleAnswers, Questions
 from User_manager.models import User
 from Organization_test.forms import OrganizeTestForm
 
@@ -39,6 +39,8 @@ class TestForUserList(LoginRequiredMixin, View):
     """View show logged user available test to solve, if user already solved test,  it's not on the list"""
 
     def get(self, request):
+        if request.user.is_superuser:
+            return render(request, 'solve_test.html', context={"tests": OrganiseTest.objects.all()})
         user_league = request.user.league
         test_for_this_league = OrganiseTest.objects.filter(test_for_league=user_league.id)
         tests_done_for_this_league = [item.test_number_id for item in test_for_this_league]
@@ -46,6 +48,8 @@ class TestForUserList(LoginRequiredMixin, View):
         check_if_user_solved_this_test = UserSolving.objects.filter(test_number_id__in=tests_done_for_this_league)
         if check_if_user_solved_this_test:
             return render(request, 'solve_test.html')
+        if request.user.has_perm("Test_manager.view_alltest"):
+            return render(request, 'solve_test.html', context={"tests": OrganiseTest.objects.all()})
         return render(request, 'solve_test.html', context={"tests": test_for_this_league})
 
 
@@ -156,3 +160,21 @@ class CheckSpecificUserTest(UserPassesTestMixin, View):
                                                                      "solution": which_test,
                                                                      "user_solved": user_who_solved_test,
                                                                      'result': result})
+
+class Statistics(View):
+    def get(self, request):
+        test_number = AllTest.objects.all().count()
+        question_number = Questions.objects.all().count()
+        all_results = UserTestResult.objects.all()
+        sum_of_points = []
+        for item in all_results:
+            sum_of_points.append(item.result)
+        if len(sum_of_points) != 0:
+            average = sum(sum_of_points)/len(sum_of_points)
+        else:
+            average = 0
+        return render(request, "statistics.html", context={
+            "test_number": test_number,
+            "questions": question_number,
+            "average": average
+        })

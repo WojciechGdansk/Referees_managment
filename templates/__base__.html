@@ -13,9 +13,6 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body id="body-pd" class="body-pd">
-{#<div class="text-center">#}
-{#    <img src=" {% static 'logo2.jpg' %}" alt="Pomorski Związek Piłki Nożnej" class="img-fluid">#}
-{#</div>#}
 <!--header -->
     <header class="header body-pd" id="header">
 
@@ -36,23 +33,25 @@
                         <a href="#" class="nav_link active dropdownclass"><i class='fas fa-pencil'></i><span class="nav_name">Testy <i class="fas fa-angle-right dropdownarrow"></i></span> </a>
                             <div class="sub-menu">
                                 {% if perms.Test_manager.add_alltest %}
-                                    <a href="{% url 'create_test' %}" class="nav_link active">Stwórz</a>
-                                    <a href="{% url 'browse_tests' %}" class="nav_link active">Przeglądaj</a>
-                                    <a href="{% url 'organize_test' %}" class="nav_link active">Organizuj test</a>
+                                    <a href="{% url 'create_test' %}" class="nav_link active"><i class="fa-sharp fa-solid fa-plus"></i>Stwórz</a>
+                                    <a href="{% url 'browse_tests' %}" class="nav_link active"><i class="fa-sharp fa-solid fa-magnifying-glass"></i>Przeglądaj</a>
+                                    <a href="{% url 'organize_test' %}" class="nav_link active"><i class="fa-solid fa-font"></i>Organizuj test</a>
                                 {% endif %}
-                               <a href="{% url 'test_solving' %}" class="nav_link active">Rozwiąż test</a>
-                               <a href="{% url 'user_history' %}" class="nav_link active">Historia</a>
+                               <a href="{% url 'test_solving' %}" class="nav_link active"><i class="fa-solid fa-check"></i>Rozwiąż test</a>
+                               <a href="{% url 'user_history' %}" class="nav_link active"><i class="fa-solid fa-landmark"></i>Historia</a>
                              </div>
                     {% endif %}
                     {% if perms.Test_manager.view_questions %}
-                        <a href="#" class="nav_link active dropdownclass"><i class='fas fa-pencil'>
-                        </i><span class="nav_name">Pytania <i class="fas fa-angle-right dropdownarrow"></i></span></a>
+                        <a href="#" class="nav_link active dropdownclass">
+                        <i class="fa-solid fa-question"></i>
+                        <span class="nav_name">Pytania <i class="fas fa-angle-right dropdownarrow"></i></span></a>
                         <div class="sub-menu">
                             {% if perms.Test_manager.add_questions %}
-                               <a href="{% url 'create_question' %}" class="nav_link active">Dodaj</a>
+                               <a href="{% url 'create_question' %}" class="nav_link active"><i class="fa-sharp fa-solid fa-plus"></i>
+                                   <span class="nav_name">Dodaj</span></a>
                             {% endif %}
-                           <a href="{% url 'all_questions' %}" class="nav_link active">Przeglądaj</a>
-                           <a href="#" class="nav_link active">Sub Item 03</a>
+                           <a href="{% url 'all_questions' %}" class="nav_link active"><i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                               <span clas="nav_name">Przeglądaj</span></a>
                          </div>
                     {% endif %}
                     {% if user.is_authenticated %}
@@ -60,17 +59,19 @@
                     {% endif %}
                     <div class="sub-menu">
                     {% if user.is_authenticated %}
-                           <a href="{% url 'edit_user' user.slug %}" class="nav_link"><i class='bx bx-user nav_icon'></i><span class="nav_name">Edytuj profil</span> </a>
+                           <a href="{% url 'edit_user' user.slug %}" class="nav_link"><i class="fa-solid fa-gear"></i><span class="nav_name">Edytuj profil</span> </a>
                     {% endif %}
                     {% if perms.User_manager.change_user %}
                        <a href="{% url 'manage_users' %}" class="nav_link"><i class='bx bx-user nav_icon'></i><span class="nav_name">Sędziowie</span> </a>
                        <a href="{% url 'manage_groups' %}" class="nav_link"><i class='fas fa-users'></i><span class="nav_name">Grupy</span></a>
                         {% endif %}
                     {% if perms.Test_manager.view_alltest %}
-                       <a href="{% url 'all_tests_to_check' %}" class="nav_link active">Przeglądaj wyniki</a>
+                       <a href="{% url 'all_tests_to_check' %}" class="nav_link active"><i class="fa-solid fa-square-poll-vertical"></i>
+                           <span class="nav_name">Przeglądaj wyniki</span></a>
                     {% endif %}
                      </div>
-                    <a href="#" class="nav_link"> <i class='fas fa-chart-line'></i><span class="nav_name">Statystyki</span> </a>
+                    <a href="{% url 'statistics' %}" class="nav_link"> <i class='fas fa-chart-line'></i><span class="nav_name">Statystyki</span> </a>
+                    <a href="{% url 'about' %}" class="nav_link"><i class="fa-solid fa-info"></i><span class="nav_name">O aplikacji</span> </a>
                 </div>
             </div>
         <div>

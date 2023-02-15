@@ -3,5 +3,22 @@
     Testy Pomorskiego ZPN
 {% endblock %}
 {% block content %}
-Witaj na stronie do pisania testów
+<h2>Witaj na portalu to testowania wiedzy z przepisów gry w piłkę nożną</h2><BR>
+    {% if user.is_authenticated %}
+        <div class="container">
+                <h5>Zalogowany jako {{ user.first_name }} {{ user.last_name }}</h5><BR>
+        <a href="{% url 'logout' %}" class="nav_link"><i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Wyloguj</span> </a>
+
+        </div>
+
+    {% else %}
+    <div class="container">
+    <h4>Szybkie logowanie</h4>
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Zaloguj">
+    </form>
+    </div>
+    {% endif %}
 {% endblock %}
