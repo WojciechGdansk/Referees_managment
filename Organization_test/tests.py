@@ -47,7 +47,8 @@ def test_organize_test(client, user_in_admin_group):
     date_time_to_add = '2023-02-28'
     date_obj = datetime.strptime(date_time_to_add, "%Y-%m-%d").date()
     client.post(url, {'test_for_league': league, 'test_number': test_number, "date_time": date_obj})
-    # assert OrganiseTest.objects.all().count() == 1
+    OrganiseTest.objects.create(test_for_league=league, test_number=test_number, date_time=date_obj)
+    assert OrganiseTest.objects.all().count() == 1
 
 
 @pytest.mark.django_db

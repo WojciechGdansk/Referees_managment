@@ -283,3 +283,8 @@ class ResetPassword(View):
             return redirect(reverse('main_page'))
         messages.error(request, "Bład")
         return render(request, "reset_password.html", context={'form': form, })
+
+
+class About(View):
+    def get(self, request):
+        return render(request, "about.html")

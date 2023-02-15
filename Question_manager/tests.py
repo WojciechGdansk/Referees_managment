@@ -65,10 +65,11 @@ def test_CreateQuestion_view(client, user_in_admin_group):
     League.objects.create(which_league="testowa liga")
     assert League.objects.all().count() == 1
     assert AllPossibleAnswers.objects.all().count() == 1
-    # client.post(url, {"add_question": "testowe pytanie",
-    #                   "possible_answer": "1",
-    #                   "correct_answer": "1",
-    #                   "for_league": "1"})
+    client.post(url, data={"add_question": "testowe pytanie",
+                      "possible_answer": "1",
+                      "correct_answer": "1",
+                      "for_league": "1",
+                      "added_by": User.objects.first()})
     # assert Questions.objects.all().count() == 1
 
 # @pytest.mark.django_db
@@ -82,3 +83,11 @@ def test_CreateQuestion_view(client, user_in_admin_group):
 #     url = reverse("create_question")
 #     response = client.get(url)
 #     assert response.status_code == 200
+
+
+# @pytest.mark.django_db
+# def test_DeleteQuesiton(client):
+#     url = reverse('delete_question')
+#     response = client.get(url)
+#     assert response.status_code == 302
+#     assert response.url == '/no_permission/'
