@@ -9,8 +9,8 @@ class AllTest(models.Model):
     test_name = models.CharField(max_length=100)
     date = models.CharField(max_length=100)
     for_league = models.ForeignKey('User_manager.League', on_delete=models.PROTECT)
-    created_by = models.ForeignKey('User_manager.User', on_delete=models.PROTECT, null=True)
-    slug = models.CharField(max_length=200, unique=True, null=True)
+    created_by = models.ForeignKey('User_manager.User', on_delete=models.PROTECT, null=True, blank=True)
+    slug = models.CharField(max_length=200, unique=True, null=True, blank=True)
     questions = models.ManyToManyField("Questions", through="QuestionTest")
 
     def save(self, *args, **kwargs):

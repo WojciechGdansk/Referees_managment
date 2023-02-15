@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 import pytest
 from django.contrib.messages import get_messages
@@ -40,14 +40,14 @@ def test_CreateTest(client, user_in_admin_group):
     assert response.status_code == 200
     league = League.objects.create(which_league="test")
     data = {"test_name": "testowy test",
-            "date": '2023-05-05',
-            "for_league": league
+            "date": "2023-05-05",
+            "for_league": 1
             }
     response = client.post(url, data)
     messages = list(get_messages(response.wsgi_request))
-    # assert str(messages[0]) == "Dodano test"
-    # assert response.status_code == 302
-    # assert AllTest.objects.all().count() == 1
+    assert str(messages[0]) == "Dodano test"
+    assert response.status_code == 302
+    assert AllTest.objects.all().count() == 1
 
 @pytest.mark.django_db
 def test_DisplayAllTest(client, user_in_admin_group):

@@ -66,11 +66,11 @@ def test_CreateQuestion_view(client, user_in_admin_group):
     assert League.objects.all().count() == 1
     assert AllPossibleAnswers.objects.all().count() == 1
     client.post(url, data={"add_question": "testowe pytanie",
-                      "possible_answer": "1",
-                      "correct_answer": "1",
-                      "for_league": "1",
-                      "added_by": User.objects.first()})
-    # assert Questions.objects.all().count() == 1
+                      "possible_answer": 1,
+                      "correct_answer": 1,
+                      "for_league": 1,
+                      "added_by": 1})
+    # assert Questions.objects.count() == 1
 
 # @pytest.mark.django_db
 # def test_EditQuestion_view(client, user_in_admin_group):
