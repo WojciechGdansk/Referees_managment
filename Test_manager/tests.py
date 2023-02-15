@@ -120,13 +120,13 @@ def test_EditTest(client, user_in_admin_group):
     url = reverse('edit_test', kwargs={"slug": test_number.slug})
     response = client.get(url)
     assert response.status_code == 200
-    data = {"test_name": "testowy test",
+    data = {"test_name": "testowy test edycja",
             "date": '2023-05-05',
-            "for_league": league
+            "for_league": 1
             }
     response = client.post(url, data)
     messages = list(get_messages(response.wsgi_request))
-    # assert str(messages[0]) == "Zaktualizowano test"
+    assert str(messages[0]) == "Zaktualizowano test"
 
 @pytest.mark.django_db
 def test_DeleteTest(client, user_in_admin_group):
