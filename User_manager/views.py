@@ -223,7 +223,7 @@ class EditUser(LoginRequiredMixin, View):
                 user.username = data.get('username')
                 user.phone_number = data.get('phone_number')
                 # standard user can't change this value and form sent it as None then,
-                # necessary to check how is editing personal settings
+                # necessary to check who is editing personal settings
                 if request.user != user:
                     is_active = request.POST.get("is_active")
                 else:
