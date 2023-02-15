@@ -10,9 +10,7 @@ class AddQuestionForm(forms.ModelForm):
         fields = ['add_question', 'question_possible_answer', 'question_correct_answer', 'for_league']
         widgets = {
             "add_question": forms.Textarea(attrs={'placeholder': "Pytanie", "cols": 80, "rows":2}),
-            "question_possible_answer": forms.CheckboxSelectMultiple,
-            "question_correct_answer": forms.CheckboxSelectMultiple,
-            "for_league": forms.CheckboxSelectMultiple
+            "question_possible_answer": forms.CheckboxSelectMultiple()
         }
         labels = {
             "add_question": "Pytanie",

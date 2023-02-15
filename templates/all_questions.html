@@ -30,8 +30,8 @@
 
             <tr>
             <td>{{ item.add_question }}</td>
-            <td>{{ item.question_possible_answer }}</td>
-            <td>{{ item.question_correct_answer }}</td>
+            <td>{% for answers in answers %}{% if item.id == answers.question_id %}{{ answers.question_possible_answers }} {% endif %} {% endfor %}</td>
+            <td>{% for answers in correct_answers %}{% if item.id == answers.question_id %}{{ answers.question_correct_answers }} {% endif %} {% endfor %}</td>
             <td>{{ item.for_league }}</td>
             <td>{{ item.added_by.username }} </td>
             <td>{{ item.added_date }}</td>

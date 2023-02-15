@@ -4,7 +4,7 @@ from django.views import View
 from django.contrib import messages
 from Question_manager.forms import AddQuestionForm
 from Question_manager.models import AllPossibleAnswers
-from Test_manager.models import AllTest, Questions, League
+from Test_manager.models import AllTest, Questions, League, PossibleAnswers, CorrectAnswer
 from User_manager.models import User
 import datetime
 
@@ -22,13 +22,16 @@ class QuestionTable(UserPassesTestMixin, View):
 
     def get(self, request):
         all_questions = Questions.objects.all()
-        correct_answer = AllPossibleAnswers.objects.all()
+        posibble_answers = PossibleAnswers.objects.all()
+        correct_answers = CorrectAnswer.objects.all()
+
         league = League.objects.all()
         todays_date = datetime.datetime.today()
         todays_date = datetime.datetime.strftime(todays_date, "%Y-%m-%d")
         context = {'questions': all_questions,
-                   "answers": correct_answer,
+                   "answers": posibble_answers,
                    "league": league,
+                   "correct_answers": correct_answers,
                    "tests": AllTest.objects.filter(date__gte=todays_date)}
         return render(request, 'all_questions.html', context)
 
@@ -45,43 +48,28 @@ class CreateQuestion(UserPassesTestMixin, View):
     def get(self, request):
         form = AddQuestionForm()
         context = {"form": form}
-        return render(request, "add_question.html", context)
+        return render(request, "add_question.html", context = {"form": form})
 
     def post(self, request):
         form = AddQuestionForm(request.POST)
-        context = {"form": form}
-        print(form)
-        print(form.cleaned_data)
         if form.is_valid():
-            form.save(commit=False)
-            form.added_by = request.user
-            print(form.question_correct_answer)
-            print(form.question_possible_answer)
-            print(form.for_league)
-            print(form.add_question)
-            form.save()
-            # data = form.cleaned_data
-            # add_question = data.get('add_question')
-            # question_possible = request.POST.getlist("possible_answer")
-            # question_correct = request.POST.getlist("correct_answer")
-            # league = request.POST.getlist("for_league")
-            # question_possible_answer = []
-            # #Add question with normal answer instead of number
-            # for item in question_possible:
-            #     question_possible_answer.append(AllPossibleAnswers.objects.get(id=int(item)).all_kind_answers)
-            # question_correct_answer = []
-            # for item in question_correct:
-            #     question_correct_answer.append(AllPossibleAnswers.objects.get(id=int(item)).all_kind_answers)
-            # for_league = []
-            # for item in league:
-            #     for_league.append(League.objects.get(id=int(item)).which_league)
-            # user = User.objects.get(id=request.user.id)
-            # Questions.objects.create(add_question=add_question, question_possible_answer=question_possible_answer,
-            #                          question_correct_answer=question_correct_answer,
-            #                          for_league=for_league, added_by=user)
+            question = form.save(commit=False)
+            question.added_by = request.user
+            question.save()
+            selected_questions_possible_answer = request.POST.getlist('question_possible_answer')
+            selected_correct_answers = request.POST.getlist('question_correct_answer')
+            for item in selected_questions_possible_answer:
+                PossibleAnswers.objects.create(question=question,
+                                               question_possible_answers=AllPossibleAnswers.objects.get(id=item))
+            for item in selected_correct_answers:
+                CorrectAnswer.objects.create(question=question,
+                                               question_correct_answers=AllPossibleAnswers.objects.get(id=item))
+
+
+
             messages.info(request, "Pytanie dodane poprawnie")
             return redirect("/")
-        return render(request, "add_question.html", context)
+        return render(request, "add_question.html", context = {"form": form})
 
 
 class EditQuestion(UserPassesTestMixin, View):
@@ -94,12 +82,19 @@ class EditQuestion(UserPassesTestMixin, View):
 
     def get(self, request, slug):
         question = get_object_or_404(Questions, slug=slug)
-        #initial to musi byc slownik z kluczami, klucze nazwy pol, wartrosci to te ktore powinny byc
-        initial_data = {"add_question": question.add_question}
-        form = AddQuestionForm(initial_data)
+        form = AddQuestionForm(instance=question)
         context = {"question": question,
                    "form": form}
         return render(request, "edit_question.html", context)
+
+    def post(self, request, slug):
+        question = get_object_or_404(Questions, slug=slug)
+        form = AddQuestionForm(request.POST, instance=question)
+        if form.is_valid():
+            form.save()
+            messages.info(request, "Uaktualniono")
+            return redirect("/")
+        return render(request, "add_question.html", context = {"form": form})
 
 
 class DeleteQuesiton(UserPassesTestMixin, View):

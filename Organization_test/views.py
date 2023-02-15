@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, reverse
 from django.views import View
 
 from Organization_test.models import OrganiseTest, UserSolving, UserTestResult
-from Test_manager.models import QuestionTest, AllTest
+from Test_manager.models import QuestionTest, AllTest, PossibleAnswers
 from User_manager.models import User
 from Organization_test.forms import OrganizeTestForm
 
@@ -63,7 +63,9 @@ class SpecificTestToSolve(LoginRequiredMixin, View):
         if check_if_user_made_this_test:
             return redirect(reverse('result_of_test', kwargs={'slug': test_from_list.slug}))
         selected_test = QuestionTest.objects.filter(test_id=test_from_list.test_number.id)
-        return render(request, "specific_test_solve.html", context={"test": selected_test})
+        possible_answers = PossibleAnswers.objects.all()
+        return render(request, "specific_test_solve.html", context={"test": selected_test,
+                                                                    "possible_answer": possible_answers})
 
     def post(self, request, slug):
         user = request.user
@@ -71,23 +73,27 @@ class SpecificTestToSolve(LoginRequiredMixin, View):
         test_from_database = AllTest.objects.get(id=test_number.test_number.id)
         questions = QuestionTest.objects.filter(test_id=test_number.test_number.id)
         for item in questions:
-            question_from_database = item
-            user_response = request.POST.getlist(item.question.slug)
-            user_response_splited = [item.split(',') for item in user_response][0]
-            user_response_splited = sorted(user_response_splited)
-            correct_answer = ast.literal_eval(item.question.question_correct_answer)
-            correct_answer = sorted(correct_answer)
-            if user_response_splited == correct_answer:
-                result = 1
-            else:
-                result = 0
-            UserSolving.objects.create(
-                user=user,
-                test_number=test_from_database,
-                question=question_from_database,
-                user_response=user_response,
-                result=result)
-        return redirect(reverse('result_of_test', kwargs={'slug': test_number.slug}))
+            user_response = request.POST.getlist('7')
+            print(user_response)
+            # user_response_splited = [item.split(',') for item in user_response][0]
+            # user_response_splited = sorted(user_response_splited)
+            # correct_answer = ast.literal_eval(item.question.question_correct_answer)
+            # correct_answer = sorted(correct_answer)
+            # if user_response_splited == correct_answer:
+            #     result = 1
+            # else:
+            #     result = 0
+            # UserSolving.objects.create(
+            #     user=user,
+            #     test_number=test_from_database,
+            #     question=question_from_database,
+            #     user_response=user_response,
+            #     result=result)
+        selected_test = QuestionTest.objects.filter(test_id=test_number.test_number.id)
+        possible_answers = PossibleAnswers.objects.all()
+        return render(request, "specific_test_solve.html", context={"test": selected_test,
+                                                                    "possible_answer": possible_answers})
+        # return redirect(reverse('result_of_test', kwargs={'slug': test_number.slug}))
 
 
 class SpecificTestSolved(LoginRequiredMixin, View):

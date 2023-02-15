@@ -16,9 +16,13 @@
             <tr>
             <td>{{ forloop.counter }}</td>
             <td>{{ item.question.add_question }}</td>
-            <td>{{ item.question.question_possible_answer }}</td>
+            <td>{% for possible in possible_answer %}
+                {% if item.question_id == possible.question_id %}{{ possible.question_possible_answers }}
+                    <input type="checkbox" name="{{ item.question_id }}" value="{{ possible.question_possible_answers }}">
+                {% endif %}
+            {% endfor %}</td>
 {#            <td><input type="checkbox" name="{{ item.question.slug }}">test odpowiedzi</td>#}
-            <td><input type="text" name="{{ item.question.slug }}" placeholder="Odpowiedź"></td>
+{#            <td><input type="text" name="{{ item.question.slug }}" placeholder="Odpowiedź"></td>#}
             </tr>
         {% endfor %}
 
