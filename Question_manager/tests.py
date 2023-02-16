@@ -68,11 +68,12 @@ def test_CreateQuestion_view(client, user_in_admin_group):
     assert League.objects.all().count() == 1
     assert AllPossibleAnswers.objects.all().count() == 1
     r = client.post(url, data={"add_question": "testowe pytanie555",
-                           'question_possible_answer': ['1'],
-                           'question_correct_answer': ['1'],
-                           'for_league': [league_id]
-                           })
+                               'question_possible_answer': ['1'],
+                               'question_correct_answer': ['1'],
+                               'for_league': [league_id]
+                               })
     assert Questions.objects.count() == 1
+
 
 @pytest.mark.django_db
 def test_EditQuestion_view(client, user_in_admin_group):
@@ -122,8 +123,8 @@ def test_DeleteQuesiton(client, user_in_admin_group):
     assert League.objects.all().count() == 1
     assert AllPossibleAnswers.objects.all().count() == 1
     client.post(url, data={"add_question": "testowe pytanie",
-                           'question_possible_answer': [answers_id ],
-                           'question_correct_answer': [answers_id ],
+                           'question_possible_answer': [answers_id],
+                           'question_correct_answer': [answers_id],
                            'for_league': [league_id]
                            })
 
@@ -134,3 +135,18 @@ def test_DeleteQuesiton(client, user_in_admin_group):
     assert response.status_code == 302
     assert Questions.objects.count() == 0
 
+
+@pytest.mark.django_db
+def test_ManageQuestionsAnswers(client, user_in_admin_group):
+    url = reverse("answers_managment")
+    response = client.get(url)
+    assert response.status_code == 302
+    assert response.url == '/no_permission/'
+
+
+@pytest.mark.django_db
+def test_AddAnswer(client, user_in_admin_group):
+    url = reverse("add_answer")
+    response = client.get(url)
+    assert response.status_code == 302
+    assert response.url == '/no_permission/'

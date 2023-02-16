@@ -53,4 +53,6 @@ urlpatterns = [
     path('specific_test_to_check/<slug:testslug>/<slug:userslug>', orga.CheckSpecificUserTest.as_view(), name="specific_test_to_check"),
     path('stats', orga.Statistics.as_view(), name="statistics"),
     path('about', user.About.as_view(), name="about"),
+    path('answers_managment', quest.ManageQuestionsAnswers.as_view(), name="answers_managment"),
+    path('add_answer', quest.AddAnswer.as_view(), name="add_answer"),
 ]

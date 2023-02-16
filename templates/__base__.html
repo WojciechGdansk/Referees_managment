@@ -69,6 +69,10 @@
                        <a href="{% url 'all_tests_to_check' %}" class="nav_link active"><i class="fa-solid fa-square-poll-vertical"></i>
                            <span class="nav_name">Przeglądaj wyniki</span></a>
                     {% endif %}
+                    {% if perms.Test_manager.add_possibleanswers %}
+                       <a href="{% url 'answers_managment' %}" class="nav_link active"><i class="fa-solid fa-spell-check"></i>
+                           <span class="nav_name">Dostępne odpowiedzi</span></a>
+                    {% endif %}
                      </div>
                     <a href="{% url 'statistics' %}" class="nav_link"> <i class='fas fa-chart-line'></i><span class="nav_name">Statystyki</span> </a>
                     <a href="{% url 'about' %}" class="nav_link"><i class="fa-solid fa-info"></i><span class="nav_name">O aplikacji</span> </a>

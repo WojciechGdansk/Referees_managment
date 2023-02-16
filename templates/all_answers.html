@@ -1,0 +1,33 @@
+{% extends "__base__.html" %}
+{% block title %}
+    Zarządzaj odpowiedziami
+{% endblock %}
+{% block content %}
+    <ul id="possible">Dostępne odpowiedzi
+        {% for item in answers %}
+            <li>{{ item.all_kind_answers }}</li>
+        {% endfor %}
+    </ul>
+    <br>
+    <button type="button" class="btn btn-primary btn-sm" id="but">Dodaj</button>
+    <script>
+        let ul = document.querySelector('#possible')
+        let but = document.querySelector('#but')
+        let div = document.createElement('div')
+        let form = document.createElement('form')
+        let first_input = document.createElement('input')
+        let second_input = document.createElement('input')
+        first_input.name = "answer"
+        first_input.placeholder = "Możliwa odpowiedź"
+        first_input.type = "text"
+        second_input.type = "submit"
+        second_input.value = "Zapisz"
+        form.setAttribute("action", "add_answer")
+        form.appendChild(first_input)
+        form.appendChild(second_input)
+        div.appendChild(form)
+        but.addEventListener("click", function () {
+        ul.appendChild(div)
+        })
+    </script>
+{% endblock %}

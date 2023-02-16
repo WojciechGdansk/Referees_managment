@@ -110,3 +110,28 @@ class DeleteQuesiton(UserPassesTestMixin, View):
         question.delete()
         messages.success(request, "Pytanie usunięte")
         return redirect(reverse('all_questions'))
+
+
+class ManageQuestionsAnswers(UserPassesTestMixin, View):
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
+
+    def handle_no_permission(self):
+        return redirect(reverse("no_permission"))
+
+    def get(self, request):
+        return render(request, "all_answers.html", context={"answers": AllPossibleAnswers.objects.all()})
+
+
+class AddAnswer(UserPassesTestMixin, View):
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
+
+    def handle_no_permission(self):
+        return redirect(reverse("no_permission"))
+
+    def get(self, request):
+        answer = request.GET.get("answer")
+        AllPossibleAnswers.objects.create(all_kind_answers=answer)
+        messages.success(request, "Odpowiedź dodana")
+        return redirect(reverse("answers_managment"))
