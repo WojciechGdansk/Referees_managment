@@ -49,45 +49,84 @@ def test_QuestionTable_view(client, user_in_admin_group):
     response = client.get(url)
     assert response.status_code == 200
 
+
 @pytest.mark.django_db
 def test_CreateQuestion_view(client, user_in_admin_group):
     url = reverse('create_question')
     response = client.get(url)
     assert response.status_code == 302
     assert response.url == '/no_permission/'
-    url = reverse('login')
-    client.post(url, {'email': 'test@test.pl', 'password': 'password'})
+    user = User.objects.last()
+    client.force_login(user)
     url = reverse("create_question")
     response = client.get(url)
     assert response.status_code == 200
     assert Questions.objects.all().count() == 0
-    AllPossibleAnswers.objects.create(all_kind_answers="Test")
-    League.objects.create(which_league="testowa liga")
+    AllPossibleAnswers.objects.create(all_kind_answers="Test2")
+    league = League.objects.create(which_league="testowa liga5")
     assert League.objects.all().count() == 1
     assert AllPossibleAnswers.objects.all().count() == 1
     client.post(url, data={"add_question": "testowe pytanie",
-                      "possible_answer": 1,
-                      "correct_answer": 1,
-                      "for_league": 1,
-                      "added_by": 1})
-    # assert Questions.objects.count() == 1
+                           'question_possible_answer': ['1'],
+                           'question_correct_answer': ['1'],
+                           'for_league': ['1']
+                           })
 
-# @pytest.mark.django_db
-# def test_EditQuestion_view(client, user_in_admin_group):
-#     url = reverse('edit_question', "some_slug")
-#     response = client.get(url)
-#     assert response.status_code == 302
-#     assert response.url == '/no_permission/'
-#     url = reverse('login')
-#     client.post(url, {'email': 'test@test.pl', 'password': 'password'})
-#     url = reverse("create_question")
-#     response = client.get(url)
-#     assert response.status_code == 200
+    assert Questions.objects.count() == 1
+
+@pytest.mark.django_db
+def test_EditQuestion_view(client, user_in_admin_group):
+    user = User.objects.last()
+    client.force_login(user)
+    url = reverse("create_question")
+    response = client.get(url)
+    assert response.status_code == 200
+    assert Questions.objects.all().count() == 0
+    AllPossibleAnswers.objects.create(all_kind_answers="Test10")
+    league = League.objects.create(which_league="testowa liga10")
+    assert League.objects.all().count() == 1
+    assert AllPossibleAnswers.objects.all().count() == 1
+    client.post(url, data={"add_question": "testowe pytanie99",
+                           'question_possible_answer': ['1'],
+                           'question_correct_answer': ['1'],
+                           'for_league': ['1']
+                           })
+
+    assert Questions.objects.count() == 1
+    question = Questions.objects.last()
+    url = reverse("edit_question", kwargs={"slug": question.slug})
+    response = client.get(url)
+    assert response.status_code == 200
+    client.post(url, data={"add_question": "testowe pytanie2",
+                           'question_possible_answer': ['1'],
+                           'question_correct_answer': ['1'],
+                           'for_league': ['1']
+                           })
+    assert Questions.objects.last().add_question == "testowe pytanie2"
 
 
-# @pytest.mark.django_db
-# def test_DeleteQuesiton(client):
-#     url = reverse('delete_question')
-#     response = client.get(url)
-#     assert response.status_code == 302
-#     assert response.url == '/no_permission/'
+@pytest.mark.django_db
+def test_DeleteQuesiton(client):
+    user = User.objects.last()
+    client.force_login(user)
+    url = reverse("create_question")
+    response = client.get(url)
+    assert response.status_code == 200
+    assert Questions.objects.all().count() == 0
+    AllPossibleAnswers.objects.create(all_kind_answers="Test456789")
+    league = League.objects.create(which_league="testowa liga12345")
+    assert League.objects.all().count() == 1
+    assert AllPossibleAnswers.objects.all().count() == 1
+    client.post(url, data={"add_question": "testowe pytanie",
+                           'question_possible_answer': ['1'],
+                           'question_correct_answer': ['1'],
+                           'for_league': ['1']
+                           })
+
+    assert Questions.objects.count() == 1
+    question = Questions.objects.last()
+    url = reverse("delete_question", kwargs={"slug": question.slug})
+    response = client.get(url)
+    assert response.status_code == 200
+    assert Questions.objects.count() == 0
+

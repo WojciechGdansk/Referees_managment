@@ -17,18 +17,20 @@
     </div>
     <table>
     <tr>
+        <th class="col-1">Nr</th>
         <th>Pytanie</th>
-        <th>Możliwe odpowiedzi</th>
-        <th>Odpowiedź</th>
-        <th>Dla klasy</th>
-        <th>Ułożył</th>
-        <th>Utworzone</th>
-        <th>Data modyfikacji</th>
-        <th>Akcja</th>
+        <th class="col-1">Możliwe odpowiedzi</th>
+        <th class="col-1">Odpowiedź</th>
+        <th class="col-1">Dla klasy</th>
+        <th class="col-1">Ułożył</th>
+        <th class="col-1">Utworzone</th>
+        <th class="col-1">Data modyfikacji</th>
+        <th class="col-1">Akcja</th>
     </tr>
         {% for item in questions %}
 
             <tr>
+            <td>{{ forloop.counter }}</td>
             <td>{{ item.add_question }}</td>
             <td>{% for answers in answers %}{% if item.id == answers.question_id %}{{ answers.question_possible_answers }} {% endif %} {% endfor %}</td>
             <td>{% for answers in correct_answers %}{% if item.id == answers.question_id %}{{ answers.question_correct_answers }} {% endif %} {% endfor %}</td>

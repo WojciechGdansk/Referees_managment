@@ -85,9 +85,8 @@ def test_SpecificTestSolved(client, user_in_admin_group):
     OrganiseTest.objects.create(test_for_league=league, test_number=test_in_alltest, date_time=date_obj)
     organise = OrganiseTest.objects.first()
     user = User.objects.first()
-    question_object = Questions.objects.create(add_question="A", question_possible_answer="B",
-                                               question_correct_answer="C",
-                                               for_league="D", added_by=user)
+    question_object = Questions.objects.create(add_question="A",
+                                               for_league=league, added_by=user)
     question_test = QuestionTest.objects.create(test=test_in_alltest, question=question_object)
 
     user_solved = UserSolving.objects.create(user=user, test_number=test_in_alltest, question=question_test,
@@ -134,10 +133,9 @@ def test_CheckSpecificUserTest(client, user_in_admin_group):
 @pytest.mark.django_db
 def test_Statistics(client, user_in_admin_group):
     user = User.objects.first()
-    question_object = Questions.objects.create(add_question="A", question_possible_answer="B",
-                                               question_correct_answer="C",
-                                               for_league="D", added_by=user)
     league = League.objects.create(which_league="testowa liga")
+    question_object = Questions.objects.create(add_question="A",
+                                               for_league=league, added_by=user)
     test_in_alltest = AllTest.objects.create(test_name="test", date="2023-05-05", for_league=league)
     url = reverse('statistics')
     response = client.get(url)

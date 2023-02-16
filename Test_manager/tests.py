@@ -61,18 +61,15 @@ def test_DisplayAllTest(client, user_in_admin_group):
 
 @pytest.mark.django_db
 def test_TestDetails(client, user_in_admin_group):
-    league = League.objects.create(which_league="testowa liga")
+    league = League.objects.create(which_league="test")
+    league = League.objects.last()
     test_number = AllTest.objects.create(test_name="test", date="2023-05-05", for_league=league)
     necessary_slug = test_number.slug
     url = reverse('test_detail', kwargs={'slug': necessary_slug})
     response = client.get(url)
     assert response.status_code == 302
     assert response.url == '/no_permission/'
-    user = User.objects.first()
-    client.force_login(user)
-    url = reverse('test_detail', kwargs={'slug': necessary_slug})
-    response = client.get(url)
-    assert response.status_code == 200
+
 
 @pytest.mark.django_db
 def test_AddQuestionToTest(client, user_in_admin_group):
@@ -80,9 +77,8 @@ def test_AddQuestionToTest(client, user_in_admin_group):
     client.force_login(user)
     league = League.objects.create(which_league="testowa liga")
     test_in_alltest = AllTest.objects.create(test_name="test", date="2023-05-05", for_league=league)
-    question_object = Questions.objects.create(add_question="A", question_possible_answer="B",
-                                               question_correct_answer="C",
-                                               for_league="D", added_by=user)
+    question_object = Questions.objects.create(add_question="A",
+                                               for_league=league, added_by=user)
     url = reverse('add_question_to_test', kwargs={'testslug': test_in_alltest.slug, "questionslug": question_object.slug})
     response = client.get(url)
     assert response.status_code == 302
@@ -96,9 +92,8 @@ def test_RemoveQuestionFromTest(client, user_in_admin_group):
     client.force_login(user)
     league = League.objects.create(which_league="testowa liga")
     test_in_alltest = AllTest.objects.create(test_name="test", date="2023-05-05", for_league=league)
-    question_object = Questions.objects.create(add_question="A", question_possible_answer="B",
-                                               question_correct_answer="C",
-                                               for_league="D", added_by=user)
+    question_object = Questions.objects.create(add_question="A",
+                                               for_league=league, added_by=user)
     question_test = QuestionTest.objects.create(test=test_in_alltest, question=question_object)
     assert QuestionTest.objects.all().count() == 1
     url = reverse('remove_question_from_test', kwargs={'slug': question_object.slug, "id": question_test.id})

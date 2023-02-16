@@ -66,7 +66,7 @@ class CreateQuestion(UserPassesTestMixin, View):
                 CorrectAnswer.objects.create(question=question,
                                              question_correct_answers=AllPossibleAnswers.objects.get(id=item))
             messages.info(request, "Pytanie dodane poprawnie")
-            return redirect("/")
+            return redirect(reverse('all_questions'))
         return render(request, "add_question.html", context={"form": form})
 
 
@@ -92,7 +92,7 @@ class EditQuestion(UserPassesTestMixin, View):
         if form.is_valid():
             form.save()
             messages.info(request, "Uaktualniono")
-            return redirect("/")
+            return redirect(reverse('all_questions'))
         return render(request, "add_question.html", context={"form": form})
 
 
