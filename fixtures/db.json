@@ -1,607 +1,5 @@
 [
   {
-    "model": "admin.logentry",
-    "pk": 1,
-    "fields": {
-      "action_time": "2023-02-15T23:48:25.851Z",
-      "user": 1,
-      "content_type": 13,
-      "object_id": "3",
-      "object_repr": "Komisja szkoleniowa",
-      "action_flag": 2,
-      "change_message": "[{\"changed\": {\"fields\": [\"Groups\"]}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 2,
-    "fields": {
-      "action_time": "2023-02-15T23:48:30.189Z",
-      "user": 1,
-      "content_type": 13,
-      "object_id": "4",
-      "object_repr": "Organizator Testow",
-      "action_flag": 2,
-      "change_message": "[{\"changed\": {\"fields\": [\"Groups\"]}}]"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 1,
-    "fields": {
-      "name": "Can add log entry",
-      "content_type": 1,
-      "codename": "add_logentry"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 2,
-    "fields": {
-      "name": "Can change log entry",
-      "content_type": 1,
-      "codename": "change_logentry"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 3,
-    "fields": {
-      "name": "Can delete log entry",
-      "content_type": 1,
-      "codename": "delete_logentry"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 4,
-    "fields": {
-      "name": "Can view log entry",
-      "content_type": 1,
-      "codename": "view_logentry"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 5,
-    "fields": {
-      "name": "Can add permission",
-      "content_type": 2,
-      "codename": "add_permission"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 6,
-    "fields": {
-      "name": "Can change permission",
-      "content_type": 2,
-      "codename": "change_permission"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 7,
-    "fields": {
-      "name": "Can delete permission",
-      "content_type": 2,
-      "codename": "delete_permission"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 8,
-    "fields": {
-      "name": "Can view permission",
-      "content_type": 2,
-      "codename": "view_permission"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 9,
-    "fields": {
-      "name": "Can add group",
-      "content_type": 3,
-      "codename": "add_group"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 10,
-    "fields": {
-      "name": "Can change group",
-      "content_type": 3,
-      "codename": "change_group"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 11,
-    "fields": {
-      "name": "Can delete group",
-      "content_type": 3,
-      "codename": "delete_group"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 12,
-    "fields": {
-      "name": "Can view group",
-      "content_type": 3,
-      "codename": "view_group"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 13,
-    "fields": {
-      "name": "Can add content type",
-      "content_type": 4,
-      "codename": "add_contenttype"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 14,
-    "fields": {
-      "name": "Can change content type",
-      "content_type": 4,
-      "codename": "change_contenttype"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 15,
-    "fields": {
-      "name": "Can delete content type",
-      "content_type": 4,
-      "codename": "delete_contenttype"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 16,
-    "fields": {
-      "name": "Can view content type",
-      "content_type": 4,
-      "codename": "view_contenttype"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 17,
-    "fields": {
-      "name": "Can add session",
-      "content_type": 5,
-      "codename": "add_session"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 18,
-    "fields": {
-      "name": "Can change session",
-      "content_type": 5,
-      "codename": "change_session"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 19,
-    "fields": {
-      "name": "Can delete session",
-      "content_type": 5,
-      "codename": "delete_session"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 20,
-    "fields": {
-      "name": "Can view session",
-      "content_type": 5,
-      "codename": "view_session"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 21,
-    "fields": {
-      "name": "Can add all possible answers",
-      "content_type": 6,
-      "codename": "add_allpossibleanswers"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 22,
-    "fields": {
-      "name": "Can change all possible answers",
-      "content_type": 6,
-      "codename": "change_allpossibleanswers"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 23,
-    "fields": {
-      "name": "Can delete all possible answers",
-      "content_type": 6,
-      "codename": "delete_allpossibleanswers"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 24,
-    "fields": {
-      "name": "Can view all possible answers",
-      "content_type": 6,
-      "codename": "view_allpossibleanswers"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 25,
-    "fields": {
-      "name": "Can add all test",
-      "content_type": 7,
-      "codename": "add_alltest"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 26,
-    "fields": {
-      "name": "Can change all test",
-      "content_type": 7,
-      "codename": "change_alltest"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 27,
-    "fields": {
-      "name": "Can delete all test",
-      "content_type": 7,
-      "codename": "delete_alltest"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 28,
-    "fields": {
-      "name": "Can view all test",
-      "content_type": 7,
-      "codename": "view_alltest"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 29,
-    "fields": {
-      "name": "Can add correct answer",
-      "content_type": 8,
-      "codename": "add_correctanswer"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 30,
-    "fields": {
-      "name": "Can change correct answer",
-      "content_type": 8,
-      "codename": "change_correctanswer"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 31,
-    "fields": {
-      "name": "Can delete correct answer",
-      "content_type": 8,
-      "codename": "delete_correctanswer"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 32,
-    "fields": {
-      "name": "Can view correct answer",
-      "content_type": 8,
-      "codename": "view_correctanswer"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 33,
-    "fields": {
-      "name": "Can add possible answers",
-      "content_type": 9,
-      "codename": "add_possibleanswers"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 34,
-    "fields": {
-      "name": "Can change possible answers",
-      "content_type": 9,
-      "codename": "change_possibleanswers"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 35,
-    "fields": {
-      "name": "Can delete possible answers",
-      "content_type": 9,
-      "codename": "delete_possibleanswers"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 36,
-    "fields": {
-      "name": "Can view possible answers",
-      "content_type": 9,
-      "codename": "view_possibleanswers"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 37,
-    "fields": {
-      "name": "Can add questions",
-      "content_type": 10,
-      "codename": "add_questions"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 38,
-    "fields": {
-      "name": "Can change questions",
-      "content_type": 10,
-      "codename": "change_questions"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 39,
-    "fields": {
-      "name": "Can delete questions",
-      "content_type": 10,
-      "codename": "delete_questions"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 40,
-    "fields": {
-      "name": "Can view questions",
-      "content_type": 10,
-      "codename": "view_questions"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 41,
-    "fields": {
-      "name": "Can add question test",
-      "content_type": 11,
-      "codename": "add_questiontest"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 42,
-    "fields": {
-      "name": "Can change question test",
-      "content_type": 11,
-      "codename": "change_questiontest"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 43,
-    "fields": {
-      "name": "Can delete question test",
-      "content_type": 11,
-      "codename": "delete_questiontest"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 44,
-    "fields": {
-      "name": "Can view question test",
-      "content_type": 11,
-      "codename": "view_questiontest"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 45,
-    "fields": {
-      "name": "Can add league",
-      "content_type": 12,
-      "codename": "add_league"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 46,
-    "fields": {
-      "name": "Can change league",
-      "content_type": 12,
-      "codename": "change_league"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 47,
-    "fields": {
-      "name": "Can delete league",
-      "content_type": 12,
-      "codename": "delete_league"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 48,
-    "fields": {
-      "name": "Can view league",
-      "content_type": 12,
-      "codename": "view_league"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 49,
-    "fields": {
-      "name": "Can add user",
-      "content_type": 13,
-      "codename": "add_user"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 50,
-    "fields": {
-      "name": "Can change user",
-      "content_type": 13,
-      "codename": "change_user"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 51,
-    "fields": {
-      "name": "Can delete user",
-      "content_type": 13,
-      "codename": "delete_user"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 52,
-    "fields": {
-      "name": "Can view user",
-      "content_type": 13,
-      "codename": "view_user"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 53,
-    "fields": {
-      "name": "Can add organise test",
-      "content_type": 14,
-      "codename": "add_organisetest"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 54,
-    "fields": {
-      "name": "Can change organise test",
-      "content_type": 14,
-      "codename": "change_organisetest"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 55,
-    "fields": {
-      "name": "Can delete organise test",
-      "content_type": 14,
-      "codename": "delete_organisetest"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 56,
-    "fields": {
-      "name": "Can view organise test",
-      "content_type": 14,
-      "codename": "view_organisetest"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 57,
-    "fields": {
-      "name": "Can add user solving",
-      "content_type": 15,
-      "codename": "add_usersolving"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 58,
-    "fields": {
-      "name": "Can change user solving",
-      "content_type": 15,
-      "codename": "change_usersolving"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 59,
-    "fields": {
-      "name": "Can delete user solving",
-      "content_type": 15,
-      "codename": "delete_usersolving"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 60,
-    "fields": {
-      "name": "Can view user solving",
-      "content_type": 15,
-      "codename": "view_usersolving"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 61,
-    "fields": {
-      "name": "Can add user test result",
-      "content_type": 16,
-      "codename": "add_usertestresult"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 62,
-    "fields": {
-      "name": "Can change user test result",
-      "content_type": 16,
-      "codename": "change_usertestresult"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 63,
-    "fields": {
-      "name": "Can delete user test result",
-      "content_type": 16,
-      "codename": "delete_usertestresult"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 64,
-    "fields": {
-      "name": "Can view user test result",
-      "content_type": 16,
-      "codename": "view_usertestresult"
-    }
-  },
-  {
     "model": "auth.group",
     "pk": 1,
     "fields": {
@@ -1324,7 +722,7 @@
     "pk": 1,
     "fields": {
       "question": 1,
-      "question_possible_answers": 17
+      "question_possible_answers": 18
     }
   },
   {
@@ -1332,7 +730,7 @@
     "pk": 2,
     "fields": {
       "question": 1,
-      "question_possible_answers": 18
+      "question_possible_answers": 19
     }
   },
   {
@@ -1340,7 +738,7 @@
     "pk": 3,
     "fields": {
       "question": 2,
-      "question_possible_answers": 17
+      "question_possible_answers": 18
     }
   },
   {
@@ -1348,7 +746,7 @@
     "pk": 4,
     "fields": {
       "question": 2,
-      "question_possible_answers": 18
+      "question_possible_answers": 19
     }
   },
   {
@@ -1356,7 +754,7 @@
     "pk": 5,
     "fields": {
       "question": 3,
-      "question_possible_answers": 17
+      "question_possible_answers": 18
     }
   },
   {
@@ -1364,7 +762,7 @@
     "pk": 6,
     "fields": {
       "question": 3,
-      "question_possible_answers": 18
+      "question_possible_answers": 19
     }
   },
   {
@@ -1372,7 +770,7 @@
     "pk": 7,
     "fields": {
       "question": 4,
-      "question_possible_answers": 17
+      "question_possible_answers": 18
     }
   },
   {
@@ -1380,7 +778,7 @@
     "pk": 8,
     "fields": {
       "question": 4,
-      "question_possible_answers": 18
+      "question_possible_answers": 19
     }
   },
   {
@@ -1388,7 +786,7 @@
     "pk": 9,
     "fields": {
       "question": 5,
-      "question_possible_answers": 17
+      "question_possible_answers": 18
     }
   },
   {
@@ -1396,7 +794,7 @@
     "pk": 10,
     "fields": {
       "question": 5,
-      "question_possible_answers": 18
+      "question_possible_answers": 19
     }
   },
   {
@@ -1404,7 +802,7 @@
     "pk": 11,
     "fields": {
       "question": 6,
-      "question_possible_answers": 17
+      "question_possible_answers": 18
     }
   },
   {
@@ -1412,7 +810,7 @@
     "pk": 12,
     "fields": {
       "question": 6,
-      "question_possible_answers": 18
+      "question_possible_answers": 19
     }
   },
   {
@@ -1420,7 +818,7 @@
     "pk": 13,
     "fields": {
       "question": 7,
-      "question_possible_answers": 17
+      "question_possible_answers": 18
     }
   },
   {
@@ -1428,7 +826,7 @@
     "pk": 14,
     "fields": {
       "question": 7,
-      "question_possible_answers": 18
+      "question_possible_answers": 19
     }
   },
   {
@@ -1436,7 +834,7 @@
     "pk": 15,
     "fields": {
       "question": 8,
-      "question_possible_answers": 17
+      "question_possible_answers": 18
     }
   },
   {
@@ -1444,7 +842,7 @@
     "pk": 16,
     "fields": {
       "question": 8,
-      "question_possible_answers": 18
+      "question_possible_answers": 19
     }
   },
   {
@@ -1577,6 +975,14 @@
   },
   {
     "model": "Test_manager.possibleanswers",
+    "pk": 32,
+    "fields": {
+      "question": 9,
+      "question_possible_answers": 17
+    }
+  },
+  {
+    "model": "Test_manager.possibleanswers",
     "pk": 33,
     "fields": {
       "question": 10,
@@ -1701,6 +1107,14 @@
     "fields": {
       "question": 10,
       "question_possible_answers": 16
+    }
+  },
+  {
+    "model": "Test_manager.possibleanswers",
+    "pk": 48,
+    "fields": {
+      "question": 10,
+      "question_possible_answers": 17
     }
   },
   {
@@ -1833,6 +1247,14 @@
   },
   {
     "model": "Test_manager.possibleanswers",
+    "pk": 64,
+    "fields": {
+      "question": 11,
+      "question_possible_answers": 17
+    }
+  },
+  {
+    "model": "Test_manager.possibleanswers",
     "pk": 65,
     "fields": {
       "question": 12,
@@ -1957,6 +1379,14 @@
     "fields": {
       "question": 12,
       "question_possible_answers": 16
+    }
+  },
+  {
+    "model": "Test_manager.possibleanswers",
+    "pk": 80,
+    "fields": {
+      "question": 12,
+      "question_possible_answers": 17
     }
   },
   {
@@ -2089,6 +1519,14 @@
   },
   {
     "model": "Test_manager.possibleanswers",
+    "pk": 96,
+    "fields": {
+      "question": 13,
+      "question_possible_answers": 17
+    }
+  },
+  {
+    "model": "Test_manager.possibleanswers",
     "pk": 97,
     "fields": {
       "question": 14,
@@ -2213,6 +1651,14 @@
     "fields": {
       "question": 14,
       "question_possible_answers": 16
+    }
+  },
+  {
+    "model": "Test_manager.possibleanswers",
+    "pk": 112,
+    "fields": {
+      "question": 14,
+      "question_possible_answers": 17
     }
   },
   {
@@ -2345,6 +1791,14 @@
   },
   {
     "model": "Test_manager.possibleanswers",
+    "pk": 128,
+    "fields": {
+      "question": 15,
+      "question_possible_answers": 17
+    }
+  },
+  {
+    "model": "Test_manager.possibleanswers",
     "pk": 129,
     "fields": {
       "question": 16,
@@ -2469,6 +1923,14 @@
     "fields": {
       "question": 16,
       "question_possible_answers": 16
+    }
+  },
+  {
+    "model": "Test_manager.possibleanswers",
+    "pk": 144,
+    "fields": {
+      "question": 16,
+      "question_possible_answers": 17
     }
   },
   {
@@ -2601,6 +2063,14 @@
   },
   {
     "model": "Test_manager.possibleanswers",
+    "pk": 160,
+    "fields": {
+      "question": 17,
+      "question_possible_answers": 17
+    }
+  },
+  {
+    "model": "Test_manager.possibleanswers",
     "pk": 161,
     "fields": {
       "question": 18,
@@ -2725,6 +2195,14 @@
     "fields": {
       "question": 18,
       "question_possible_answers": 16
+    }
+  },
+  {
+    "model": "Test_manager.possibleanswers",
+    "pk": 176,
+    "fields": {
+      "question": 18,
+      "question_possible_answers": 17
     }
   },
   {
@@ -2857,6 +2335,14 @@
   },
   {
     "model": "Test_manager.possibleanswers",
+    "pk": 192,
+    "fields": {
+      "question": 19,
+      "question_possible_answers": 17
+    }
+  },
+  {
+    "model": "Test_manager.possibleanswers",
     "pk": 193,
     "fields": {
       "question": 20,
@@ -2981,6 +2467,14 @@
     "fields": {
       "question": 20,
       "question_possible_answers": 16
+    }
+  },
+  {
+    "model": "Test_manager.possibleanswers",
+    "pk": 208,
+    "fields": {
+      "question": 20,
+      "question_possible_answers": 17
     }
   },
   {
@@ -3112,11 +2606,19 @@
     }
   },
   {
+    "model": "Test_manager.possibleanswers",
+    "pk": 224,
+    "fields": {
+      "question": 21,
+      "question_possible_answers": 17
+    }
+  },
+  {
     "model": "Test_manager.correctanswer",
     "pk": 1,
     "fields": {
       "question": 1,
-      "question_correct_answers": 17
+      "question_correct_answers": 18
     }
   },
   {
@@ -3124,7 +2626,7 @@
     "pk": 2,
     "fields": {
       "question": 2,
-      "question_correct_answers": 18
+      "question_correct_answers": 19
     }
   },
   {
@@ -3132,7 +2634,7 @@
     "pk": 3,
     "fields": {
       "question": 3,
-      "question_correct_answers": 18
+      "question_correct_answers": 19
     }
   },
   {
@@ -3140,7 +2642,7 @@
     "pk": 4,
     "fields": {
       "question": 4,
-      "question_correct_answers": 18
+      "question_correct_answers": 19
     }
   },
   {
@@ -3148,7 +2650,7 @@
     "pk": 5,
     "fields": {
       "question": 5,
-      "question_correct_answers": 17
+      "question_correct_answers": 18
     }
   },
   {
@@ -3156,7 +2658,7 @@
     "pk": 6,
     "fields": {
       "question": 6,
-      "question_correct_answers": 18
+      "question_correct_answers": 19
     }
   },
   {
@@ -3164,7 +2666,7 @@
     "pk": 7,
     "fields": {
       "question": 7,
-      "question_correct_answers": 17
+      "question_correct_answers": 18
     }
   },
   {
@@ -3172,7 +2674,7 @@
     "pk": 8,
     "fields": {
       "question": 8,
-      "question_correct_answers": 17
+      "question_correct_answers": 18
     }
   },
   {
@@ -3204,7 +2706,7 @@
     "pk": 12,
     "fields": {
       "question": 10,
-      "question_correct_answers": 11
+      "question_correct_answers": 12
     }
   },
   {
@@ -3212,7 +2714,7 @@
     "pk": 13,
     "fields": {
       "question": 10,
-      "question_correct_answers": 12
+      "question_correct_answers": 13
     }
   },
   {
@@ -3236,7 +2738,7 @@
     "pk": 16,
     "fields": {
       "question": 11,
-      "question_correct_answers": 14
+      "question_correct_answers": 15
     }
   },
   {
@@ -3340,7 +2842,7 @@
     "pk": 29,
     "fields": {
       "question": 19,
-      "question_correct_answers": 14
+      "question_correct_answers": 15
     }
   },
   {
@@ -3366,9 +2868,9 @@
       "password": "pbkdf2_sha256$390000$u2TsqpfT27jfGzXCfuiA9i$sjfgw4uvxKUVICOqwG9mxXpCLhVRlqLd5/4nxgd97Jo=",
       "last_login": "2023-02-15T23:48:07.693Z",
       "is_superuser": true,
-      "username": "admin",
-      "first_name": "",
-      "last_name": "",
+      "username": "admin@admin.pl",
+      "first_name": "admin",
+      "last_name": "admin",
       "email": "admin@admin.pl",
       "is_staff": true,
       "is_active": true,
