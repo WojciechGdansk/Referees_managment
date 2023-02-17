@@ -42,13 +42,13 @@
     document.getElementById('id_question_possible_answer').appendChild(but2)
     document.getElementById('id_question_possible_answer').appendChild(but3)
     but.addEventListener('click', function () {
-        for (let i=0;i<but.parentElement.childElementCount-5;i++) {
+        for (let i=0;i<17;i++) {
             but.parentElement.children[i].children[0].children[0].setAttribute('checked', 'true')
         }
     })
     but2.addEventListener('click', function () {
-        but2.previousElementSibling.previousElementSibling.previousElementSibling.children[0].children[0].setAttribute("checked", "true")
-        but2.previousElementSibling.previousElementSibling.children[0].children[0].setAttribute("checked", "true")
+        but.parentElement.children[17].children[0].children[0].setAttribute('checked', 'true')
+        but.parentElement.children[18].children[0].children[0].setAttribute('checked', 'true')
     })
     but3.addEventListener('click', function () {
         for (let i=0;i<but.parentElement.childElementCount-3;i++) {
