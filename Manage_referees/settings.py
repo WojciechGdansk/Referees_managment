@@ -9,22 +9,29 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
+
+import dj_database_url
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+environ.Env.read_env(os.path.join(BASE_DIR, 'envs', '.env'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(smej_+vy_x(wb(+_&xay68=dl+e&j05)m6(uu9#t4s_t(cyx^'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get('DEBUG', default=0))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split()
+
+INTERNAL_IPS = ALLOWED_HOSTS
 
 # Application definition
 
@@ -75,12 +82,18 @@ WSGI_APPLICATION = 'Manage_referees.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-try:
-    from Manage_referees.local_settings import DATABASES
-except ModuleNotFoundError:
-    print("Brak konfiguracji bazy danych w pliku local_settings.py!")
-    print("Uzupełnij dane i spróbuj ponownie!")
-    exit(0)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+DATABASE_CONNECTION_STRING = os.environ.get('DB_CONNECTION_STRING', None)
+
+if DATABASE_CONNECTION_STRING:
+    db_config = dj_database_url.config(default=DATABASE_CONNECTION_STRING, conn_max_age=500, ssl_require=False)
+    DATABASES['default'].update(db_config)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
