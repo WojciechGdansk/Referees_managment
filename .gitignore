@@ -172,6 +172,5 @@ cython_debug/
 #.idea/
 
 
-local_settings.py
 
 # End of https://www.toptal.com/developers/gitignore/api/django
