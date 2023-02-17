@@ -1,4 +1,8 @@
-WebApp to manage referees tests
+WebApp to manage and organise football referees tests
+
+Demo on heroku https://manage-referees.herokuapp.com/
+
+WebApp allows to add, view, change, delete questions and organise theory exams for football referees.
 
 1. Install packages from requirements.txt -> pip install -r requirements.txt
 2. Write python manage.py loaddata ./fixtures/db.json in terminal to populate database with necessary details(such as
