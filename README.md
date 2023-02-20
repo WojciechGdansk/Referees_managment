@@ -28,12 +28,17 @@ There are four users created with different permissions:
 Every new user is automatically added to group Sędziowie.
 
 Test with 30 sample questions is already added, fell free to check your football knowledge.
+
 Legend:
+| | | |  |
+| -------- | -------- | -------- | -------- |
 | 	G- grać dalej(play-on)	                    | 	J- jeszcze raz (play again)	        | 	R- rzut rożny (corner kick)	     |  	TAK/NIE (Yes/No)	     | 
 | 	B- rzut wolny bezpośredni (direct freekick)	| 	S- rzut sędziowski (dropped ball)	| 	Z- zakończenie (terminate game)	 | + - napomnienie (caution)     |
 | 	P- rzut wolny pośredni (indirect freekick)	| 	Br- bramka (goal)	                | 	Rb- rzut od bramki (goal kick)	 | ++ - wykluczenie (sent off)   |
 | 	K- rzut karny (penalty kick)	            | 	W- wrzut (throw in)             	| 	A, B, C, D, E – wpisz wszystkie poprawne warianty (answers)      | 
-| 	Value1	| 	Value2	| 	Value3	 | 
+
+
+
 
 ## License
 This project is Beerware licensed
