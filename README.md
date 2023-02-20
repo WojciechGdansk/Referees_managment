@@ -28,6 +28,7 @@ There are four users created with different permissions:
 Every new user is automatically added to group Sędziowie.
 
 Test with 30 sample questions is already added, fell free to check your football knowledge.
+There is 30 minutes to finish test.
 
 Legend:
 | | | |  |
