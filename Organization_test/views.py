@@ -1,3 +1,4 @@
+import random
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -6,7 +7,7 @@ from django.views import View
 
 from Organization_test.models import OrganiseTest, UserSolving, UserTestResult
 from Test_manager.models import QuestionTest, AllTest, PossibleAnswers, Questions, CorrectAnswer
-from User_manager.models import User
+from User_manager.models import User, League
 from Organization_test.forms import OrganizeTestForm
 
 
@@ -41,7 +42,9 @@ class TestForUserList(LoginRequiredMixin, View):
         if request.user.is_superuser:
             return render(request, 'solve_test.html', context={"tests": OrganiseTest.objects.all()})
         user_league = request.user.league
-        test_for_this_league = OrganiseTest.objects.filter(test_for_league=user_league.id)
+        test_for_everyone_despite_league = League.objects.get(which_league="Wszystkie")
+        tests_for_user = [user_league.id, test_for_everyone_despite_league.id]
+        test_for_this_league = OrganiseTest.objects.filter(test_for_league__in=tests_for_user)
         tests_done_for_this_league = [item.test_number_id for item in test_for_this_league]
         # returns object which has been created when user done test
         check_if_user_solved_this_test = UserSolving.objects.filter(test_number_id__in=tests_done_for_this_league,
@@ -58,7 +61,7 @@ class TestForUserList(LoginRequiredMixin, View):
 
         #tests not done by user
         test_not_done_by_user = list(all_test_numbers_for_this_league.difference(test_done_by_user_for_this_league))
-        test_for_this_league = OrganiseTest.objects.filter(test_for_league=user_league.id,
+        test_for_this_league = OrganiseTest.objects.filter(test_for_league__in=tests_for_user,
                                                            test_number__in=test_not_done_by_user)
 
         #users with perms can see all tests prepared to solve
@@ -82,7 +85,7 @@ class SpecificTestToSolve(LoginRequiredMixin, View):
         # check if user already made this test
         if check_if_user_made_this_test:
             return redirect(reverse('result_of_test', kwargs={'slug': test_from_list.slug}))
-        selected_test = QuestionTest.objects.filter(test_id=test_from_list.test_number.id)
+        selected_test = sorted(QuestionTest.objects.filter(test_id=test_from_list.test_number.id), key=lambda x: random.random())
         possible_answers = PossibleAnswers.objects.all()
         return render(request, "specific_test_solve.html", context={"test": selected_test,
                                                                     "possible_answer": possible_answers,
