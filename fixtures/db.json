@@ -466,6 +466,257 @@
     }
   },
   {
+    "model": "Test_manager.alltest",
+    "pk": 1,
+    "fields": {
+      "test_name": "Testowy test",
+      "date": "2024-01-01",
+      "for_league": 6,
+      "created_by": 1,
+      "slug": "testowy-test-1676896069"
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 1,
+    "fields": {
+      "test": 1,
+      "question": 1
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 2,
+    "fields": {
+      "test": 1,
+      "question": 2
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 3,
+    "fields": {
+      "test": 1,
+      "question": 3
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 4,
+    "fields": {
+      "test": 1,
+      "question": 4
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 5,
+    "fields": {
+      "test": 1,
+      "question": 5
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 6,
+    "fields": {
+      "test": 1,
+      "question": 6
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 7,
+    "fields": {
+      "test": 1,
+      "question": 7
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 8,
+    "fields": {
+      "test": 1,
+      "question": 8
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 9,
+    "fields": {
+      "test": 1,
+      "question": 9
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 10,
+    "fields": {
+      "test": 1,
+      "question": 10
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 11,
+    "fields": {
+      "test": 1,
+      "question": 11
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 12,
+    "fields": {
+      "test": 1,
+      "question": 12
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 13,
+    "fields": {
+      "test": 1,
+      "question": 13
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 14,
+    "fields": {
+      "test": 1,
+      "question": 14
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 15,
+    "fields": {
+      "test": 1,
+      "question": 15
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 16,
+    "fields": {
+      "test": 1,
+      "question": 16
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 17,
+    "fields": {
+      "test": 1,
+      "question": 17
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 18,
+    "fields": {
+      "test": 1,
+      "question": 18
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 19,
+    "fields": {
+      "test": 1,
+      "question": 19
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 20,
+    "fields": {
+      "test": 1,
+      "question": 20
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 21,
+    "fields": {
+      "test": 1,
+      "question": 21
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 22,
+    "fields": {
+      "test": 1,
+      "question": 22
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 23,
+    "fields": {
+      "test": 1,
+      "question": 23
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 24,
+    "fields": {
+      "test": 1,
+      "question": 24
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 25,
+    "fields": {
+      "test": 1,
+      "question": 25
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 26,
+    "fields": {
+      "test": 1,
+      "question": 26
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 27,
+    "fields": {
+      "test": 1,
+      "question": 27
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 28,
+    "fields": {
+      "test": 1,
+      "question": 28
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 29,
+    "fields": {
+      "test": 1,
+      "question": 29
+    }
+  },
+  {
+    "model": "Test_manager.questiontest",
+    "pk": 30,
+    "fields": {
+      "test": 1,
+      "question": 30
+    }
+  },
+  {
     "model": "Test_manager.questions",
     "pk": 1,
     "fields": {
@@ -715,6 +966,114 @@
       "added_date": "2023-02-16T00:44:16.249Z",
       "modify_date": "2023-02-16T00:44:16.249Z",
       "slug": "wewnatrz-wasnego-pola-karnego-bramkarz-zagra-pi-1676508256"
+    }
+  },
+  {
+    "model": "Test_manager.questions",
+    "pk": 22,
+    "fields": {
+      "add_question": "Piłka opuściła pole gry poprzez linie boczną i zatrzymała się w strefie technicznej drużyny,\r\nktórej zawodnik ostatni dotknął piłki. Trener tej drużyny wziął piłkę do rąk i rzucił ją\r\nwzdłuż linii bocznej, nad głową nadbiegającego zawodnika drużyny przeciwnej. Podaj\r\ndecyzję sędziego.",
+      "for_league": 6,
+      "added_by": 1,
+      "added_date": "2023-02-20T12:24:37.382Z",
+      "modify_date": "2023-02-20T12:24:37.382Z",
+      "slug": "pika-opuscia-pole-gry-poprzez-linie-boczna-i-zat-1676895877"
+    }
+  },
+  {
+    "model": "Test_manager.questions",
+    "pk": 23,
+    "fields": {
+      "add_question": "Podczas wykonywania rzutu karnego bramkarz opuścił linię bramkową przed zagraniem\r\npiłki, a napastnik wykonał niedozwolone zwody taktyczne po dobiegnięciu do piłki i\r\nprecyzyjnym strzałem zdobył bramkę. Podaj decyzję sędziego.",
+      "for_league": 6,
+      "added_by": 1,
+      "added_date": "2023-02-20T12:25:38.342Z",
+      "modify_date": "2023-02-20T12:25:38.342Z",
+      "slug": "podczas-wykonywania-rzutu-karnego-bramkarz-opusci-1676895938"
+    }
+  },
+  {
+    "model": "Test_manager.questions",
+    "pk": 24,
+    "fields": {
+      "add_question": "Po gwizdku sędziego, w trakcie wykonywania rzutu karnego, w granice pola karnego\r\nprzedwcześnie, w sposób wyraźny wkracza zawodnik drużyny atakującej, a z wykonanego\r\nrzutu bramka nie została zdobyta. Podaj decyzję sędziego.",
+      "for_league": 6,
+      "added_by": 1,
+      "added_date": "2023-02-20T12:25:59.594Z",
+      "modify_date": "2023-02-20T12:25:59.594Z",
+      "slug": "po-gwizdku-sedziego-w-trakcie-wykonywania-rzutu-k-1676895959"
+    }
+  },
+  {
+    "model": "Test_manager.questions",
+    "pk": 25,
+    "fields": {
+      "add_question": "Zawodnik będący na pozycji spalonej stanął nieruchomo sygnalizując, iż nie bierze udziału\r\nw akcji. Do piłki zmierza jego współpartner oraz obrońca, który musiał jednak ominąć\r\nzawodnika na pozycji spalonej, aby móc walczyć o piłkę z przeciwnikiem. Podaj decyzję\r\nsędziego.",
+      "for_league": 6,
+      "added_by": 1,
+      "added_date": "2023-02-20T12:26:12.664Z",
+      "modify_date": "2023-02-20T12:26:12.664Z",
+      "slug": "zawodnik-bedacy-na-pozycji-spalonej-stana-nieruch-1676895972"
+    }
+  },
+  {
+    "model": "Test_manager.questions",
+    "pk": 26,
+    "fields": {
+      "add_question": "Napastnik będący w polu karnym przeciwników znajduje się w sytuacji sam na sam z\r\nbramkarzem. Będący za nim obrońca wykonuje wślizg, usiłując wybić piłkę, jednak jej nie\r\nsięga, natomiast nieostrożnie podstawia nogę napastnikowi. Podaj decyzję sędziego.",
+      "for_league": 6,
+      "added_by": 1,
+      "added_date": "2023-02-20T12:26:33.567Z",
+      "modify_date": "2023-02-20T12:26:33.567Z",
+      "slug": "napastnik-bedacy-w-polu-karnym-przeciwnikow-znajdu-1676895993"
+    }
+  },
+  {
+    "model": "Test_manager.questions",
+    "pk": 27,
+    "fields": {
+      "add_question": "Napastnik przypadkowo zagrał piłkę ręką naturalnie ułożoną wzdłuż ciała, a następnie\r\nbezpośrednim strzałem zdobył bramkę. Podaj decyzję sędziego.",
+      "for_league": 6,
+      "added_by": 1,
+      "added_date": "2023-02-20T12:26:49.299Z",
+      "modify_date": "2023-02-20T12:26:49.299Z",
+      "slug": "napastnik-przypadkowo-zagra-pike-reka-naturalnie-1676896009"
+    }
+  },
+  {
+    "model": "Test_manager.questions",
+    "pk": 28,
+    "fields": {
+      "add_question": "Zawodnik powrócił na pole gry bez zgody sędziego, a następnie wykonał wślizg nogami w\r\nnogi przeciwnika z użyciem nieproporcjonalnej siły. Podaj decyzję sędziego.",
+      "for_league": 6,
+      "added_by": 1,
+      "added_date": "2023-02-20T12:27:04.486Z",
+      "modify_date": "2023-02-20T12:27:04.486Z",
+      "slug": "zawodnik-powroci-na-pole-gry-bez-zgody-sedziego-1676896024"
+    }
+  },
+  {
+    "model": "Test_manager.questions",
+    "pk": 29,
+    "fields": {
+      "add_question": "Zawodnik przebywający na pozycji spalonej otrzymał piłkę po wrzucie wykonanym przez\r\nwspółpartnera, a następnie silnym strzałem zdobył bramkę. Podaj decyzję sędziego.",
+      "for_league": 6,
+      "added_by": 1,
+      "added_date": "2023-02-20T12:27:19.752Z",
+      "modify_date": "2023-02-20T12:27:19.752Z",
+      "slug": "zawodnik-przebywajacy-na-pozycji-spalonej-otrzyma-1676896039"
+    }
+  },
+  {
+    "model": "Test_manager.questions",
+    "pk": 30,
+    "fields": {
+      "add_question": "Podczas wykonywania rzutu karnego, po sygnale na jego wykonanie, bramkarz opuścił\r\nlinię bramkową przed kopnięciem piłki przez wykonawcę, przez co bramka nie została\r\nzdobyta. Bramkarz we wcześniejszym etapie meczu nie otrzymał reprymendy od\r\nsędziego. Podaj decyzję sędziego.",
+      "for_league": 6,
+      "added_by": 1,
+      "added_date": "2023-02-20T12:27:30.422Z",
+      "modify_date": "2023-02-20T12:27:30.422Z",
+      "slug": "podczas-wykonywania-rzutu-karnego-po-sygnale-na-j-1676896050"
     }
   },
   {
@@ -2999,6 +3358,16 @@
     "fields": {
       "which_league": "Wszystkie",
       "slug": "wszystkie-1675858870"
+    }
+  },
+    {
+    "model": "Organization_test.organisetest",
+    "pk": 1,
+    "fields": {
+      "test_for_league": 6,
+      "test_number": 1,
+      "date_time": "2024-01-01T04:30:00Z",
+      "slug": "2024-01-01-0530000100wszystkie-1676896258"
     }
   }
 ]

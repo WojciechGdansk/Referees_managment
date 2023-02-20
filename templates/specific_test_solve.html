@@ -7,6 +7,32 @@
         Pisze {{ user }}
 
     </div>
+    Legenda:
+    <table>
+    <tr>
+        <td>G- grać dalej</td>
+        <td>J- jeszcze raz</td>
+        <td>R- rzut rożny</td>
+        <td>TAK/NIE</td>
+    </tr>
+    <tr>
+        <td>B- rzut wolny bezpośredni</td>
+        <td>S- rzut sędziowski</td>
+        <td>Z- zakończenie</td>
+        <td>+ - napomnienie</td>
+    </tr>
+    <tr>
+        <td>P- rzut wolny pośredni</td>
+        <td>Br- bramka</td>
+        <td>Rb- rzut od bramki</td>
+        <td>++ - wykluczenie</td>
+    </tr>
+    <tr>
+        <td>K- rzut karny</td>
+        <td>W- wrzut</td>
+        <td colspan="2">A, B, C, D, E – wpisz wszystkie poprawne warianty</td>
+    </tr>
+    </table>
     <br>
     <form method="post" id="myForm">
     {% csrf_token %}
