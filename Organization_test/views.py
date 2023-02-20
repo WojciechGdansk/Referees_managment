@@ -1,3 +1,4 @@
+import datetime
 import random
 
 from django.contrib import messages
@@ -87,36 +88,43 @@ class SpecificTestToSolve(LoginRequiredMixin, View):
             return redirect(reverse('result_of_test', kwargs={'slug': test_from_list.slug}))
         selected_test = sorted(QuestionTest.objects.filter(test_id=test_from_list.test_number.id), key=lambda x: random.random())
         possible_answers = PossibleAnswers.objects.all()
+        session_active = request.session.get('time_to', False)
+        if not session_active:
+            time_to_go = datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
+            time_to_go = datetime.datetime.strftime(time_to_go, "%Y-%m-%dT%H:%M:%SZ")
+            request.session['time_to'] = time_to_go
         return render(request, "specific_test_solve.html", context={"test": selected_test,
                                                                     "possible_answer": possible_answers,
                                                                     "user": request.user})
 
     def post(self, request, slug):
+        del request.session["time_to"]
         user = request.user
         test_number = OrganiseTest.objects.get(slug=slug)
         test_from_database = AllTest.objects.get(id=test_number.test_number.id)
         questions = QuestionTest.objects.filter(test_id=test_number.test_number.id)
-        for item in questions:
-            user_response = request.POST.getlist(item.question.slug) #user answer
-            correct_answer = [] #correct answer for question from test
-            for answer in CorrectAnswer.objects.all():
-                if answer.question.slug == item.question.slug:
-                    correct_answer.append(answer.question_correct_answers.all_kind_answers)
-            if user_response == correct_answer:
-                result = 1
-            elif user_response + ["+"] == correct_answer:
-                result = 0.5
-            elif user_response == correct_answer + ["+"]:
-                result = 0.5
-            else:
-                result = 0
-            UserSolving.objects.create(
-                user=user,
-                test_number=test_from_database,
-                question=item,
-                user_response=user_response,
-                result=result)
-        return redirect(reverse('result_of_test', kwargs={'slug': test_number.slug}))
+        # for item in questions:
+        #     user_response = request.POST.getlist(item.question.slug) #user answer
+        #     correct_answer = [] #correct answer for question from test
+        #     for answer in CorrectAnswer.objects.all():
+        #         if answer.question.slug == item.question.slug:
+        #             correct_answer.append(answer.question_correct_answers.all_kind_answers)
+        #     if user_response == correct_answer:
+        #         result = 1
+        #     elif user_response + ["+"] == correct_answer:
+        #         result = 0.5
+        #     elif user_response == correct_answer + ["+"]:
+        #         result = 0.5
+        #     else:
+        #         result = 0
+        #     UserSolving.objects.create(
+        #         user=user,
+        #         test_number=test_from_database,
+        #         question=item,
+        #         user_response=user_response,
+        #         result=result)
+        # return redirect(reverse('result_of_test', kwargs={'slug': test_number.slug}))
+        return redirect(reverse("test_solving"))
 
 
 class SpecificTestSolved(LoginRequiredMixin, View):
