@@ -1086,22 +1086,6 @@
   },
   {
     "model": "Test_manager.possibleanswers",
-    "pk": 1,
-    "fields": {
-      "question": 1,
-      "question_possible_answers": 18
-    }
-  },
-  {
-    "model": "Test_manager.possibleanswers",
-    "pk": 2,
-    "fields": {
-      "question": 1,
-      "question_possible_answers": 19
-    }
-  },
-  {
-    "model": "Test_manager.possibleanswers",
     "pk": 3,
     "fields": {
       "question": 2,
