@@ -176,7 +176,7 @@ class CheckSpecificUserTest(UserPassesTestMixin, View):
         test_from_list = OrganiseTest.objects.get(slug=testslug)
         user_who_solved_test = User.objects.get(slug=userslug)
         which_test = UserSolving.objects.filter(test_number=test_from_list.test_number.id).filter(user=user_who_solved_test)
-        result = UserTestResult.objects.get(organise_test_slug=test_from_list)
+        result = UserTestResult.objects.get(organise_test_slug=test_from_list, user_id=user_who_solved_test)
         correct_answers = CorrectAnswer.objects.all()
         return render(request, "user_test_check.html.html", context={"test": test_from_list,
                                                                      "solution": which_test,
