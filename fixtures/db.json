@@ -276,14 +276,6 @@
     }
   },
   {
-    "model": "sessions.session",
-    "pk": "m5o1azw2kqb7jvt3xaroxa3oqqwfb4h7",
-    "fields": {
-      "session_data": ".eJxVjDsOwyAQBe9CHSEtYD4p0-cMiM9ucBKBZOzKyt1jJBdJOzPv7cyHbS1-67j4ObMrA3b5ZTGkF9Yh8jPUR-Op1XWZIx8JP23n95bxfTvbv4MSehlrAqnAZWkgIQoLmshOFEmRPWhEIUhKYSdEl7TUxsrDiKgyKBLOsM8X7CI3xw:1pSRVP:CHw5T-eoSb6piEFki18byvvb2p2_4Mfq4A59XLePgC8",
-      "expire_date": "2023-03-01T23:48:07.697Z"
-    }
-  },
-  {
     "model": "Question_manager.allpossibleanswers",
     "pk": 1,
     "fields": {
