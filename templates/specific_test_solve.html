@@ -66,6 +66,19 @@ function confirmSubmit() {
   }
   return result;
 }
+    let time = 1800
+    let timer = document.querySelector('#timer')
+    let interval = setInterval(function () {
+        time--;
+        let minutes = Math.floor(time / 60)
+        let seconds = time % 60;
+        timer.innerHTML = minutes + ":" + (seconds < 10 ? "0" : "") + seconds
+
+        if (time <= 0) {
+            clearInterval(interval);
+            document.getElementById("myForm").submit();
+        }
+    }, 1000)
 </script>
 
 {% endblock %}
