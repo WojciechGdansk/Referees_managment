@@ -30,7 +30,7 @@
         {% for item in questions %}
 
             <tr>
-            <td>{{ forloop.counter }}</td>
+            <td id="id{{ forloop.counter }}">{{ forloop.counter }}</td>
             <td>{{ item.add_question }}</td>
             <td>{% for answers in answers %}{% if item.id == answers.question_id %}{{ answers.question_possible_answers }} {% endif %} {% endfor %}</td>
             <td>{% for answers in correct_answers %}{% if item.id == answers.question_id %}{{ answers.question_correct_answers }} {% endif %} {% endfor %}</td>
@@ -39,11 +39,11 @@
             <td>{{ item.added_date }}</td>
             <td>{{ item.modify_date }}</td>
             <td><small><div>
-                <a href="#" class="add-to-test-class" data-question-id="{{ item.slug }}">Dodaj do testu </a>
+                <a href="#id{{ forloop.counter }}" class="add-to-test-class" data-question-id="{{ item.slug }}">Dodaj do testu </a>
                 <ul class="test-new-container"></ul>
                 </div>
             <a href="{% url 'edit_question' item.slug %}">Edytuj</a>
-            <a href="#" class="dropdownclasstest">Usuń</a>
+            <a href="#id{{ forloop.counter }}" class="dropdownclasstest">Usuń</a>
                   <div class="sub-menuintest">
                             <p>Czy na pewno usunąć?</p>
                             <a href="{% url 'delete_question' item.slug %}">Usuń</a>
