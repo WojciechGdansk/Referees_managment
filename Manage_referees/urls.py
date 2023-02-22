@@ -55,4 +55,6 @@ urlpatterns = [
     path('about', user.About.as_view(), name="about"),
     path('answers_managment', quest.ManageQuestionsAnswers.as_view(), name="answers_managment"),
     path('add_answer', quest.AddAnswer.as_view(), name="add_answer"),
+    path('test_details2/<slug:slug>', test.TestDetailsOther.as_view(), name="test_detail_other"),
+    path('test_details3/<slug:slug>', test.TestDetailsOtherJson.as_view(), name="test_detail_other_json"),
 ]

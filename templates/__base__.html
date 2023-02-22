@@ -11,6 +11,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/d00559e887.js" crossorigin="anonymous"></script>
     <script src="{% static 'app.js' %}"></script>
+    {% block script %}
+    {% endblock %}
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body id="body-pd" class="body-pd">

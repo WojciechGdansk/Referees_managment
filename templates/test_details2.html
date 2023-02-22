@@ -1,7 +1,12 @@
 {% extends '__base__.html' %}
+{% load static %}
+    {% block script %}
+            <script src="{% static 'test.js' %}" defer></script>
+    {% endblock %}
 {% block title %}
     Test {{ test.test_name }}
 {% endblock %}
+
 {% block content %}
     <table>
     <tr>
@@ -12,8 +17,7 @@
         <th>Pytań</th>
         <th>Akcja</th>
     </tr>
-
-            <tr>
+    <tr>
             <td>{{ test.test_name }}</td>
             <td>{{ test.date }}</td>
             <td>{{ test.for_league }}</td>
@@ -26,10 +30,11 @@
                         <a href="{% url 'delete_test' test.slug %}">Usuń</a>
                         <a href="{% url 'test_detail' test.slug%}">Zostaw</a>
                     </div></small></td>
-            </tr>
+    </tr>
+
     </table>
     <br>
-    <table>
+    <table id="questions-table">
     <tr>
         <th>Numer</th>
         <th class="col-8">Pytanie</th>
@@ -37,30 +42,8 @@
         <th class="col-1">Odpowiedź komisji</th>
         <th>Akcja</th>
     </tr>
-        {% for item in que %}
-        <tr class="col-8">
-            <td>{{ forloop.counter }}</td>
-            <td>{{ item.question.add_question }}</td>
-            <td>{% for possbile in possible_answers%}{% if possbile.question.id == item.question.id %}
-                {{ possbile.question_possible_answers.all_kind_answers }}{% endif %}{% endfor %}</td>
-            <td class="col-1" style="text-align: center">
-                {% for answer in correct_answers%}{% if answer.question.id == item.question.id %}
-                {{ answer.question_correct_answers.all_kind_answers }}{% endif %}{% endfor %}</td>
-            <td><a href="{% url 'remove_question_from_test' item.question.slug item.id %}">Usuń</a> </td>
-        </tr>
-        {% endfor %}
+
     </table>
     <button type="button" id="add_quesiton" class="btn btn-primary btn-sm" style="margin: 5px 5px 5px 5px" onclick="AddDiv()">Dodaj pytanie</button>
-        <!--script to confirm delete -->
-       <script type="text/javascript">
-   $(document).ready(function(){
-     //jquery for toggle sub menus
-     $('.dropdownclasstest').click(function(){
-       $(this).next('.sub-menuintest').slideToggle();
-     });
-   });
-
-
-   </script>
 {% endblock %}
 
