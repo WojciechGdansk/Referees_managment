@@ -1,10 +1,10 @@
 WebApp to manage and organise football referees tests
 
-Demo on heroku https://manage-referees.herokuapp.com/
 
 WebApp allows to add, view, change, delete questions and organise theoritical exams for football referees. Organizer can browse referees tests results, change league referee belong to, reset password and more.
 
 Referees can solve test created by organizer and see results of tests written in past.
+
 
 ## Demo
 
