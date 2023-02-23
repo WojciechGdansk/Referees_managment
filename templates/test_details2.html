@@ -42,8 +42,27 @@
         <th class="col-1">Odpowiedź komisji</th>
         <th>Akcja</th>
     </tr>
-
+    {% for item in que %}
+        <tr class="rowclass">
+            <td>{{ forloop.counter }}</td>
+            <td>{{ item.question.add_question }}</td>
+            <td>{% for possbile in possible_answers%}{% if possbile.question.id == item.question.id %}
+                {{ possbile.question_possible_answers.all_kind_answers }}{% endif %}{% endfor %}</td>
+            <td class="col-1" style="text-align: center">
+                {% for answer in correct_answers%}{% if answer.question.id == item.question.id %}
+                {{ answer.question_correct_answers.all_kind_answers }}{% endif %}{% endfor %}</td>
+            <td><a href="{% url 'remove_question_from_test' item.question.slug item.id %}">Usuń</a> </td>
+        </tr>
+    {% endfor %}
+        <tr class="hidden-row" style="display: none">
+            <td></td>
+            <td></td>
+            <td style="word-wrap: break-word"></td>
+            <td></td>
+            <td></td>
+        </tr>
     </table>
     <button type="button" id="add_quesiton" class="btn btn-primary btn-sm" style="margin: 5px 5px 5px 5px" onclick="AddDiv()">Dodaj pytanie</button>
+    <button type="button" id="add_quesiton2" class="btn btn-primary btn-sm" style="margin: 5px 5px 5px 5px" onclick="buildTable()">Odswiez</button>
 {% endblock %}
 

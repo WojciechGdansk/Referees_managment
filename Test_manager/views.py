@@ -195,7 +195,36 @@ class TestDetailsOtherJson(UserPassesTestMixin, View):
                 "question": item.question.add_question,
                 "possible_answers": [possible.question_possible_answers.all_kind_answers for possible in posible_answers if possible.question_id == item.question.id],
                 "correct_answer": [possible.question_correct_answers.all_kind_answers for possible in correct_answers if possible.question_id == item.question.id],
-                "slug": item.question.slug
+                "slug": item.question.slug,
+                "url": reverse("remove_question_from_test", kwargs={"slug": item.question.slug, "id": item.id})
             }
             data_questions_in_test.append(dic)
         return JsonResponse({"test": data_questions_in_test})
+
+class QuestionsNotInTestJson(UserPassesTestMixin, View):
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=["admin", "Komisja szkoleniowa", "Organizator"]).exists()
+
+    def handle_no_permission(self):
+        return redirect(reverse("no_permission"))
+
+    def get(self, request, slug):
+        test = AllTest.objects.get(slug=slug)
+        test_for_every_league = League.objects.get(which_league="Wszystkie")
+        filters = [test.for_league, test_for_every_league.id]
+        questions = Questions.objects.filter(for_league__in=filters)
+        question_for_tests = QuestionTest.objects.filter(test_id=test.id)
+        posible_answers = PossibleAnswers.objects.all()
+        correct_answers = CorrectAnswer.objects.all()
+        data_questions_in_test = []
+        for item in question_for_tests:
+            dic = {
+                "id": item.id,
+                "question": item.question.add_question,
+                "possible_answers": [possible.question_possible_answers.all_kind_answers for possible in posible_answers if possible.question_id == item.question.id],
+                "correct_answer": [possible.question_correct_answers.all_kind_answers for possible in correct_answers if possible.question_id == item.question.id],
+                "slug": item.question.slug,
+                "url": reverse("remove_question_from_test", kwargs={"slug": item.question.slug, "id": item.id})
+            }
+            data_questions_in_test.append(dic)
+        return JsonResponse({"data": "data"})

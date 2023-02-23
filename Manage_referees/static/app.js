@@ -37,11 +37,3 @@ linkColor.forEach(l=> l.addEventListener('click', colorLink))
  // Your code to run since DOM is loaded and ready
 });
 
-function AddDiv() {
-   let div = document.createElement("div")
-   div.style.height = '500px'
-   div.style.overflow = "scroll"
-    let button = document.querySelector('#add_quesiton')
-    button.parentElement.insertBefore(div, button)
-    button.remove()
-}
