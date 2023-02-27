@@ -19,6 +19,9 @@
     {{ form.as_p }}
     <input type="submit" value="Zaloguj">
     </form>
+    <br>
+        Nie masz konta?
+    <a href="{% url 'sign_up' %}">Załóż je</a>
     </div>
     {% endif %}
 {% endblock %}
