@@ -22,7 +22,7 @@
             <td>{{ test.date }}</td>
             <td>{{ test.for_league }}</td>
             <td>{{ test.created_by.username }}</td>
-            <td>{{ test.questions.count }}</td>
+            <td id="question-counter">{{ test.questions.count }}</td>
             <td><small><a href="{% url 'edit_test' test.slug%}">Edytuj</a>
                     <a href="#" class="dropdownclasstest">Usuń</a>
                     <div class="sub-menuintest">
@@ -62,7 +62,6 @@
             <td></td>
         </tr>
     </table>
-    <button type="button" id="add_quesiton" class="btn btn-primary btn-sm" style="margin: 5px 5px 5px 5px" onclick="AddDiv()">Dodaj pytanie</button>
-    <button type="button" id="add_quesiton2" class="btn btn-primary btn-sm" style="margin: 5px 5px 5px 5px" onclick="buildTable()">Odswiez</button>
+    <button type="button" id="add_quesiton" class="btn btn-primary btn-sm" style="margin: 5px 5px 5px 5px" onclick="AddDiv(`{{ test.slug }}`)">Dodaj pytanie</button>
 {% endblock %}
 

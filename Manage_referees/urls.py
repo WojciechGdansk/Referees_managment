@@ -36,7 +36,7 @@ urlpatterns = [
     path('logout/', user.Logout.as_view(), name="logout"),
     path('group/<int:id>', user.GroupDetails.as_view(), name="group_details"),
     path('browse_tests/', test.DisplayAllTest.as_view(), name="browse_tests"),
-    path('test_details/<slug:slug>', test.TestDetails.as_view(), name="test_detail"),
+    path('test_details2/<slug:slug>', test.TestDetails.as_view(), name="test_detail_other"),
     path('add_question_to_test/<slug:testslug>/<slug:questionslug>', test.AddQuestionToTest.as_view(), name="add_question_to_test"),
     path('edit_question/<slug:slug>', quest.EditQuestion.as_view(), name="edit_question"),
     path('delete_question/<slug:slug>', quest.DeleteQuesiton.as_view(), name="delete_question"),
@@ -55,6 +55,7 @@ urlpatterns = [
     path('about', user.About.as_view(), name="about"),
     path('answers_managment', quest.ManageQuestionsAnswers.as_view(), name="answers_managment"),
     path('add_answer', quest.AddAnswer.as_view(), name="add_answer"),
-    path('test_details2/<slug:slug>', test.TestDetailsOther.as_view(), name="test_detail_other"),
+    path('test_details/<slug:slug>', test.TestDetailsOther.as_view(), name="test_detail"),
     path('test_details3/<slug:slug>', test.TestDetailsOtherJson.as_view(), name="test_detail_other_json"),
+    path('questions_not_in_test/<slug:slug>', test.QuestionsNotInTest.as_view(), name="question_not_in_test_json"),
 ]
