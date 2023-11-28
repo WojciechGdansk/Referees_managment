@@ -5,10 +5,6 @@ WebApp allows to add, view, change, delete questions and organise theoritical ex
 
 Referees can solve test created by organizer and see results of tests written in past.
 
-
-## Demo
-
-https://manage-referees.herokuapp.com/
 ## Installation
 
 Install packages from requirements.txt -> pip install -r requirements.txt
